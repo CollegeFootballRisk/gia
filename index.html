@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <section class="top-nav">
+      <div>
+        <img
+          src="https://collegefootballrisk.com/images/logo-white.png"
+          class="logo"
+        />
+      </div>
+      <input id="menu-toggle" type="checkbox" />
+      <label class="menu-button-container" for="menu-toggle">
+        <div class="menu-button"></div>
+      </label>
+      <ul class="menu">
+        <li>Leaderboard</li>
+        <li>Odds</li>
+        <li>About</li>
+        <li>API</li>
+        <li>Bugs</li>
+        <li>Settings</li>
+      </ul>
+    </section>
+    <main>
+      <div class="map-container">
+        <div class="sidebar">
+          <button class="sidebar-toggle">
+            <text>&#129900;</text>
+          </button>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script>
+    var toggleBtn = document.querySelector(".sidebar-toggle");
+    var sidebar = document.querySelector(".sidebar");
+
+    toggleBtn.addEventListener("click", function () {
+      toggleBtn.classList.toggle("is-closed");
+      sidebar.classList.toggle("is-closed");
+    });
+  </script>
+</html>
