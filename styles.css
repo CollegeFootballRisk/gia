@@ -106,9 +106,10 @@ body {
 
 @supports (-webkit-touch-callout: none) {
   .top-nav .logo {
-    position: fixed !important;
-    left: 10px;
-    top: 15px !important;
+    /*position: fixed !important;
+    /*left: 10px;
+    top: 15px !important;*/
+    background-color: red;
   }
 }
 
@@ -249,14 +250,19 @@ main {
   background-color: var(--accent-2);
   cursor: pointer;
   transition: 0.5s;
+  font-size: 13.3333px;
 }
 .sidebar-toggle.is-closed {
   transform: translateX(0.3em) rotate(0deg);
 }
-.sidebar-toggle text {
+.sidebar-toggle .icon {
   font-size: 1.5em;
-  margin-left: 5px;
+  margin-top: 0.2em;
   color: var(--accent-fg);
+}
+
+.sidebar-toggle.is-closed .icon{
+  transform: rotate(-180deg);
 }
 
 .sidebar {
@@ -267,7 +273,7 @@ main {
   border-right: 4px solid var(--main-foreground-color);
 }
 .sidebar.is-closed {
-  transform: translateX(-15.05em);
+  transform: translateX(-15em);
 }
 
 /** Alerts **/
