@@ -9,6 +9,7 @@
   --accent-fg: #ffffff;
   --main-foreground-color: #ffffff;
   --main-background: #000000;
+  --navbar-height: 50px;
 }
 
 h2 {
@@ -41,7 +42,7 @@ body {
   background-color: var(--accent-1);
   background: linear-gradient(to right, var(--accent-1), var(--accent-2));
   color: var(--accent-fg);
-  height: 50px;
+  height: var(--navbar-height);
   padding: 1em;
   width: 100vw;
   flex: 0 1 auto;
@@ -105,12 +106,11 @@ body {
 }
 
 @supports (-webkit-touch-callout: none) {
-  .top-nav .logo {
+  /*.top-nav .logo {
     /*position: fixed !important;
     /*left: 10px;
-    top: 15px !important;*/
-    background-color: red;
-  }
+    top: 15px !important;
+  }*/
 }
 
 .menu {
@@ -184,7 +184,7 @@ body {
   .menu {
     position: absolute;
     top: 0;
-    margin-top: 50px;
+    margin-top: var(--navbar-height);
     left: 0;
     flex-direction: column;
     width: 100%;
@@ -228,12 +228,16 @@ main {
   width: 100%;
 }
 
-.map-container {
+.main-container {
   /* Fill all available space */
   width: 100%;
   height: 100%;
   color: var(--main-foreground-color);
   background: var(--main-background);
+}
+
+.map-container {
+  background: pink;
 }
 
 /** Sidebar **/
@@ -246,7 +250,7 @@ main {
   height: 60px;
   border-radius: 0% 20% 20% 0%;
   margin-left: 17.8em;
-  margin-top: calc(50vh - 50px);
+  margin-top: calc(50vh - var(--navbar-height));
   background-color: var(--accent-2);
   cursor: pointer;
   transition: 0.5s;
@@ -266,8 +270,10 @@ main {
 }
 
 .sidebar {
+  z-index: 2;
+  position: absolute;
   width: 15em;
-  height: 100%;
+  height: calc(100vh - var(--navbar-height));
   background-color: var(--accent-2);
   transition: 0.7s;
   border-right: 4px solid var(--main-foreground-color);
