@@ -2,13 +2,15 @@
 *   Navbar from https://alvarotrigo.com/blog/hamburger-menu-css/
 *   Font from https://github.com/mozilla/Fira, SIL Open Font License: https://github.com/mozilla/Fira/blob/master/LICENSE
 *   FontAwesome Icons, license: https://fontawesome.com/v4/license/
+*   Switches: https://www.w3schools.com/howto/howto_css_switch.asp
 */
 :root {
   --accent-1: #4060a8;
   --accent-2: #4ea8ff;
   --accent-fg: #ffffff;
+  --accent-bg: #ccc;
   --main-foreground-color: #ffffff;
-  --main-background: #000000;
+  --main-background: rgba(45, 45, 50, 1);
   --navbar-height: 50px;
 }
 
@@ -225,19 +227,24 @@ body {
 /** MAP **/
 main {
   flex: 1 1 auto;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: auto;
+  background: purple;
 }
 
 .main-container {
   /* Fill all available space */
-  width: 100%;
+  width: 100vw;
   height: 100%;
+  max-width: 100vw;
+  overflow-x: auto;
   color: var(--main-foreground-color);
   background: var(--main-background);
 }
 
 .map-container {
-  background: pink;
+
 }
 
 /** Sidebar **/
@@ -290,3 +297,57 @@ main {
 
 
 /** Notifications **/
+
+/** Buttons **/
+ .switch {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 1.2em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--accent-bg);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 1em;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  left: 0.1em;
+  bottom: 0.1em;
+  background-color: var(--accent-fg);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--accent-2);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--accent-2);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(0.75em);
+  -ms-transform: translateX(0.75em);
+  transform: translateX(0.75em);
+}

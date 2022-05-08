@@ -3,7 +3,7 @@
   <head>
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=0.0.1-rc2" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
@@ -29,13 +29,35 @@
     </section>
     <main>
       <div class="main-container">
-        <div class="sidebar">
-          <button class="sidebar-toggle">
+        <div class="sidebar is-closed">
+          <button class="sidebar-toggle is-closed">
             <i class="fa fa-chevron-left icon"></i>
           </button>
         </div>
         <div class="map-container">
-          <img src="https://html.com/wp-content/uploads/flamingo.webp" />
+          <h2>Settings</h2>
+          <p>
+            <ul>
+              <li>
+                Enable catfood:&nbsp;&nbsp;&nbsp;&nbsp;<label class="switch">
+                  <input type="checkbox">
+                  <span class="slider"></span>
+                </label>
+              </li>
+              <li>
+                Enable dogfood:&nbsp;&nbsp;&nbsp;&nbsp;<label class="switch">
+                  <input type="checkbox">
+                  <span class="slider"></span>
+                </label>
+              </li>
+              <li>
+                Enable foxfood:&nbsp;&nbsp;&nbsp;&nbsp;<label class="switch">
+                  <input type="checkbox">
+                  <span class="slider"></span>
+                </label>
+              </li>
+            </ul>
+          </p>
         </div>
               </div>
     </main>
