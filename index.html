@@ -3,7 +3,8 @@
   <head>
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="styles.css?v=0.0.1-rc7" />
+    <link rel="stylesheet" href="styles.css?v=0.0.1-rc8" />
+    <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
@@ -60,8 +61,8 @@
             </ul>
           </p>-->
           <div class="map-controls">
-            <button value="+" class="map-control" onclick="appInfo.panZoomMap.zoomIn();" title="zoom in"><i class="fa fa-search-plus"></i></button>
-            <button value="-" class="map-control" onclick="appInfo.panZoomMap.zoomOut();" title="zoom out"><i class="fa fa-search-minus"></i></button>
+            <button value="+" class="map-control" onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in"><i class="fa fa-search-plus"></i></button>
+            <button value="-" class="map-control" onclick="window.maphandle.zoomTo(500, 500, 0.75);" title="zoom out"><i class="fa fa-search-minus"></i></button>
             <button class="map-control" onclick="window.location = '/map';" title="history"><i class="fa fa-history"></i></button>
             <button id="regions-button" class="map-control" title="regions"><i class="fa fa-flag"></i></button>
             <button id="bridges-button" class="map-control" title="bridges"><i class="fa fa-ship"></i></button>
@@ -80,12 +81,12 @@
       sidebar.classList.toggle("is-closed");
     });
 
-    fetch('map8.svg?v=4')
+    fetch('https://collegefootballrisk.com/images/map8.svg?v=49')
     .then(r => r.text())
     .then(text => {
         document.getElementById('map-wrap').innerHTML = text;
+        window.maphandle = panzoom(document.getElementById('map'));
     })
     .catch(console.error.bind(console));
-
   </script>
 </html>
