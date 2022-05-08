@@ -3,9 +3,9 @@
   <head>
     <link rel="stylesheet" href="https://code.cdn.mozilla.net/fonts/fira.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="styles.css?v=0.0.1-rc10" />
+    <link rel="stylesheet" href="styles.css?v=0.0.1-rc12" />
     <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
   <body>
     <section class="top-nav">
@@ -91,5 +91,12 @@
         window.maphandle = panzoom(document.getElementById('map'));
     })
     .catch(console.error.bind(console));
+
+    document.addEventListener('touchmove', function(event) {
+    event = event.originalEvent || event;
+    if(event.scale > 1) {
+      event.preventDefault();
+    }
+  }, false);
   </script>
 </html>
