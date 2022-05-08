@@ -35,7 +35,7 @@
           </button>
         </div>
         <div class="map-container">
-          <h2>Settings</h2>
+          <!--<h2>Settings</h2>
           <p>
             <ul>
               <li>
@@ -57,7 +57,15 @@
                 </label>
               </li>
             </ul>
-          </p>
+          </p>-->
+          <div id="map-controls" style="position:absolute; top: var(--navbar-height);margin-left:auto;margin-right:auto; left: 50%;transform: translate(-50%, 0%);">
+            <button value="+" class="map-control" onclick="appInfo.panZoomMap.zoomIn();">🔍+</button>
+            <button value="-" class="map-control" onclick="appInfo.panZoomMap.zoomOut();">🔍-</button>
+            <button class="map-control" onclick="window.location = '/map';">History</button>
+            <button id="regions-button" class="map-control">Regions</button>
+            <button id="bridges-button" class="map-control">Bridges</button>
+        </div>
+        <div id="map-wrap"></div>
         </div>
               </div>
     </main>
@@ -70,5 +78,13 @@
       toggleBtn.classList.toggle("is-closed");
       sidebar.classList.toggle("is-closed");
     });
+
+    fetch('https://collegefootballrisk.com/images/map8.svg?latest4')
+    .then(r => r.text())
+    .then(text => {
+        document.getElementById('map-wrap').innerHTML = text;
+    })
+    .catch(console.error.bind(console));
+
   </script>
 </html>
