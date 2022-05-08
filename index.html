@@ -84,6 +84,11 @@
       sidebar.classList.toggle("is-closed");
     });
 
+    toggleBtn.addEventListener("touchstart", function () {
+      toggleBtn.classList.toggle("is-closed");
+      sidebar.classList.toggle("is-closed");
+    });
+
     fetch('https://collegefootballrisk.com/images/map8.svg?v=49')
     .then(r => r.text())
     .then(text => {
