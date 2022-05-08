@@ -251,7 +251,7 @@ main {
 
 .map-controls {
   position: absolute;
-  top: var(--navbar-height);
+  bottom: calc(0.1*var(--navbar-height));
   margin-left: auto;
   margin-right: auto;
   left: 50%;
@@ -261,17 +261,18 @@ main {
 
 .map-controls button{
   color: var(--accent-fg);
-  background: var(--accent-1);
+  background: var(--accent-2);
   font-size: 1.3em;
+  line-height: 1em;
   width: 2em;
   height: 2em;
   border: none;
-  padding: 0.4em;
+  padding: 0.3em;
   border-radius: 10%;
 }
 
 .map-controls button:hover{
-  background: var(--accent-2);
+  background: var(--accent-1);
 }
 
 #map-wrap {
@@ -295,7 +296,7 @@ main {
 /** Sidebar **/
 .sidebar-toggle {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   border: 4px solid var(--main-foreground-color);
   outline: none;
   width: 40px;
@@ -322,7 +323,7 @@ main {
 }
 
 .sidebar {
-  z-index: 2;
+  z-index: 3;
   position: absolute;
   width: 15em;
   height: calc(100vh - var(--navbar-height));
