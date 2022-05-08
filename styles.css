@@ -249,8 +249,33 @@ main {
   height: 100%;
 }
 
-#map-wrap{
-  width:100%;
+.map-controls {
+  position: absolute;
+  top: var(--navbar-height);
+  margin-left: auto;
+  margin-right: auto;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 2;
+}
+
+.map-controls button{
+  color: var(--accent-fg);
+  background: var(--accent-1);
+  font-size: 1.3em;
+  width: 2em;
+  height: 2em;
+  border: none;
+  padding: 0.4em;
+  border-radius: 10%;
+}
+
+.map-controls button:hover{
+  background: var(--accent-2);
+}
+
+#map-wrap {
+  width: 100%;
   margin: 0px;
   height: 100%;
   overflow: auto;
@@ -259,7 +284,7 @@ main {
   position: relative;
 }
 
-#map-wrap svg{
+#map-wrap svg {
   left: 0px;
   top: 0px;
   position: absolute;
@@ -292,7 +317,7 @@ main {
   color: var(--accent-fg);
 }
 
-.sidebar-toggle.is-closed .icon{
+.sidebar-toggle.is-closed .icon {
   transform: rotate(-180deg);
 }
 
@@ -315,11 +340,10 @@ main {
   max-height: 20vh;
 }
 
-
 /** Notifications **/
 
 /** Buttons **/
- .switch {
+.switch {
   position: relative;
   display: inline-block;
   width: 2em;
@@ -340,8 +364,8 @@ main {
   right: 0;
   bottom: 0;
   background-color: var(--accent-bg);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 1em;
 }
 
@@ -353,8 +377,8 @@ main {
   left: 0.1em;
   bottom: 0.1em;
   background-color: var(--accent-fg);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
