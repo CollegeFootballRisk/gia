@@ -1,6 +1,7 @@
 {
-  "name": "svelte-app",
+  "name": "collegefootballrisk-gia",
   "version": "1.0.0",
+  "license": "MPL-2.0",
   "private": true,
   "scripts": {
     "build": "rollup -c",
@@ -18,6 +19,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^2.0.0"
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "fontawesome-svelte": "^2.0.1",
+    "panzoom": "^9.4.2",
+    "sirv-cli": "^2.0.0",
+    "svelte-router-spa": "^6.0.3"
   }
 }

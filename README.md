@@ -1,109 +1,28 @@
-*Psst — looking for a more complete solution? Check out [SvelteKit](https://kit.svelte.dev), the official framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing.*
-
-*Looking for a shareable component template instead? You can [use SvelteKit for that as well](https://kit.svelte.dev/docs#packaging) or the older [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Gia: An Experimental UI for College Football Risk
+*Monkeyin' around*
 
 ---
 
-# svelte app
+Gia is an experimental front end for [College Football Risk](https://collegefootballrisk.com/) that will be a transformation of the old Rust Risk front end (codenamed [AR](https://github.com/CollegeFootballRisk/Risk/tree/stable/static)). The north stars for Gia are as follows:
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+* **A better mobile experience.** The old AR front end was not easy to use on mobile. By switching to a map-centric design, providing better hints and capabilities, and incorporating user feedback holistically, Gia seeks to improve the mobile experience to make CFBR a welcoming platform for both Desktop and Mobile users.
+* **Improved accessibility.** Because the College Football community we serve has a great many diverse interests and people, we want to keep the website simple while also striving to make it accessible and welcoming to all. Gia will accomplish this by adding accessibility features absent in AR, by decreasing UI and API complexity, and by providing more detailed context clues to assist users in having an excellent user experience.
+* **Greater, more uniform, performance.** The old AR front end lacked crisp performance and did not follow any consistent overarching design choices or themes. To avoid this mistake, Gia will work on customizability, design patterns, and follow the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) methodology.
+* **A map-centric interface.** The data that RR conveys, and that is important to CollegeFootballRisk as a whole, is centered around the map. Shouldn't the UI be, too? To accomplish this north star, Gia will prominently display the map interface and work to improve pan/zoom performance, map interfacing, and map hints.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+Gia is built to complement the [Rust Risk](https://github.com/CollegeFootballRisk/Risk) backend, and is meant to be a drop-in replacement for AR. 
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
+Gia is inspired by:
+* [Open Street Map](https://www.openstreetmap.org/)
+* [u/BlueSCar's](https://github.com/BlueSCar) College Football Risk
+* [u/Mautamu's](https://github.com/mautamu/) [Aggie Risk](https://aggierisk.com/)
+* [Gia](https://allthatsinteresting.com/jeff-banks-danielle-thomas-monkey)
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+Credits:
 
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+*The Rust Risk logo is a derivative work of the Rust logo, created by Mozilla and licensed under CC-BY 4.0.*
 
 
-## Single-page app mode
+---
 
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+*This code is licensed under the [Mozilla Public License, version 2.0](https://www.mozilla.org/en-US/MPL/2.0/).*
