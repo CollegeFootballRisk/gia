@@ -5,7 +5,6 @@ export let type;
 import {
     turn
 } from '../state/state.js';
-
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
 import {
@@ -26,11 +25,27 @@ import {
 } from 'fontawesome-svelte';
 import Loader from "./Loader.svelte";
 import {
+onDestroy,
     onMount
 } from 'svelte';
+import { subscribe } from 'svelte/internal';
+import { getDay } from '../utils/loads.js';
+import { normalizeTerritoryName } from '../utils/normalization.js';
 onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"))
 });
+
+const unsub_turn = turn.subscribe(recolorMap);
+
+onDestroy(unsub_turn);
+
+async function recolorMap(){
+    let territoryOwners = await getDay($turn);
+    territoryOwners.forEach(terr => {
+        document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(terr.name)}`).style.fill = `var(--${terr.owner.replace(/\W/g, "")}-primary)`;
+        document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(terr.name)}`).info = terr;
+    });
+}
 
 function toggleRegions(){
   document.getElementById('Regions').style.display = (document.getElementById('Regions').style.display == 'none')? 'flex':'none';

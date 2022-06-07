@@ -1,4 +1,6 @@
 <script>
+import Notifications from 'svelte-notifications';
+import { getNotificationsContext } from 'svelte-notifications';
 import {
     library
 } from '@fortawesome/fontawesome-svg-core';
@@ -8,7 +10,7 @@ import {
     faShip,
     faSearchMinus,
     faSearchPlus,
-    faFlag
+    faFlag,
 } from '@fortawesome/free-solid-svg-icons';
 import {
     FontAwesomeIcon,
@@ -52,6 +54,7 @@ onMount(async () => {
 </script>
 
 <main>
+  <Notifications>
     <section class="top-nav">
         <div>
             <img
@@ -85,6 +88,7 @@ onMount(async () => {
                     <Map/>
                         </div>
                         </div>
+                      </Notifications>
                         </main>
 
 <style>

@@ -30,8 +30,12 @@ export async function getDay(season, day, team){
     // Owners (/api/territories, /api/territories)
     // Power Deployed (/api/heat, /team/odds)
     // Forces Deployed (/api/heat, /team/odds)
-    return (await fetch(`${base_url}/api/territories?season=${season}&day=${day}`)).json(), (await fetch(`${base_url}/api/teams`)).json().then((resp) => {
-        resp
-    })
+    if(!(season == 0)){
+        var end = `?season=${season}&day=${day}`;
+    }
+    else {
+        end = '';
+    }
+    return (await fetch(`${base_url}/api/territories${end}`)).json()
     .catch(console.error.bind(console));
 }

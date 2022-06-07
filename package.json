@@ -24,6 +24,7 @@
     "fontawesome-svelte": "^2.0.1",
     "panzoom": "^9.4.2",
     "sirv-cli": "^2.0.0",
+    "svelte-notifications": "^0.9.95",
     "svelte-router-spa": "^6.0.3"
   }
 }
