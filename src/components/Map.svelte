@@ -37,8 +37,8 @@ onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
     let territoryHooks = document.querySelector('#map').querySelector('#Territories').querySelectorAll('path');
     territoryHooks.forEach( el => {
-        el.addEventListener('mouseover', handleMouseOver, false);
-        el.addEventListener('mouseout', handleMouseOver, false);        
+       /* el.addEventListener('mouseover', handleMouseOver, false);
+        el.addEventListener('mouseout', handleMouseOver, false);    */    
     });
 });
 
@@ -104,22 +104,22 @@ function toHeat(){
         <FontAwesomeIcon icon={faShip} />
     </button>
 </div>
-<div class="map-controls top">
-    <label>
-        <input bind:group={$map_type} type=radio title="owners map" value={'owners'} />
+<div class="map-controls top-control">
+    <label title="owners map" style:background={`${($map_type=='owners')?'var(--accent-1)':'var(--accent-2)'}`}>
+        <input bind:group={$map_type} type=radio value={'owners'}/>
         <FontAwesomeIcon icon={faEarthAmericas} />
     </label>
-    <label>
-        <input bind:group={$map_type} type=radio title="heat map" value={'heat'}/>
+    <label title="heat map" style:background={`${($map_type=='heat')?'var(--accent-1)':'var(--accent-2)'}`}>
+        <input bind:group={$map_type} type=radio value={'heat'}/>
         <FontAwesomeIcon icon={faThermometerHalf}  />
     </label>
 </div>
 <div class="map-wrap"><MapBase /></div>
 
 <style>
-.top {
+.top-control {
     position: absolute;
-    top: calc(1.1*var(--navbar-height));
+    top: calc(var(--navbar-height));
     margin-left: auto;
     margin-right: auto;
     left: 50%;
@@ -160,6 +160,7 @@ function toHeat(){
 }
 
 .map-controls label{
+    cursor: pointer;
     float: left;
     padding: 0.3em;
     justify-content: center;
@@ -175,9 +176,5 @@ function toHeat(){
 .map-controls label:last-of-type{
     border-top-left-radius: 0%;
     border-bottom-left-radius: 0%;
-}
-
-.map-controls input[type="radio"]:checked+label{
-    background: var(--accent-1);
 }
 </style>
