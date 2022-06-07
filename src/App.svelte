@@ -1,6 +1,4 @@
 <script>
-import Notifications from 'svelte-notifications';
-import { getNotificationsContext } from 'svelte-notifications';
 import {
     library
 } from '@fortawesome/fontawesome-svg-core';
@@ -54,7 +52,6 @@ onMount(async () => {
 </script>
 
 <main>
-  <Notifications>
     <section class="top-nav">
         <div>
             <img
@@ -88,7 +85,6 @@ onMount(async () => {
                     <Map/>
                         </div>
                         </div>
-                      </Notifications>
                         </main>
 
 <style>
