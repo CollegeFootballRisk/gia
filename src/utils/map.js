@@ -45,12 +45,12 @@ function clear_map(){
 }
 
 // Used to get heat values
-var percentColors = [
+export var percentColors = [
     { pct: 0.0, color: { r: 0x00, g: 0xff, b: 0 } },
     { pct: 0.5, color: { r: 0xff, g: 0xff, b: 0 } },
     { pct: 1.0, color: { r: 0xff, g: 0x00, b: 0 } },
   ];
-  var getColorForPercentage = function (pct) {
+  export var getColorForPercentage = function (pct) {
     for (var i = 1; i < percentColors.length - 1; i++) {
       if (pct < percentColors[i].pct) {
         break;

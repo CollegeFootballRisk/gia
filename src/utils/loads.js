@@ -5,6 +5,8 @@ import {
     map_type
 } from "../state/state.js";
 import { get } from 'svelte/store';
+import { normalizeTerritoryName } from '../utils/normalization.js';
+import { getColorForPercentage } from "./map.js";
 
 export const base_url = "https://collegefootballrisk.com/";
 
@@ -24,18 +26,44 @@ export async function setTeamColors(){
     }
 }
 
-export async function getDay(season, day, team){
-    console.log(map_type);
+export async function getDay(turn, team){
     // Three types of map draws (all, team):
     // Owners (/api/territories, /api/territories)
     // Power Deployed (/api/heat, /team/odds)
     // Forces Deployed (/api/heat, /team/odds)
-    if(!(season == 0)){
-        var end = `?season=${season}&day=${day}`;
-    }
-    else {
-        end = '';
-    }
-    return (await fetch(`${base_url}/api/territories${end}`)).json()
+    // 
+    // Model:
+    // {
+    //    name, primaryColor, secondaryColor, attributeInformation
+    //}
+    let payload = await (await fetch(`${base_url}/api/${(get(map_type) == 'owners')?'territories':'heat'}${(turn == null)?'':`?season=${turn[0]}&day=${turn[1]}`}`)).json()
     .catch(console.error.bind(console));
+
+    var toReturn = [];
+    switch (get(map_type)){
+        case 'owners':
+            payload.forEach(terr => {
+                toReturn.push({
+                    name: terr.name,
+                    normalizedName: normalizeTerritoryName(terr.name),
+                    primaryColor: `var(--${terr.owner.replace(/\W/g, "")}-primary)`,
+                    secondaryColor: `var(--${terr.owner.replace(/\W/g, "")}-secondary)`,
+                    attributeInformation: terr
+                });
+            });
+            break;
+        case 'heat':
+            var maxPower = Math.max(...payload.map(t => t.power));
+            payload.forEach(terr => {
+                toReturn.push({
+                    name: terr.territory,
+                    normalizedName: normalizeTerritoryName(terr.territory),
+                    primaryColor: getColorForPercentage(terr.power / maxPower),
+                    secondaryColor: `var(--${terr.winner.replace(/\W/g, "")}-primary)`,
+                    attributeInformation: terr
+                });
+            });
+            break;
+    }
+    return toReturn;
 }

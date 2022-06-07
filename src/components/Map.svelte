@@ -1,8 +1,7 @@
 <script>
-// Type variable: options: 'map', 'leaderboard'
-export let type;
-
 import {
+highlighted_territories,
+    map_type,
     turn
 } from '../state/state.js';
 import Panzoom from 'panzoom';
@@ -16,7 +15,9 @@ import {
     faShip,
     faSearchMinus,
     faSearchPlus,
-    faFlag
+    faFlag,
+faEarthAmericas,
+faThermometerHalf
 } from '@fortawesome/free-solid-svg-icons';
 import {
     FontAwesomeIcon,
@@ -31,19 +32,36 @@ onDestroy,
 import { subscribe } from 'svelte/internal';
 import { getDay } from '../utils/loads.js';
 import { normalizeTerritoryName } from '../utils/normalization.js';
+import { get } from 'svelte/store';
 onMount(() => {
-    window.maphandle = Panzoom(document.getElementById("map"))
+    window.maphandle = Panzoom(document.getElementById("map"));
+    let territoryHooks = document.querySelector('#map').querySelector('#Territories').querySelectorAll('path');
+    territoryHooks.forEach( el => {
+        el.addEventListener('mouseover', handleMouseOver, false);
+        el.addEventListener('mouseout', handleMouseOver, false);        
+    });
 });
 
-const unsub_turn = turn.subscribe(recolorMap);
+async function handleMouseOver(e){
+    if(e.type == 'mouseover'){
+        e.target.style.fill = e.target.info.secondaryColor;
+        highlighted_territories.set(e.target.info.name);
+    } else if (e.type == 'mouseout') {
+        e.target.style.fill = e.target.info.primaryColor;
+        highlighted_territories.set(null);
+    }
+}
 
-onDestroy(unsub_turn);
+const unsub_turn = turn.subscribe(recolorMap);
+const unsub_type = map_type.subscribe(recolorMap);
+
+onDestroy(() => {unsub_turn, unsub_type});
 
 async function recolorMap(){
-    let territoryOwners = await getDay($turn);
-    territoryOwners.forEach(terr => {
-        document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(terr.name)}`).style.fill = `var(--${terr.owner.replace(/\W/g, "")}-primary)`;
-        document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(terr.name)}`).info = terr;
+    let territoryInfo = await getDay($turn);
+    territoryInfo.forEach(terr => {
+        document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).style.fill = terr.primaryColor;
+        document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).info = terr;
     });
 }
 
@@ -54,40 +72,62 @@ function toggleRegions(){
 function toggleBridges(){
   document.getElementById('Bridges').style.display = (document.getElementById('Bridges').style.display == 'none')? 'flex':'none';
 }
+
+function toHeat(){
+    map_type.update(() => "heat");
+}
 </script>
 
 <div class="map-controls">
     <button
-        class="map-control"
         onclick="window.maphandle.zoomTo(500, 500, 1.5);"
         title="zoom in"
         >
         <FontAwesomeIcon icon={faSearchPlus} />
     </button>
     <button
-        class="map-control"
         onclick="window.maphandle.zoomTo(500, 500, 0.75);"
         title="zoom out"
         >
         <FontAwesomeIcon icon={faSearchMinus} />
     </button>
     <button
-        class="map-control"
         onclick="window.location = '/map';"
         title="history"
         >
         <FontAwesomeIcon icon={faHistory} />
     </button>
-    <button on:click={toggleRegions} class="map-control" title="regions">
+    <button on:click={toggleRegions} title="regions">
         <FontAwesomeIcon icon={faFlag} />
     </button>
-    <button on:click={toggleBridges} class="map-control" title="bridges">
+    <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
     </button>
+</div>
+<div class="map-controls top">
+    <label>
+        <input bind:group={$map_type} type=radio title="owners map" value={'owners'} />
+        <FontAwesomeIcon icon={faEarthAmericas} />
+    </label>
+    <label>
+        <input bind:group={$map_type} type=radio title="heat map" value={'heat'}/>
+        <FontAwesomeIcon icon={faThermometerHalf}  />
+    </label>
 </div>
 <div class="map-wrap"><MapBase /></div>
 
 <style>
+.top {
+    position: absolute;
+    top: calc(1.1*var(--navbar-height));
+    margin-left: auto;
+    margin-right: auto;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 2;
+    white-space: nowrap;
+}
+
 .map-controls {
     position: absolute;
     bottom: calc(0.1*var(--navbar-height));
@@ -99,7 +139,7 @@ function toggleBridges(){
     white-space: nowrap;
 }
 
-.map-controls button {
+.map-controls button, .map-controls label {
     color: var(--accent-fg);
     background: var(--accent-2);
     font-size: 1.3em;
@@ -111,7 +151,33 @@ function toggleBridges(){
     border-radius: 10%;
 }
 
-.map-controls button:hover {
+.map-controls button:hover, .map-controls label:hover {
+    background: var(--accent-1);
+}
+
+.map-controls input[type=radio]{
+    display: none;
+}
+
+.map-controls label{
+    float: left;
+    padding: 0.3em;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.map-controls label:first-of-type{
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+.map-controls label:last-of-type{
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+.map-controls input[type="radio"]:checked+label{
     background: var(--accent-1);
 }
 </style>

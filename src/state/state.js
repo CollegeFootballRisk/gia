@@ -7,7 +7,10 @@ export const teams = writable([]);
 export const turns = writable([]);
 
 // Used to store current season/day
-export const turn = writable(0);
+export const turn = writable(null);
 
 // Used to identify map type
 export const map_type = writable("owners");
+
+// Highlighted Territory
+export const highlighted_territories = writable(null);
