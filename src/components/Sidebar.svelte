@@ -13,7 +13,7 @@
   } from "@fortawesome/free-solid-svg-icons";
 
   import Loader from "./Loader.svelte";
-  import { beforeUpdate } from "svelte";
+  import { onMount } from "svelte";
   let promise = loadTerritory();
 
   async function loadTerritory() {
