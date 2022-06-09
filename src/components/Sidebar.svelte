@@ -13,7 +13,7 @@
   } from "@fortawesome/free-solid-svg-icons";
 
   import Loader from "./Loader.svelte";
-  import { onMount } from "svelte";
+  import { beforeUpdate } from "svelte";
   let promise = loadTerritory();
 
   async function loadTerritory() {
@@ -25,6 +25,14 @@
   function isNullTerr() {
     return $highlighted_territories == null;
   }
+
+  beforeUpdate(() => {
+        // credit to Timothy Huang for this regex test: 
+        // https://dev.to/timhuang/a-simple-way-to-detect-if-browser-is-on-a-mobile-device-with-javascript-44j3
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+            sidebarOpen.set(false);
+       }
+  });
 </script>
 
 <div class="sidebar" class:is-closed={!$sidebarOpen} title="Sidebar Toggle">
