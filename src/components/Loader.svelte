@@ -11,7 +11,6 @@ import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from 'fonta
 <style>
 .sidebar-content {
   width: 100%;
-  height: 100%;
   display: inline-flex; /* make element size relative to content */
   align-items: center; /* vertical alignment of items */
   text-align: middle;

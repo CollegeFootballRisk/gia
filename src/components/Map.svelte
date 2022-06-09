@@ -1,7 +1,9 @@
 <script>
 import {
 highlighted_territories,
+    lock_highlighted,
     map_type,
+    sidebarOpen,
     turn
 } from '../state/state.js';
 import Panzoom from 'panzoom';
@@ -37,18 +39,28 @@ onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
     let territoryHooks = document.querySelector('#map').querySelector('#Territories').querySelectorAll('path');
     territoryHooks.forEach( el => {
-       /* el.addEventListener('mouseover', handleMouseOver, false);
-        el.addEventListener('mouseout', handleMouseOver, false);    */    
+        el.addEventListener('mouseover', handleMouseOver, false);
+        el.addEventListener('mouseout', handleMouseOver, false);        
+        el.addEventListener('click', handleMouseOver, false);        
     });
 });
 
-async function handleMouseOver(e){
+function handleMouseOver(e){
     if(e.type == 'mouseover'){
+        if($lock_highlighted) return;
         e.target.style.fill = e.target.info.secondaryColor;
-        highlighted_territories.set(e.target.info.name);
+        highlighted_territories.set(e.target);
     } else if (e.type == 'mouseout') {
+        if($lock_highlighted) return;
         e.target.style.fill = e.target.info.primaryColor;
         highlighted_territories.set(null);
+    }
+    else if (e.type == 'click') {
+        sidebarOpen.set(true);
+        lock_highlighted.set(true);
+        $highlighted_territories.style.fill = e.target.info.primaryColor;
+        e.target.style.fill = e.target.info.secondaryColor;
+        highlighted_territories.set(e.target);
     }
 }
 
@@ -92,8 +104,8 @@ function toHeat(){
         <FontAwesomeIcon icon={faSearchMinus} />
     </button>
     <button
-        onclick="window.location = '/map';"
-        title="history"
+    onclick="window.maphandle.moveTo(0,0); window.maphandle.zoomTo(0, 0, 1/window.maphandle.getTransform()['scale']);"
+        title="reset map"
         >
         <FontAwesomeIcon icon={faHistory} />
     </button>
@@ -126,6 +138,7 @@ function toHeat(){
     transform: translate(-50%, 0%);
     z-index: 2;
     white-space: nowrap;
+    bottom: unset !important;
 }
 
 .map-controls {

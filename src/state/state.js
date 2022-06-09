@@ -14,3 +14,9 @@ export const map_type = writable("owners");
 
 // Highlighted Territory
 export const highlighted_territories = writable(null);
+
+// Lock Highlighted
+export const lock_highlighted = writable(false);
+
+// Sidebar Toggled?
+export const sidebarOpen = writable(true);
