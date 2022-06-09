@@ -50,7 +50,13 @@ onMount(() => {
 });
 
 function handleMouseOver(e){
-    if(e.type == 'mouseover'){
+    if (!lockClick && (e.type == 'click' || e.type == "touchend")) {
+        sidebarOpen.set(true);
+        lock_highlighted.set(true);
+        $highlighted_territories.style.fill = e.target.info.primaryColor;
+        e.target.style.fill = e.target.info.secondaryColor;
+        highlighted_territories.set(e.target);
+    } else if(e.type == 'mouseover'){
         if($lock_highlighted) return;
         e.target.style.fill = e.target.info.secondaryColor;
         highlighted_territories.set(e.target);
@@ -58,13 +64,6 @@ function handleMouseOver(e){
         if($lock_highlighted) return;
         e.target.style.fill = e.target.info.primaryColor;
         highlighted_territories.set(null);
-    }
-    else if (!lockClick && (e.type == 'click' || e.type == "touchend")) {
-        sidebarOpen.set(true);
-        lock_highlighted.set(true);
-        $highlighted_territories.style.fill = e.target.info.primaryColor;
-        e.target.style.fill = e.target.info.secondaryColor;
-        highlighted_territories.set(e.target);
     }
 }
 
