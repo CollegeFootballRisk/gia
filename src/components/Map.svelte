@@ -63,10 +63,10 @@ function handleMouseOver(e){
         sidebarOpen.set(true);
         lock_highlighted.set(true);
         if(e.type == "touchend"){
-            var changedTouch = event.changedTouches[0];
+            var changedTouch = e.changedTouches[0];
             var elem = document.elementFromPoint(changedTouch.clientX, changedTouch.clientY);
         } else {
-            elem = e.target;
+            var elem = e.target;
         }
         $highlighted_territories.style.fill = elem.info.primaryColor;
         elem.style.fill = elem.info.secondaryColor;
