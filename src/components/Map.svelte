@@ -35,8 +35,11 @@ import { subscribe } from 'svelte/internal';
 import { getDay } from '../utils/loads.js';
 import { normalizeTerritoryName } from '../utils/normalization.js';
 import { get } from 'svelte/store';
+var lockClick = false;
 onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
+    window.maphandle.on('panstart', function(){lockClick = true;})
+    window.maphandle.on('panend', function(){lockClick = false});
     let territoryHooks = document.querySelector('#map').querySelector('#Territories').querySelectorAll('path');
     territoryHooks.forEach( el => {
         el.addEventListener('mouseover', handleMouseOver, false);
@@ -56,7 +59,7 @@ function handleMouseOver(e){
         e.target.style.fill = e.target.info.primaryColor;
         highlighted_territories.set(null);
     }
-    else if (e.type == 'click' || e.type == "touchend") {
+    else if (!lockClick && (e.type == 'click' || e.type == "touchend")) {
         sidebarOpen.set(true);
         lock_highlighted.set(true);
         $highlighted_territories.style.fill = e.target.info.primaryColor;
