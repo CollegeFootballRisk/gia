@@ -41,7 +41,8 @@ onMount(() => {
     territoryHooks.forEach( el => {
         el.addEventListener('mouseover', handleMouseOver, false);
         el.addEventListener('mouseout', handleMouseOver, false);        
-        el.addEventListener('click', handleMouseOver, false);        
+        el.addEventListener('click', handleMouseOver, false); 
+        el.addEventListener('touchend', handleMouseOver, false);        
     });
 });
 
@@ -55,7 +56,7 @@ function handleMouseOver(e){
         e.target.style.fill = e.target.info.primaryColor;
         highlighted_territories.set(null);
     }
-    else if (e.type == 'click') {
+    else if (e.type == 'click' || e.type == "touchend") {
         sidebarOpen.set(true);
         lock_highlighted.set(true);
         $highlighted_territories.style.fill = e.target.info.primaryColor;
