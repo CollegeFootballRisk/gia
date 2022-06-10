@@ -67,3 +67,14 @@ export async function getDay(turn, team){
     }
     return toReturn;
 }
+
+export async function fetch_leaderboard(turn){
+    let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turn[0]}&day=${turn[1]}`}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }
+}

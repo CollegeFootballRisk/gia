@@ -20,3 +20,6 @@ export const lock_highlighted = writable(false);
 
 // Sidebar Toggled?
 export const sidebarOpen = writable(true);
+
+// Modal Displayed
+export const modal = writable(null);

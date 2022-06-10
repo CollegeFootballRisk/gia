@@ -15,8 +15,10 @@
   import { onMount } from "svelte";
   import Map from "./components/Map.svelte";
   import Sidebar from "./components/Sidebar.svelte";
-  import { turns, turn, teams, highlighted_territories, lock_highlighted } from "./state/state.js";
+  import { modal, turns, turn, teams, highlighted_territories, lock_highlighted } from "./state/state.js";
   import { getTurnsandTeams } from "./utils/loads.js";
+  import Modal, { bind }  from 'svelte-simple-modal';
+import Leaderboard from "./components/Leaderboard.svelte";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
@@ -39,6 +41,7 @@
             $highlighted_territories.style.fill = $highlighted_territories.info.primaryColor;	
 		}
 	}
+    const showModal = () => modal.set(bind(Leaderboard));
 </script>
 
 <main>
@@ -56,10 +59,10 @@
       <div class="menu-button" />
     </label>
     <ul class="menu">
-      <li><a href="google.com">Leaderboard</a></li>
+      <li><a href="#leaderboard" on:click={showModal}>Leaderboard</a></li>
       <li><a href="google.com">Odds</a></li>
-      <li><a href="google.com">About</a></li>
-      <li><a href="google.com">API</a></li>
+      <li><a href="mailto:mautam@usa.com">About</a></li>
+      <li><a href="https://collegefootballrisk.com/docs/">API</a></li>
       <li><a href="google.com">Bugs</a></li>
       <li><a href="google.com">Settings</a></li>
     </ul>
@@ -70,6 +73,8 @@
       <Map />
     </div>
   </div>
+  <Modal show={$modal}>
+  </Modal>
 </main>
 
 <style>
