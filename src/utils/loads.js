@@ -1,16 +1,19 @@
 import {
     turns,
-    turn,
     teams,
-    map_type
+    map_type,
+    turns_promise
 } from "../state/state.js";
 import { get } from 'svelte/store';
-import { normalizeTerritoryName } from '../utils/normalization.js';
+import { normalizeTerritoryName, getTurnInfo } from '../utils/normalization.js';
 import { getColorForPercentage } from "./map.js";
 
 export const base_url = "https://collegefootballrisk.com/";
 
-export async function getTurnsandTeams() {
+export async function getTurnsandTeams(override) {
+    // Since we call this multiple times in multiple places, only run once unless
+    // forcefully refreshing :'(
+    if(override != true && get(turns).length != 0) return;
     return await Promise.all([(await fetch(`${base_url}/api/turns`)).json(), (await fetch(`${base_url}/api/teams`)).json()]).then((resp) => {
             turns.set(resp[0])
             teams.set(resp[1])
@@ -36,7 +39,8 @@ export async function getDay(turn, team){
     // {
     //    name, primaryColor, secondaryColor, attributeInformation
     //}
-    let payload = await (await fetch(`${base_url}/api/${(get(map_type) == 'owners')?'territories':'heat'}${(turn == null)?'':`?season=${turn[0]}&day=${turn[1]}`}`)).json()
+   let turnData = getTurnInfo(turn);
+    let payload = await (await fetch(`${base_url}/api/${(get(map_type) == 'owners')?'territories':'heat'}${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day}`}`)).json()
     .catch(console.error.bind(console));
 
     var toReturn = [];
@@ -68,8 +72,23 @@ export async function getDay(turn, team){
     return toReturn;
 }
 
-export async function fetch_leaderboard(turn){
-    let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turn[0]}&day=${turn[1]}`}`);
+// Returns Leaderboard data for turn
+export async function getLeaderboard(turn){
+    let turnData = getTurnInfo(turn);
+    let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day}`}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }
+}
+
+// Gets the ownership history for `territory` for the season of `turn`
+export async function getTerritoryHistory(territory, turn){
+    let turnData = await getTurnInfo(turn);
+    let get = await fetch(`${base_url}/api/territory/history?territory=${territory}&season=${turnData.season}`);
     let json = await get.json();
 
     if(get.ok){

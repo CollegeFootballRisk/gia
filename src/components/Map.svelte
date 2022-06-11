@@ -4,15 +4,12 @@ highlighted_territories,
     lock_highlighted,
     map_type,
     sidebarOpen,
-    turn
+    turn,
+    turns
 } from '../state/state.js';
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
 import {
-    library
-} from '@fortawesome/fontawesome-svg-core';
-import {
-    faChevronRight,
     faHistory,
     faShip,
     faSearchMinus,
@@ -23,18 +20,12 @@ faThermometerHalf
 } from '@fortawesome/free-solid-svg-icons';
 import {
     FontAwesomeIcon,
-    FontAwesomeLayers,
-    FontAwesomeLayersText
 } from 'fontawesome-svelte';
-import Loader from "./Loader.svelte";
 import {
 onDestroy,
     onMount
 } from 'svelte';
-import { subscribe } from 'svelte/internal';
 import { getDay } from '../utils/loads.js';
-import { normalizeTerritoryName } from '../utils/normalization.js';
-import { get } from 'svelte/store';
 var lockClick = false;
 onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
@@ -85,6 +76,9 @@ async function recolorMap(){
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).style.fill = terr.primaryColor;
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).info = terr;
     });
+    if($highlighted_territories != null){
+        $highlighted_territories.style.fill = $highlighted_territories.info.secondaryColor;
+    }
 }
 
 function toggleRegions(){
@@ -131,6 +125,12 @@ function toHeat(){
         <input bind:group={$map_type} type=radio value={'owners'}/>
         <FontAwesomeIcon icon={faEarthAmericas} />
     </label>
+    <select bind:value={$turn} title="select day">
+        <option value = {null}><FontAwesomeIcon icon={faThermometerHalf}  />Latest</option>
+        {#each $turns.reverse().slice(1,$turns.length) as day}
+            <option value = {day.id}>{day.season}/{day.day}</option>
+        {/each}
+    </select>
     <label title="heat map" style:background={`${($map_type=='heat')?'var(--accent-1)':'var(--accent-2)'}`}>
         <input bind:group={$map_type} type=radio value={'heat'}/>
         <FontAwesomeIcon icon={faThermometerHalf}  />
@@ -162,15 +162,18 @@ function toHeat(){
     white-space: nowrap;
 }
 
-.map-controls button, .map-controls label {
+.map-controls button, .map-controls label, .map-controls select {
     color: var(--accent-fg);
     background: var(--accent-2);
-    font-size: 1.3em;
-    line-height: 1em;
-    width: 2em;
     height: 2em;
     border: none;
     padding: 0.3em;
+    font-size: 1.3em;
+    line-height: 1em;
+}
+
+.map-controls button, .map-controls label{
+    width: 2em;
     border-radius: 10%;
 }
 
@@ -180,6 +183,10 @@ function toHeat(){
 
 .map-controls input[type=radio]{
     display: none;
+}
+
+.map-controls select {
+    float: left;
 }
 
 .map-controls label{

@@ -1,6 +1,6 @@
 <script>
   import SvelteTable from "svelte-table";
-  import { fetch_leaderboard } from "../utils/loads";
+  import { getLeaderboard } from "../utils/loads";
   import Loader from "./Loader.svelte";
   import {turn} from '../state/state.js';
   let sortBy = "rank";
@@ -29,7 +29,7 @@
     efficiency: { key: "efficiency", title: "Efficiency", value: (v) => v.efficiency.toFixed(2), sortable: true },
   };
   let numRows = 15;
-  let data = fetch_leaderboard($turn);
+  let data = getLeaderboard($turn);
   $: cols = selectedCols.map(key => COLUMNS[key]);
 </script>
 
