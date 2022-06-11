@@ -88,10 +88,6 @@ function toggleRegions(){
 function toggleBridges(){
   document.getElementById('Bridges').style.display = (document.getElementById('Bridges').style.display == 'none')? 'flex':'none';
 }
-
-function toHeat(){
-    map_type.update(() => "heat");
-}
 </script>
 
 <div class="map-controls">

@@ -39,7 +39,7 @@ export async function getDay(turn, team){
     // {
     //    name, primaryColor, secondaryColor, attributeInformation
     //}
-   let turnData = getTurnInfo(turn);
+   let turnData = await getTurnInfo(turn);
     let payload = await (await fetch(`${base_url}/api/${(get(map_type) == 'owners')?'territories':'heat'}${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day}`}`)).json()
     .catch(console.error.bind(console));
 
@@ -74,7 +74,7 @@ export async function getDay(turn, team){
 
 // Returns Leaderboard data for turn
 export async function getLeaderboard(turn){
-    let turnData = getTurnInfo(turn);
+    let turnData = await getTurnInfo(turn);
     let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day}`}`);
     let json = await get.json();
 
