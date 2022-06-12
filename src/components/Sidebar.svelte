@@ -1,44 +1,30 @@
 <script>
+  import {get} from "svelte/store";
   import {
     FontAwesomeIcon,
     FontAwesomeLayers,
     FontAwesomeLayersText,
   } from "fontawesome-svelte";
-
   import {
     highlighted_territories,
     lock_highlighted,
     sidebarOpen,
     turn,
   } from "../state/state.js";
-
   import {
     faChevronLeft,
     faChevronRight,
   } from "@fortawesome/free-solid-svg-icons";
-
   import Loader from "./Loader.svelte";
-  import { onMount, onDestroy } from "svelte";
-  import { getTerritoryHistory } from "../utils/loads.js";
-  var promise;
-  export function doPromiseChange() {
-    if (isNullTerr()) {
-      promise = new Promise(() => {});
-    } else {
-      promise = getTerritoryHistory($highlighted_territories.info.name, $turn);
-    }
-  }
-  doPromiseChange();
-
+  import { onDestroy, onMount } from "svelte";
+  import OwnershipHistory from "./OwnershipHistory.svelte";
   function isNullTerr() {
     return $highlighted_territories == null;
   }
-
-  const unsub_lock = lock_highlighted.subscribe(doPromiseChange);
-
-  onDestroy(() => {
-    unsub_lock;
-  });
+  var turnLocal = $turn;
+  var territoryLocal = $highlighted_territories;
+  turn.subscribe(()=>{turnLocal = $turn});
+  highlighted_territories.subscribe(() => {territoryLocal = $highlighted_territories;});
 
   onMount(() => {
     // credit to Timothy Huang for this regex test:
@@ -51,6 +37,9 @@
       sidebarOpen.set(false);
     }
   });
+
+  onDestroy(() => {unsub_territory(); unsub_turn();});
+  $: territoryName = (territoryLocal == undefined)?null:territoryLocal.info.name;
 </script>
 
 <div class="sidebar" class:is-closed={!$sidebarOpen} title="Sidebar Toggle">
@@ -63,95 +52,64 @@
       style="color: var(--accent-fg);"
     />
   </button>
-  {#await promise}
+  <center
+    ><h2>
+      {isNullTerr() ? "North America" : $highlighted_territories.info.name}
+    </h2></center
+  >
+  <hr />
+  {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.power != null}
     <center
-      ><h2>
-        {isNullTerr() ? "North America" : $highlighted_territories.info.name}
-      </h2></center
+      ><h4>
+        Winner: {$highlighted_territories.info.attributeInformation.winner}
+      </h4>
+      <h4>
+        Power: {$highlighted_territories.info.attributeInformation.power}
+      </h4>
+      <h4>
+        Players: {$highlighted_territories.info.attributeInformation.players}
+      </h4></center
     >
-    <hr style="color: var(--accent-fg);" />
-    {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.power != null}
-      <center
-        ><h4>
-          Winner: {$highlighted_territories.info.attributeInformation.winner}
-        </h4>
-        <h4>
-          Power: {$highlighted_territories.info.attributeInformation.power}
-        </h4>
-        <h4>
-          Players: {$highlighted_territories.info.attributeInformation.players}
-        </h4></center
-      >
-    {/if}
-    {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.neighbors != null}
-      <center
-        ><h4>
-          Owner: {$highlighted_territories.info.attributeInformation.owner}
-        </h4></center
-      >
-      <hr style="color: var(--accent-fg);" />
-      <div style="width: 100%;max-height:20%;overflow:auto;">
-        <center><h4>Neighbors</h4></center>
-        {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
-            var textA = a.name.toUpperCase();
-            var textB = b.name.toUpperCase();
-            return textA < textB ? -1 : textA > textB ? 1 : 0;
-          } ) as neighbor}
-          <li>
-            {neighbor.name}
-          </li>
-        {/each}
-      </div>
-    {/if}
-    {#if $lock_highlighted}
-      <Loader />
-    {/if}
-  {:then territory}
+  {/if}
+  {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.neighbors != null}
     <center
-      ><h2>
-        {isNullTerr() ? "North America" : $highlighted_territories.info.name}
-      </h2></center
+      ><h4>
+        Owner: {$highlighted_territories.info.attributeInformation.owner}
+      </h4></center
     >
-    <hr style="color: var(--accent-fg);" />
-    {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.power != null}
-      <center
-        ><h4>
-          Winner: {$highlighted_territories.info.attributeInformation.winner}
-        </h4>
-        <h4>
-          Power: {$highlighted_territories.info.attributeInformation.power}
-        </h4>
-        <h4>
-          Players: {$highlighted_territories.info.attributeInformation.players}
-        </h4></center
-      >
-    {/if}
-    {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.neighbors != null}
-      <center
-        ><h4>
-          Owner: {$highlighted_territories.info.attributeInformation.owner}
-        </h4></center
-      >
-      <hr style="color: var(--accent-fg);" />
-      <div style="width: 100%;max-height:20%;overflow:auto;">
-        <center><h4>Neighbors</h4></center>
-        {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
-            var textA = a.name.toUpperCase();
-            var textB = b.name.toUpperCase();
-            return textA < textB ? -1 : textA > textB ? 1 : 0;
-          } ) as neighbor}
-          <li>
-            {neighbor.name}
-          </li>
-        {/each}
-      </div>
-    {/if}
-  {:catch error}
-    <p style="color: red">{error.message}</p>
-  {/await}
+    <hr />
+    <center><h4>Neighbors</h4></center>
+    <div style="width: 100%;max-height:20%;overflow:auto;">
+      {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
+          var textA = a.name.toUpperCase();
+          var textB = b.name.toUpperCase();
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        } ) as neighbor}
+        <li>
+          {neighbor.name}
+        </li>
+      {/each}
+    </div>
+  {/if}
+  {#if $lock_highlighted}
+  <hr />
+  {#key territoryName}
+    <OwnershipHistory turn={turnLocal} territory = {territoryName} />
+  {/key}
+    <hr />
+  {/if}
 </div>
 
 <style>
+  h2,
+  h4 {
+    margin: 5px;
+  }
+
+  hr {
+    color: var(--accent-fg);
+  }
+
   /** Sidebar **/
   .sidebar-toggle {
     position: fixed;

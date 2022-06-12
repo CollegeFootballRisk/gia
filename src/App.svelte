@@ -1,4 +1,6 @@
 <script>
+  import { Router } from 'svelte-router-spa';
+  import { routes } from './routes.js';
   import { onMount } from "svelte";
   import Map from "./components/Map.svelte";
   import Sidebar from "./components/Sidebar.svelte";
@@ -12,13 +14,13 @@
   } from "./state/state.js";
   import { getTurnsandTeams } from "./utils/loads.js";
   import Modal, { bind } from "svelte-simple-modal";
-  import Leaderboard from "./components/Leaderboard.svelte";
   import About from "./components/About.svelte";
   import Settings from "./components/Settings.svelte";
+import Login from "./components/Login.svelte";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
-
+    modal.set(bind(Login));
     document.addEventListener(
       "touchmove",
       function (event) {
@@ -38,7 +40,6 @@
         $highlighted_territories.info.primaryColor;
     }
   }
-  const showLeaderboard = () => modal.set(bind(Leaderboard));
   const showAbout = () => modal.set(bind(About));
   const showSettings = () => modal.set(bind(Settings));
 </script>
@@ -58,8 +59,8 @@
       <div class="menu-button" />
     </label>
     <ul class="menu">
-      <li><a href="#leaderboard" on:click={showLeaderboard}>Leaderboard</a></li>
-      <li><a href="google.com">Odds</a></li>
+      <li><a href="/">Map</a></li>
+      <li><a href="/odds">Odds</a></li>
       <li><a href="#about" on:click={showAbout}>About</a></li>
       <li><a href="https://collegefootballrisk.com/docs/">API</a></li>
       <li><a href="mailto:mautam@usa.com">Bugs</a></li>
@@ -69,7 +70,7 @@
   <div class="main-container">
     <Sidebar />
     <div class="map-container">
-      <Map />
+      <Router {routes} />
     </div>
   </div>
   <Modal show={$modal} />

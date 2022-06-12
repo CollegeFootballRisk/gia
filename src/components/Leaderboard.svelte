@@ -25,8 +25,8 @@
       sortable: true,
     },
     mercenaries: { key: "mercenaries", title: "Mercenaries", value: (v) => v.mercCount, sortable: true },
-    star_power: { key: "star_power", title: "Star Power", value: (v) => v.starPower, sortable: true },
-    efficiency: { key: "efficiency", title: "Efficiency", value: (v) => v.efficiency.toFixed(2), sortable: true },
+    star_power: { key: "star_power", title: "Star Power", value: (v) => (v.starPower==null)?0:v.starPower, sortable: true },
+    efficiency: { key: "efficiency", title: "Efficiency", value: (v) => (v.efficiency==null)?"0.00":v.efficiency.toFixed(2), sortable: true },
   };
   let numRows = 15;
   let data = getLeaderboard($turn);

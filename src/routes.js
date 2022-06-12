@@ -1,26 +1,20 @@
-import Home from "./routes/home.svelte";
-import Leaderboard from "./routes/leaderboard.svelte";
+import Map from "./components/Map.svelte";
 import Odds from "./routes/odds.svelte";
 import Settings from "./routes/settings.svelte";
 import Bugs from "./routes/bugs.svelte";
-import Map from "./routes/map.svelte";
 
 const routes = [
   {
     name: `/`,
-    layout: DashboardLayout,
+    component: Map,
     nestedRoutes: [
       { 
-        name: "index", 
-        redirectTo: "home" 
+        name: "/", 
+        redirectTo: "map" 
       },
       {
-        name: "home",
-        component: Home
-      },
-      {
-        name: "leaderboard",
-        component: Leaderboard
+        name: "map",
+        component: Map
       },
       {
         name: "odds",

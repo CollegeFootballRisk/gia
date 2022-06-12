@@ -1,14 +1,19 @@
 <script>
+export let currentRoute;
+export let params;
 import {
 highlighted_territories,
     lock_highlighted,
     map_type,
     sidebarOpen,
     turn,
-    turns
+    turns,
+    modal
 } from '../state/state.js';
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
+import Modal, { bind } from "svelte-simple-modal";
+import Leaderboard from "./Leaderboard.svelte";
 import {
     faHistory,
     faShip,
@@ -16,7 +21,8 @@ import {
     faSearchPlus,
     faFlag,
 faEarthAmericas,
-faThermometerHalf
+faThermometerHalf,
+faRankingStar
 } from '@fortawesome/free-solid-svg-icons';
 import {
     FontAwesomeIcon,
@@ -26,6 +32,7 @@ onDestroy,
     onMount
 } from 'svelte';
 import { getDay } from '../utils/loads.js';
+import { normalizeTerritoryName } from '../utils/normalization.js';
 var lockClick = false;
 onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
@@ -64,7 +71,7 @@ function handleMouseOver(e){
         highlighted_territories.set(elem);
     }
 }
-
+const showLeaderboard = () => modal.set(bind(Leaderboard));
 const unsub_turn = turn.subscribe(recolorMap);
 const unsub_type = map_type.subscribe(recolorMap);
 
@@ -73,6 +80,13 @@ onDestroy(() => {unsub_turn, unsub_type});
 async function recolorMap(){
     let territoryInfo = await getDay($turn);
     territoryInfo.forEach(terr => {
+        if(terr.name == 'Bermuda' && $map_type == "owners"){
+            // Yeet old lines
+            document.querySelectorAll('[chaos=true]').forEach(function( node ) {
+                node.parentNode.removeChild( node );
+            });
+                terr.attributeInformation.neighbors.filter(function(obj){return drawChaosLine(normalizeTerritoryName(obj.name))});
+              }
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).style.fill = terr.primaryColor;
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).info = terr;
     });
@@ -88,6 +102,20 @@ function toggleRegions(){
 function toggleBridges(){
   document.getElementById('Bridges').style.display = (document.getElementById('Bridges').style.display == 'none')? 'flex':'none';
 }
+
+async function drawChaosLine(territory_name){
+  var end = document.getElementById("map").getElementById('Bermuda').getBBox();
+  var start = document.getElementById("map").getElementById(territory_name).getBBox();
+  var start_y = start.y + 0.5*(start.height);
+  var start_x = start.x + 0.5*(start.width);
+  var end_y = end.y + 0.5*(end.height);
+  var end_x = end.x + 0.5*(end.width);
+  var newpath = document.createElementNS('http://www.w3.org/2000/svg',"path");
+  newpath.setAttributeNS(null, "d", `M ${start_x},${start_y} ${end_x},${end_y}`);
+  newpath.setAttributeNS(null, "style", `fill:none;stroke:var(--main-foreground-color);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;`);
+  newpath.setAttributeNS(null, "chaos", "true");
+  document.getElementById("map").getElementById('Bridges').appendChild(newpath);
+  }
 </script>
 
 <div class="map-controls">
@@ -114,6 +142,9 @@ function toggleBridges(){
     </button>
     <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
+    </button>
+    <button on:click={showLeaderboard} title="leaderboard">
+        <FontAwesomeIcon icon={faRankingStar} />
     </button>
 </div>
 <div class="map-controls top-control">
@@ -171,6 +202,7 @@ function toggleBridges(){
 .map-controls button, .map-controls label{
     width: 2em;
     border-radius: 10%;
+    cursor: pointer;
 }
 
 .map-controls button:hover, .map-controls label:hover {
