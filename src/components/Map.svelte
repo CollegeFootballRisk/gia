@@ -58,6 +58,7 @@ function handleMouseOver(e){
         highlighted_territories.set(null);
     }
     else if (!lockClick && (e.type == 'click' || e.type == "touchend")) {
+        $highlighted_territories.style.fill = $highlighted_territories.info.primaryColor;
         sidebarOpen.set(true);
         lock_highlighted.set(true);
         if(e.type == "touchend"){
@@ -66,7 +67,6 @@ function handleMouseOver(e){
         } else {
             var elem = e.target;
         }
-        $highlighted_territories.style.fill = elem.info.primaryColor;
         elem.style.fill = elem.info.secondaryColor;
         highlighted_territories.set(elem);
     }
@@ -234,5 +234,9 @@ async function drawChaosLine(territory_name){
 .map-controls label:last-of-type{
     border-top-left-radius: 0%;
     border-bottom-left-radius: 0%;
+}
+
+:global(#map #Territories path) {
+    cursor: pointer;
 }
 </style>

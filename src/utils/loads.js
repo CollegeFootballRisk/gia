@@ -97,3 +97,16 @@ export async function getTerritoryHistory(territory, turn){
         throw new Error(json);
     }
 }
+
+// Gets the turn data for a territory
+export async function getTerritoryTurn(territory, season, day){
+    if(season==null || day == null ||  territory == null) throw new Error("No turn/territory specified.");
+    let get = await fetch(`${base_url}/api/territory/turn?season=${season}&day=${day}&territory=${territory}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }
+}

@@ -9,8 +9,10 @@
     "start": "sirv public -s --no-clear"
   },
   "devDependencies": {
+    "@carbon/charts-svelte": "^1.1.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "d3": "^7.4.4",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -25,6 +27,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@rollup/plugin-replace": "^4.0.0",
     "fontawesome-svelte": "^2.0.1",
     "panzoom": "^9.4.2",
     "sirv-cli": "^2.0.0",
