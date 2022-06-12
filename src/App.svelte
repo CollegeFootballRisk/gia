@@ -45,12 +45,14 @@ import Login from "./components/Login.svelte";
 <main>
   <section class="top-nav">
     <div>
+      <a href="/">
       <img
         src="https://collegefootballrisk.com/images/logo-white.png"
         class="logo spin"
         title="CFBR Logo"
         alt="CFBR Logo"
       />
+    </a>
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class="menu-button-container" for="menu-toggle">
