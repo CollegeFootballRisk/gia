@@ -5,6 +5,9 @@
   import SvelteTable from "svelte-table";
   import { getTerritoryTurn } from "../utils/loads";
   import Loader from "./Loader.svelte";
+  import {Doughnut} from "svelte-chartjs/src";
+import { normalizeTeamName } from "../utils/normalization";
+
   let sortBy = "team";
   let sortOrder = 1;
   let selectedCols = [
@@ -49,6 +52,21 @@
     },
   };
   let data = getTerritoryTurn(territory, season, day);
+  function c_data(teams) {return {
+    labels: teams.map(a => a.team),
+    datasets: [
+      {
+        data: teams.map(a => a.power),
+        backgroundColor: teams.map(a => getComputedStyle(document.body).getPropertyValue(`--${normalizeTeamName(a.team)}-primary`)),
+        hoverBackgroundColor: teams.map(a => getComputedStyle(document.body).getPropertyValue(`--${normalizeTeamName(a.team)}-secondary`))
+      }
+    ]
+  };}
+
+  let c_options = {
+    responsive: true,
+  };
+  
   $: cols = selectedCols.map((key) => COLUMNS[key]);
 </script>
 
@@ -67,6 +85,9 @@
     classNameThead={["table-primary"]}
     classNameSelect={["custom-select"]}
   />
+  <h3>Power</h3>
+    <Doughnut data={c_data(data_json.teams)} options={c_options}
+    />
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}

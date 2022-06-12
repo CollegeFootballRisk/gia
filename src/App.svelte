@@ -2,8 +2,6 @@
   import { Router } from 'svelte-router-spa';
   import { routes } from './routes.js';
   import { onMount } from "svelte";
-  import Map from "./components/Map.svelte";
-  import Sidebar from "./components/Sidebar.svelte";
   import {
     modal,
     turns,
@@ -64,14 +62,11 @@ import Login from "./components/Login.svelte";
       <li><a href="#about" on:click={showAbout}>About</a></li>
       <li><a href="https://collegefootballrisk.com/docs/">API</a></li>
       <li><a href="mailto:mautam@usa.com">Bugs</a></li>
-      <li><a href="#settings">Settings</a></li>
+      <li><a href="/settings">Settings</a></li>
     </ul>
   </section>
   <div class="main-container">
-    <Sidebar />
-    <div class="map-container">
       <Router {routes} />
-    </div>
   </div>
   <Modal show={$modal} />
 </main>
@@ -120,7 +115,7 @@ import Login from "./components/Login.svelte";
     animation: spin 4s linear infinite;
   }
 
-  .spin-back {
+  :global(.spin-back) {
     -webkit-animation: spin-back 4s linear infinite;
     -moz-animation: spin-back 4s linear infinite;
     animation: spin-back 4s linear infinite;
@@ -310,8 +305,4 @@ import Login from "./components/Login.svelte";
     background: var(--main-background);
   }
 
-  .map-container {
-    width: 100%;
-    height: 100%;
-  }
 </style>

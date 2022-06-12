@@ -17,3 +17,7 @@ export async function getTurnInfo(turnID){
     if(t == undefined) return ts[ts.length - 1];
     return t;
 }
+
+export function normalizeTeamName(team){
+    return team.replace(/\W/g, "");
+}

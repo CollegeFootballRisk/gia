@@ -1,6 +1,7 @@
 <script>
 export let currentRoute;
 export let params;
+import Sidebar from "./Sidebar.svelte";
 import {
 highlighted_territories,
     lock_highlighted,
@@ -118,6 +119,8 @@ async function drawChaosLine(territory_name){
   }
 </script>
 
+<Sidebar />
+<div class="map-container">
 <div class="map-controls">
     <button
         onclick="window.maphandle.zoomTo(500, 500, 1.5);"
@@ -164,6 +167,7 @@ async function drawChaosLine(territory_name){
     </label>
 </div>
 <div class="map-wrap"><MapBase /></div>
+</div>
 
 <style>
 .top-control {
@@ -239,4 +243,9 @@ async function drawChaosLine(territory_name){
 :global(#map #Territories path) {
     cursor: pointer;
 }
+
+.map-container {
+    width: 100%;
+    height: 100%;
+  }
 </style>

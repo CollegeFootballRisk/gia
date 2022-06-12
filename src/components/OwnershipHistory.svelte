@@ -19,6 +19,7 @@
     {#each turns.slice(1,turns.length) as turnDisplay}
         <li>
           <a
+            href={null}
             on:click={modal.set(
               bind(TerritoryTurn, {
                 territory: territory,
@@ -33,7 +34,6 @@
 </div>
 
 <style>
-  h2,
   h4 {
     margin: 5px;
   }

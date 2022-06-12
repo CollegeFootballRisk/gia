@@ -23,8 +23,8 @@
   }
   var turnLocal = $turn;
   var territoryLocal = $highlighted_territories;
-  turn.subscribe(()=>{turnLocal = $turn});
-  highlighted_territories.subscribe(() => {territoryLocal = $highlighted_territories;});
+  const unsub_turn = turn.subscribe(()=>{turnLocal = $turn});
+ const unsub_territory = highlighted_territories.subscribe(() => {territoryLocal = $highlighted_territories;});
 
   onMount(() => {
     // credit to Timothy Huang for this regex test:

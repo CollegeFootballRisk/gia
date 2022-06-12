@@ -2,10 +2,9 @@ import {
     turns,
     teams,
     map_type,
-    turns_promise
 } from "../state/state.js";
 import { get } from 'svelte/store';
-import { normalizeTerritoryName, getTurnInfo } from '../utils/normalization.js';
+import { normalizeTerritoryName, getTurnInfo, normalizeTeamName } from '../utils/normalization.js';
 import { getColorForPercentage } from "./map.js";
 
 export const base_url = "https://collegefootballrisk.com/";
@@ -24,8 +23,8 @@ export async function getTurnsandTeams(override) {
 
 export async function setTeamColors(){
     for (let team of get(teams)){
-        document.documentElement.style.setProperty(`--${team.name.replace(/\W/g, "")}-primary`, team.colors.primary); 
-        document.documentElement.style.setProperty(`--${team.name.replace(/\W/g, "")}-secondary`, team.colors.secondary); 
+        document.documentElement.style.setProperty(`--${normalizeTeamName(team.name)}-primary`, team.colors.primary); 
+        document.documentElement.style.setProperty(`--${normalizeTeamName(team.name)}-secondary`, team.colors.secondary); 
     }
 }
 

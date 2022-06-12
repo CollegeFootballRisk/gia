@@ -6,13 +6,12 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public -s --no-clear"
+    "start": "sirv public -s"
   },
   "devDependencies": {
     "@carbon/charts-svelte": "^1.1.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "d3": "^7.4.4",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -31,6 +30,7 @@
     "fontawesome-svelte": "^2.0.1",
     "panzoom": "^9.4.2",
     "sirv-cli": "^2.0.0",
+    "svelte-chartjs": "^1.1.4",
     "svelte-notifications": "^0.9.95",
     "svelte-router-spa": "^6.0.3"
   }
