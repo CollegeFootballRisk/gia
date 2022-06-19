@@ -1,24 +1,22 @@
 <script>
   import { Router } from 'svelte-router-spa';
-  import { routes } from './routes.js';
+  import { routes } from './routes';
   import { onMount } from "svelte";
   import {
     modal,
-    turns,
-    turn,
-    teams,
-    highlighted_territories,
-    lock_highlighted,
+    user,
   } from "./state/state.js";
   import { getTurnsandTeams } from "./utils/loads.js";
   import Modal, { bind } from "svelte-simple-modal";
   import About from "./components/About.svelte";
-  import Settings from "./components/Settings.svelte";
+  import {isLoggedIn} from "./utils/auth";
 import Login from "./components/Login.svelte";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
-    modal.set(bind(Login));
+    let loggedIn = await isLoggedIn($user);
+    console.log(loggedIn);
+    if(!loggedIn) modal.set(bind(Login));
     document.addEventListener(
       "touchmove",
       function (event) {
@@ -29,17 +27,8 @@ import Login from "./components/Login.svelte";
       },
       false
     );
-    document.addEventListener("keydown", handleWindowKeyDown);
   });
-  function handleWindowKeyDown(event) {
-    if (event.key === "Escape") {
-      lock_highlighted.set(false);
-      $highlighted_territories.style.fill =
-        $highlighted_territories.info.primaryColor;
-    }
-  }
   const showAbout = () => modal.set(bind(About));
-  const showSettings = () => modal.set(bind(Settings));
 </script>
 
 <main>

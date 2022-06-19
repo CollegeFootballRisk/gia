@@ -23,7 +23,7 @@ import { normalizeTeamName } from "../utils/normalization";
     player: {
       key: "player",
       title: "Player",
-      value: (v) => v.player,
+      value: (v) => `${(v.mvp==true)?String.fromCharCode(0x272F):''}<a href="/player/${v.player}">${v.player}</a>`,
       sortable: true,
     },
     stars: {

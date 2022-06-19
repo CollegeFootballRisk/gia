@@ -1,5 +1,4 @@
 <script>
-  import {get} from "svelte/store";
   import {
     FontAwesomeIcon,
     FontAwesomeLayers,
@@ -48,7 +47,7 @@
     on:click={() => sidebarOpen.set(!$sidebarOpen)}
   >
     <FontAwesomeIcon
-      icon={!$sidebarOpen ? faChevronLeft : faChevronRight}
+      icon={$sidebarOpen ? faChevronLeft : faChevronRight}
       style="color: var(--accent-fg);"
     />
   </button>

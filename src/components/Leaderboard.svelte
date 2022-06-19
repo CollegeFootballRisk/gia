@@ -13,6 +13,7 @@
     "mercenaries",
     "star_power",
     "efficiency",
+    "ppp"
   ];
   const COLUMNS = {
     rank: { key: "rank", title: "Rank", value: (v) => v.rank, sortable: true },
@@ -27,8 +28,8 @@
     mercenaries: { key: "mercenaries", title: "Mercenaries", value: (v) => v.mercCount, sortable: true },
     star_power: { key: "star_power", title: "Star Power", value: (v) => (v.starPower==null)?0:v.starPower, sortable: true },
     efficiency: { key: "efficiency", title: "Efficiency", value: (v) => (v.efficiency==null)?"0.00":v.efficiency.toFixed(2), sortable: true },
+    ppp: { key: "ppp", title: "PPP", value: (v) => (v.starPower / (v.mercCount + v.playerCount)).toFixed(2), sortable: true },
   };
-  let numRows = 15;
   let data = getLeaderboard($turn);
   $: cols = selectedCols.map(key => COLUMNS[key]);
 </script>

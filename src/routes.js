@@ -1,4 +1,5 @@
 import Map from "./components/Map.svelte";
+import Player from "./routes/player.svelte";
 import Odds from "./routes/odds.svelte";
 import Settings from "./routes/settings.svelte";
 import Bugs from "./routes/bugs.svelte";
@@ -37,6 +38,10 @@ const routes = [
       {
         name: "map/:season/:day",
         component: Map
+      },
+      {
+        name: "player/:player",
+        component: Player
       },
       {
         name: '404',

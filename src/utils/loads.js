@@ -7,7 +7,7 @@ import { get } from 'svelte/store';
 import { normalizeTerritoryName, getTurnInfo, normalizeTeamName } from '../utils/normalization.js';
 import { getColorForPercentage } from "./map.js";
 
-export const base_url = "https://collegefootballrisk.com/";
+export const base_url = "http://localhost:8000/";
 
 export async function getTurnsandTeams(override) {
     // Since we call this multiple times in multiple places, only run once unless
@@ -74,7 +74,7 @@ export async function getDay(turn, team){
 // Returns Leaderboard data for turn
 export async function getLeaderboard(turn){
     let turnData = await getTurnInfo(turn);
-    let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day}`}`);
+    let get = await fetch(`${base_url}/api/stats/leaderboard${(turn == null)?'':`?season=${turnData.season}&day=${turnData.day+1}`}`);
     let json = await get.json();
 
     if(get.ok){
@@ -108,4 +108,16 @@ export async function getTerritoryTurn(territory, season, day){
     } else{
         throw new Error(json);
     }
+}
+
+// Get player http://localhost:8000/api/player?player={}
+export async function getPlayer(player){
+    let get = await fetch(`${base_url}/api/player?player=${player}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }  
 }

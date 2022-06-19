@@ -46,9 +46,19 @@ onMount(() => {
         el.addEventListener('click', handleMouseOver, false); 
         el.addEventListener('touchend', handleMouseOver, false);        
     });
+    document.addEventListener("keydown", handleWindowKeyDown);
 });
 
+function handleWindowKeyDown(event) {
+    if (event.key === "Escape") {
+      lock_highlighted.set(false);
+      $highlighted_territories.style.fill =
+        $highlighted_territories.info.primaryColor;
+    }
+  }
+
 function handleMouseOver(e){
+    if(e.target.info == undefined) return;
     if(e.type == 'mouseover'){
         if($lock_highlighted) return;
         e.target.style.fill = e.target.info.secondaryColor;
