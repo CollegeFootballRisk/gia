@@ -7,7 +7,7 @@ import { get } from 'svelte/store';
 import { normalizeTerritoryName, getTurnInfo, normalizeTeamName } from '../utils/normalization.js';
 import { getColorForPercentage } from "./map.js";
 
-export const base_url = "http://collegefootballrisk.com";
+export const base_url = "https://collegefootballrisk.com";
 
 export async function getTurnsandTeams(override) {
     // Since we call this multiple times in multiple places, only run once unless
