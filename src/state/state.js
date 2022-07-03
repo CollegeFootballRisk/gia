@@ -26,6 +26,3 @@ export const modal = writable(null);
 
 // User
 export const user = writable(null);
-
-// Latest Day (for defend/attack territory lists)
-export const current_day = writable(null);

@@ -1,6 +1,5 @@
 <main>
     <h2>Settings</h2>
-    <p>
     <ul>
         <li>
         Enable catfood:&nbsp;&nbsp;&nbsp;&nbsp;<label class="switch">
@@ -21,7 +20,6 @@
         </label>
         </li>
     </ul>
-    </p>
 </main>
 <style>
 h2 {

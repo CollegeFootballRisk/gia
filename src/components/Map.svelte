@@ -35,6 +35,7 @@ onDestroy,
 import { getDay } from '../utils/loads.js';
 import { normalizeTerritoryName } from '../utils/normalization.js';
 var lockClick = false;
+var zooming = false;
 onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
     window.maphandle.on('panstart', function(){lockClick = true;})
@@ -44,6 +45,7 @@ onMount(() => {
         el.addEventListener('mouseover', handleMouseOver, false);
         el.addEventListener('mouseout', handleMouseOver, false);        
         el.addEventListener('click', handleMouseOver, false); 
+        el.addEventListener('touchstart', handleMouseOverPrevention,false);
         el.addEventListener('touchend', handleMouseOver, false);        
     });
     document.addEventListener("keydown", handleWindowKeyDown);
@@ -57,6 +59,14 @@ function handleWindowKeyDown(event) {
     }
   }
 
+function handleMouseOverPrevention(e){
+    if(e.touches.length > 1){
+        zooming = true;
+    } else {
+        zooming = false;
+    }
+}
+
 function handleMouseOver(e){
     if(e.target.info == undefined) return;
     if(e.type == 'mouseover'){
@@ -68,8 +78,10 @@ function handleMouseOver(e){
         e.target.style.fill = e.target.info.primaryColor;
         highlighted_territories.set(null);
     }
-    else if (!lockClick && (e.type == 'click' || e.type == "touchend")) {
-        $highlighted_territories.style.fill = $highlighted_territories.info.primaryColor;
+    else if (!lockClick && (e.type == 'click' || (e.type == "touchend" && !zooming))) {
+        if ($highlighted_territories != null){
+            $highlighted_territories.style.fill = $highlighted_territories.info.primaryColor;
+        }
         sidebarOpen.set(true);
         lock_highlighted.set(true);
         if(e.type == "touchend"){

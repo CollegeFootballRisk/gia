@@ -1,22 +1,19 @@
 <script>
-  import { Router } from 'svelte-router-spa';
-  import { routes } from './routes';
+  import { Router } from "svelte-router-spa";
+  import { routes } from "./routes";
   import { onMount } from "svelte";
-  import {
-    modal,
-    user,
-  } from "./state/state.js";
+  import { modal, user } from "./state/state.js";
   import { getTurnsandTeams } from "./utils/loads.js";
   import Modal, { bind } from "svelte-simple-modal";
   import About from "./components/About.svelte";
-  import {isLoggedIn} from "./utils/auth";
-import Login from "./components/Login.svelte";
+  import { isLoggedIn } from "./utils/auth";
+  import Login from "./components/Login.svelte";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
     let loggedIn = await isLoggedIn($user);
     console.log(loggedIn);
-    if(!loggedIn) modal.set(bind(Login));
+    if (!loggedIn) modal.set(bind(Login));
     document.addEventListener(
       "touchmove",
       function (event) {
@@ -35,13 +32,13 @@ import Login from "./components/Login.svelte";
   <section class="top-nav">
     <div>
       <a href="/">
-      <img
-        src="https://collegefootballrisk.com/images/logo-white.png"
-        class="logo spin"
-        title="CFBR Logo"
-        alt="CFBR Logo"
-      />
-    </a>
+        <img
+          src="https://collegefootballrisk.com/images/logo-white.png"
+          class="logo"
+          title="CFBR Logo"
+          alt="CFBR Logo"
+        />
+      </a>
     </div>
     <input id="menu-toggle" type="checkbox" />
     <label class="menu-button-container" for="menu-toggle">
@@ -57,7 +54,7 @@ import Login from "./components/Login.svelte";
     </ul>
   </section>
   <div class="main-container">
-      <Router {routes} />
+    <Router {routes} />
   </div>
   <Modal show={$modal} />
 </main>
@@ -295,5 +292,4 @@ import Login from "./components/Login.svelte";
     color: var(--main-foreground-color);
     background: var(--main-background);
   }
-
 </style>

@@ -17,6 +17,7 @@
   import Loader from "./Loader.svelte";
   import { onDestroy, onMount } from "svelte";
   import OwnershipHistory from "./OwnershipHistory.svelte";
+import ActionButton from "./ActionButton.svelte";
   function isNullTerr() {
     return $highlighted_territories == null;
   }
@@ -54,8 +55,8 @@
   <center
     ><h2>
       {isNullTerr() ? "North America" : $highlighted_territories.info.name}
-    </h2></center
-  >
+    </h2></center>
+  <ActionButton/>
   <hr />
   {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.power != null}
     <center
@@ -73,13 +74,15 @@
   {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.neighbors != null}
     <center
       ><h4>
-        Owner: {$highlighted_territories.info.attributeInformation.owner}
+        Owner: {$highlighted_territories.info.attributeInformation.owner} <br/>
+        Region: {$highlighted_territories.info.attributeInformation.region_name}
       </h4></center
     >
     <hr />
     <center><h4>Neighbors</h4></center>
     <div style="width: 100%;max-height:20%;overflow:auto;">
-      {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
+      <ul>
+        {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
           var textA = a.name.toUpperCase();
           var textB = b.name.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
@@ -88,6 +91,7 @@
           {neighbor.name}
         </li>
       {/each}
+      </ul>
     </div>
   {/if}
   {#if $lock_highlighted}
@@ -138,5 +142,9 @@
 
   .sidebar.is-closed {
     transform: translateX(-15em);
+  }
+  ul{
+    list-style-type: none;
+    padding-left: 5px;
   }
 </style>
