@@ -41,7 +41,7 @@ function runAction(){
 		));
 }
 </script>
-{#if $user.team != null && $user.team.name != null}
+{#if $user != null && $user.team != null && $user.team.name != null}
 {#if (localDay == null && highlighted != null && $user.team.name != null)}
     {#if (isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,$user.team.name))}
        <center>
