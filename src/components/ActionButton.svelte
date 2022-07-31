@@ -1,20 +1,18 @@
 <!-- Decides whether or not to show action button to user -->
 <script>
 import { onDestroy } from "svelte";
-import { highlighted_territories, turn, user } from "../state/state";
+import { highlighted_territories, turn, modal, user, team } from "../state/state";
 import { bind } from "svelte-simple-modal";
-import { modal } from "../state/state.js";
 import Popup from "../components/Popup.svelte";
 
 
 var action = null; // Territory ownership
 var highlighted = null; // Highlighted territories [Territory]
-var localUser = "Texas A&M"; // Logged in User.
 var localDay = null;
 
 const unsub_day = turn.subscribe(value => localDay = value);
 const unsub_highlighted = highlighted_territories.subscribe(value => highlighted = value);
-//const unsub_user = user.subscribe(value => localUser = value);
+//const unsub_user = user.subscribe(value => $user.team.name = value);
 onDestroy(unsub_day, unsub_highlighted); //, unsub_user);
 
 // Logic:
@@ -43,12 +41,14 @@ function runAction(){
 		));
 }
 </script>
-{#if (localDay == null && highlighted != null && localUser != null)}
-    {#if (isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,localUser))}
+{#if $user.team != null && $user.team.name != null}
+{#if (localDay == null && highlighted != null && $user.team.name != null)}
+    {#if (isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,$user.team.name))}
        <center>
          <input type="button" on:click={runAction} class={action} value={action} />
        </center>
     {/if}
+{/if}
 {/if}
 
 <style>
