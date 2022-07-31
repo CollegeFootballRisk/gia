@@ -101,6 +101,8 @@ const unsub_type = map_type.subscribe(recolorMap);
 onDestroy(() => {unsub_turn, unsub_type});
 
 async function recolorMap(){
+    // Clear the map visually
+    document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
     let territoryInfo = await getDay($turn);
     territoryInfo.forEach(terr => {
         if(terr.name == 'Bermuda' && $map_type == "owners"){
@@ -192,6 +194,9 @@ async function drawChaosLine(territory_name){
 </div>
 
 <style>
+.map-wrap {
+    overflow: hidden;
+}
 .top-control {
     position: absolute;
     top: calc(var(--navbar-height));
@@ -269,5 +274,7 @@ async function drawChaosLine(territory_name){
 .map-container {
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
+
 </style>

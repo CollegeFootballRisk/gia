@@ -279,7 +279,7 @@
     flex: 1 1 auto;
     width: 100vw;
     max-width: 100vw;
-    overflow-x: auto;
+    overflow: hidden;
     background: purple;
   }
 
@@ -288,7 +288,7 @@
     width: 100vw;
     height: 100%;
     max-width: 100vw;
-    overflow-x: auto;
+    overflow: hidden;
     color: var(--main-foreground-color);
     background: var(--main-background);
   }

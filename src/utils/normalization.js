@@ -21,3 +21,38 @@ export async function getTurnInfo(turnID){
 export function normalizeTeamName(team){
     return team.replace(/\W/g, "");
 }
+
+// Get the turnID from a season and day pair
+export async function getTurnID(season, day){
+    if(get(turns).length == 0){
+        await getTurnsandTeams();
+    }
+    let ts = get(turns);
+    if(season == undefined || day == undefined) return null;
+    let turn = ts.find(turn => (turn.day == day && turn.season == season));
+    if(turn == undefined) return null;
+    return turn.id;
+}
+
+/**
+ * Function to sort alphabetically an array of objects by some specific key.
+ * 
+ * @param {String} property Key of the object to sort.
+ * from https://ourcodeworld.com/articles/read/764/how-to-sort-alphabetically-an-array-of-objects-by-key-in-javascript
+ */
+ export function dynamicSort(property) {
+    var sortOrder = 1;
+
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+
+    return function (a,b) {
+        if(sortOrder == -1){
+            return b[property].localeCompare(a[property]);
+        }else{
+            return a[property].localeCompare(b[property]);
+        }        
+    }
+}

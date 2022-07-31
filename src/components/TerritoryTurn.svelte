@@ -7,6 +7,10 @@
   import Loader from "./Loader.svelte";
   import {Doughnut} from "svelte-chartjs/src";
 import { normalizeTeamName } from "../utils/normalization";
+import { getContext } from "svelte";
+
+const {open, close} = getContext('simple-modal');
+window.closeModal = () => close();
 
   let sortBy = "team";
   let sortOrder = 1;
@@ -23,7 +27,7 @@ import { normalizeTeamName } from "../utils/normalization";
     player: {
       key: "player",
       title: "Player",
-      value: (v) => `${(v.mvp==true)?String.fromCharCode(0x272F):''}<a href="/player/${v.player}">${v.player}</a>`,
+      value: (v) => `${(v.mvp==true)?String.fromCharCode(0x272F):''}<a onclick="window.closeModal()" href="/player/${v.player}">${v.player}</a>`,
       sortable: true,
     },
     stars: {

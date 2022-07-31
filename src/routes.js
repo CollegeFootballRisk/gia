@@ -4,6 +4,7 @@ import Odds from "./routes/odds.svelte";
 import Settings from "./routes/settings.svelte";
 import Bugs from "./routes/bugs.svelte";
 import E404 from "./routes/404.svelte";
+import Team from "./routes/team.svelte";
 
 const routes = [
   {
@@ -24,7 +25,7 @@ const routes = [
         component: Map
       },
       {
-        name: "odds",
+        name: "odds/:season/:day/:team",
         component: Odds
       },
       {
@@ -42,6 +43,10 @@ const routes = [
       {
         name: "player/:player",
         component: Player
+      },
+      {
+        name: "team/:team",
+        component: Team
       },
       {
         name: '404',

@@ -1,4 +1,5 @@
 import {
+    fetches,
     turns,
     teams,
     map_type,
@@ -10,15 +11,21 @@ import { getColorForPercentage } from "./map.js";
 export const base_url = "https://collegefootballrisk.com";
 
 export async function getTurnsandTeams(override) {
+    if(get(fetches).TurnsandTeams == undefined || override == true) {
     // Since we call this multiple times in multiple places, only run once unless
     // forcefully refreshing :'(
-    if(override != true && get(turns).length != 0) return;
-    return await Promise.all([(await fetch(`${base_url}/api/turns`)).json(), (await fetch(`${base_url}/api/teams`)).json()]).then((resp) => {
-            turns.set(resp[0])
-            teams.set(resp[1])
-            setTeamColors();
-        })
-        .catch(console.error.bind(console));
+        if(override != true && get(turns).length != 0) return;
+        let arr = Promise.all([(await fetch(`${base_url}/api/turns`)).json(), (await fetch(`${base_url}/api/teams`)).json()]).then((resp) => {
+                turns.set(resp[0])
+                teams.set(resp[1])
+                setTeamColors();
+            })
+            .catch(console.error.bind(console));
+        var sum = get(fetches);
+        sum.TurnsandTeams = arr;
+        fetches.set(sum);
+    }
+    return get(fetches).TurnsandTeams;
 }
 
 export async function setTeamColors(){

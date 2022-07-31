@@ -26,3 +26,10 @@ export const modal = writable(null);
 
 // User
 export const user = writable(null);
+
+// Team
+export const team = writable(null);
+
+
+// Current fetches
+export const fetches = writable({});

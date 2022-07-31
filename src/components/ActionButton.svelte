@@ -2,7 +2,10 @@
 <script>
 import { onDestroy } from "svelte";
 import { highlighted_territories, turn, user } from "../state/state";
-import Loader from "../components/Loader.svelte";
+import { bind } from "svelte-simple-modal";
+import { modal } from "../state/state.js";
+import Popup from "../components/Popup.svelte";
+
 
 var action = null; // Territory ownership
 var highlighted = null; // Highlighted territories [Territory]
@@ -21,15 +24,29 @@ onDestroy(unsub_day, unsub_highlighted); //, unsub_user);
 // then that territory is attackable.
 
 function isActionable(neighbors, owner, team){
+    if(neighbors === undefined) return;
     let owners = neighbors.map(item => item["owner"]).filter((value, index, self) => self.indexOf(value) === index);
     if(owner == team && (owners.length > 1 || (owners.length == 1 && owners.indexOf(team) == -1))) {action = "Defend"; return true}
     if(owner != team && owners.indexOf(team) != -1) {action = "Attack"; return true}
+}
+
+
+function runAction(){
+    let terr = highlighted.info.attributeInformation.name;
+		modal.set(bind(
+			Popup,
+			{
+                title: `Submitting Move`,
+				message: `Registering your move on ${highlighted.info.attributeInformation.name}...`,
+                loading: true
+            }
+		));
 }
 </script>
 {#if (localDay == null && highlighted != null && localUser != null)}
     {#if (isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,localUser))}
        <center>
-         <input type="button" class={action} value={action} />
+         <input type="button" on:click={runAction} class={action} value={action} />
        </center>
     {/if}
 {/if}
