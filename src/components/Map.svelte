@@ -24,7 +24,8 @@ import {
     faFlag,
 faEarthAmericas,
 faThermometerHalf,
-faRankingStar
+faRankingStar,
+faBullseye
 } from '@fortawesome/free-solid-svg-icons';
 import {
     FontAwesomeIcon,
@@ -35,6 +36,7 @@ onDestroy,
 } from 'svelte';
 import { getDay } from '../utils/loads.js';
 import { normalizeTerritoryName } from '../utils/normalization.js';
+import MyMove from "./MyMove.svelte";
 var lockClick = false;
 var zooming = false;
 onMount(() => {
@@ -137,6 +139,10 @@ function toggleBridges(){
   document.getElementById('Bridges').style.display = (document.getElementById('Bridges').style.display == 'none')? 'flex':'none';
 }
 
+function toggleMove(){
+    modal.set(bind(MyMove));
+}
+
 async function drawChaosLine(territory_name){
   var end = document.getElementById("map").getElementById('Bermuda').getBBox();
   var start = document.getElementById("map").getElementById(territory_name).getBBox();
@@ -175,6 +181,9 @@ async function drawChaosLine(territory_name){
     </button>
     <button on:click={toggleRegions} title="regions">
         <FontAwesomeIcon icon={faFlag} />
+    </button>
+    <button on:click={toggleMove} title="regions">
+        <FontAwesomeIcon icon={faBullseye} />
     </button>
     <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
