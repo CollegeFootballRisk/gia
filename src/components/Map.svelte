@@ -9,7 +9,8 @@ highlighted_territories,
     sidebarOpen,
     turn,
     turns,
-    modal
+    modal,
+team_territory_counts
 } from '../state/state.js';
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
@@ -104,7 +105,14 @@ async function recolorMap(){
     // Clear the map visually
     document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
     let territoryInfo = await getDay($turn);
+    var owners = {};
     territoryInfo.forEach(terr => {
+        if($map_type == "owners"){
+            if(owners[terr.attributeInformation.owner] == null){
+                owners[terr.attributeInformation.owner] = 0;
+            }
+            owners[terr.attributeInformation.owner]++;
+        }
         if(terr.name == 'Bermuda' && $map_type == "owners"){
             // Yeet old lines
             document.querySelectorAll('[chaos=true]').forEach(function( node ) {
@@ -118,6 +126,7 @@ async function recolorMap(){
     if($highlighted_territories != null){
         $highlighted_territories.style.fill = $highlighted_territories.info.secondaryColor;
     }
+    team_territory_counts.set(owners);
 }
 
 function toggleRegions(){

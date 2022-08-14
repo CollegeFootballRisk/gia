@@ -3,6 +3,11 @@
     export let title = "Title";
     export let message = 'Interesting...';
     export let loading = false;
+    export let error = false;
+    var color = "blue";
+    if(error){
+      color = "red";
+    }
   </script>
   
   <style>
@@ -11,10 +16,11 @@
           text-align: center;
       }
   </style>
-  
-  <h2>{title}</h2>
-  <center>{message}</center>
-  <br/><br/>
-  {#if loading}
-    <Loader/>
-  {/if}
+  <div style="color:{color};">
+    <h2>{title}</h2>
+    <center>{message}</center>
+    <br/><br/>
+    {#if loading}
+      <Loader/>
+    {/if}
+  </div>

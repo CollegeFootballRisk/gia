@@ -1,9 +1,11 @@
 <!-- Decides whether or not to show action button to user -->
 <script>
-import { onDestroy } from "svelte";
-import { highlighted_territories, turn, modal, user, team } from "../state/state";
+import { onDestroy, onMount } from "svelte";
+import { highlighted_territories, turn, modal, user, team_territory_counts } from "../state/state";
 import { bind } from "svelte-simple-modal";
+import {getTurnInfo} from "../utils/normalization";
 import Popup from "../components/Popup.svelte";
+import Loader from "./Loader.svelte";
 
 
 var action = null; // Territory ownership
@@ -21,16 +23,16 @@ onDestroy(unsub_day, unsub_highlighted); //, unsub_user);
 // If a territory is not owned by user.active_team.name, AND at least one neighboring territory is,
 // then that territory is attackable.
 
-function isActionable(neighbors, owner, team){
+async function isActionable(neighbors, owner, team){
+    let day = await getTurnInfo(null);
+    if(day.active == false) return;
     if(neighbors === undefined) return;
     let owners = neighbors.map(item => item["owner"]).filter((value, index, self) => self.indexOf(value) === index);
     if(owner == team && (owners.length > 1 || (owners.length == 1 && owners.indexOf(team) == -1))) {action = "Defend"; return true}
     if(owner != team && owners.indexOf(team) != -1) {action = "Attack"; return true}
 }
 
-
-function runAction(){
-    let terr = highlighted.info.attributeInformation.name;
+async function runAction(){
 		modal.set(bind(
 			Popup,
 			{
@@ -39,15 +41,47 @@ function runAction(){
                 loading: true
             }
 		));
+        // TODO: Need to determine if we need to prompt for AON
+        let curr_turn = await getTurnInfo(null);
+        console.log($team_territory_counts[$user.active_team.name], curr_turn.allOrNothingEnabled);
+        var aon_choice = false;
+        if($team_territory_counts[$user.active_team.name] == 1 && curr_turn.allOrNothingEnabled){
+            aon_choice = confirm("Press Ok to wager All or Nothing, or Cancel to submit a regular move.")
+        }
+        let promised = await fetch(`/auth/move?target=${highlighted.info.attributeInformation.id}&aon=${aon_choice}&timestamp=${new Date().valueOf()}`);
+        if(promised.ok){
+            modal.set(bind(
+			Popup,
+			{
+                title: `Move Submitted`,
+				message: `Your move on ${highlighted.info.attributeInformation.name} has been successfully made.`,
+                loading: false
+            }
+		));
+        } else{
+            modal.set(bind(
+			Popup,
+			{
+                title: `Move Failed to Submit`,
+				message: `Your move on ${highlighted.info.attributeInformation.name} has failed. Please try again.`,
+                loading: false,
+                error: true,
+            }
+		));
+        }
 }
 </script>
 {#if $user != null && $user.team != null && $user.team.name != null}
 {#if (localDay == null && highlighted != null && $user.team.name != null)}
-    {#if (isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,$user.team.name))}
-       <center>
-         <input type="button" on:click={runAction} class={action} value={action} />
-       </center>
-    {/if}
+{#await isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner,$user.team.name)}
+    <Loader/>
+{:then is_actionable_unwrapped} 
+{#if is_actionable_unwrapped}
+<center>
+    <input type="button" on:click={runAction} class={action} value={action} />
+  </center>
+  {/if}
+{/await}
 {/if}
 {/if}
 

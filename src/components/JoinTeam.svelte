@@ -46,6 +46,7 @@
     </p>
   </center>
 {/if}
+// If a team is not joinable, we should still allow the user to join it as their current team. 
 {#await territories}
   <Loader />
 {:then joinables}

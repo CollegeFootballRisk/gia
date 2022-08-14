@@ -30,6 +30,8 @@ export const user = writable(null);
 // Team
 export const team = writable(null);
 
-
 // Current fetches
 export const fetches = writable({});
+
+// Current AON
+export const team_territory_counts = writable([]);

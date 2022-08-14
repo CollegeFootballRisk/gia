@@ -8,7 +8,7 @@ import { get } from 'svelte/store';
 import { normalizeTerritoryName, getTurnInfo, normalizeTeamName } from '../utils/normalization.js';
 import { getColorForPercentage } from "./map.js";
 
-export const base_url = "https://collegefootballrisk.com";
+export const base_url = "http://localhost:8000";
 
 export async function getTurnsandTeams(override) {
     if(get(fetches).TurnsandTeams == undefined || override == true) {
