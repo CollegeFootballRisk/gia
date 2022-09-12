@@ -128,3 +128,26 @@ export async function getPlayer(player){
         throw new Error(json);
     }  
 }
+
+// Get Team http://localhost:8000/api/teams?team={}
+export async function getTeam(team){
+    let players = await fetch(`${base_url}/api/players?team=${team}`);
+    let mercs = await fetch(`${base_url}/api/mercs?team=${team}`);
+    let stats = await fetch(`${base_url}/api/stats/team?team=${team}`);
+    let history = await fetch(`${base_url}/api/stats/team/history?team=${team}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }  
+
+    // Structure to return
+    return {
+        teamData: history,
+        players: players,
+        mercs: mercs,
+        teamStats: stats,
+    };    
+}

@@ -7,7 +7,7 @@ import { normalizeTeamName } from "../utils/normalization";
     export var currentRoute;
     export var params;
     console.log(currentRoute);
-    var playerLoad = getPlayer(currentRoute.namedParams.player);
+    var teamLoad = getTeam(currentRoute.namedParams.team);
     let sortBy = "season";
   let sortOrder = 1;
   let selectedCols = [
@@ -29,7 +29,7 @@ import { normalizeTeamName } from "../utils/normalization";
 
   $: cols = selectedCols.map(key => COLUMNS[key]);
   </script>
-  {#await playerLoad}
+  {#await teamLoad}
   <Loader/>
   {:then player} 
   <h1>{player.name}</h1>

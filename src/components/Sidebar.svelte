@@ -58,7 +58,7 @@ import ActionButton from "./ActionButton.svelte";
     </h2></center>
   <ActionButton/>
   <hr />
-  {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.power != null}
+  {#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.power != null}
     <center
       ><h4>
         Winner: {$highlighted_territories.info.attributeInformation.winner}
@@ -71,7 +71,7 @@ import ActionButton from "./ActionButton.svelte";
       </h4></center
     >
   {/if}
-  {#if $highlighted_territories != null && $highlighted_territories.info.attributeInformation.neighbors != null}
+  {#if $highlighted_territories != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.neighbors != null}
     <center
       ><h4>
         Owner: {$highlighted_territories.info.attributeInformation.owner} <br/>
