@@ -151,3 +151,15 @@ export async function getTeam(team){
         teamStats: stats,
     };    
 }
+
+// Get player http://localhost:8000/api/team/odds?team,season,day
+export async function getTeamOdds(season,day,team){
+    let get = await fetch(`${base_url}/api/team/odds?team=${team}&day=${day}&season=${season}`);
+    let json = await get.json();
+
+    if(get.ok){
+        return json;
+    } else{
+        throw new Error(json);
+    }  
+}

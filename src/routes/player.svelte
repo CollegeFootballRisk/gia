@@ -36,6 +36,7 @@ import {
   {#await playerLoad}
   <Loader/>
   {:then player} 
+  <div class="player-overflow">
   <h1>{player.name}</h1>
   <h2 style:text-shadow={`0px 0px 5px var(--${normalizeTeamName(player.team.name)}-secondary)`} style:color={`var(--${normalizeTeamName(player.team.name)}-primary)`}>{String.fromCharCode(0x272F).repeat(player.ratings.overall)}</h2>
   <h4><i>{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}</i></h4>
@@ -98,6 +99,7 @@ import {
   />
 </center>
   
+</div>
   {/await}
 
   <style>
@@ -150,5 +152,13 @@ import {
 
     h4 {
         text-align: center;
+    }
+
+    .player-overflow{
+        height: 100%;
+        overflow: auto;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>

@@ -1,6 +1,7 @@
 import { turns } from "../state/state";
 import { get } from 'svelte/store'
 import { getTurnsandTeams } from "./loads";
+import { getColorForPercentage } from "./map";
 
 export function normalizeTerritoryName(name){
     return name.normalize("NFD").replace(/[\u0300-\u036f ']/g, "");
@@ -56,3 +57,47 @@ export async function getTurnID(season, day){
         }        
     }
 }
+
+
+export async function normalizeOdds(oddsArray, team){
+    var maxPlayers, minPlayers, maxOdds, minOdds;
+    [maxPlayers, minPlayers] = getMaxMin(oddsArray, "players");
+    [maxOdds, minOdds] = getMaxMin(oddsArray, "chance"); //FIXME: remove extra iterations
+    var territoryCount = 0; // count of sum of winner = team
+    var territoryExpectedCount = 0; // sum of chance
+    var oddsElim = 1; // fx of chance
+    for (const odd in oddsArray) {
+        territoryCount += (oddsArray[odd].winner == team)? 1:0;
+        territoryExpectedCount += oddsArray[odd].chance;
+        oddsElim *= (1 - oddsArray[odd].chance);
+        oddsArray[odd].colorPlayer = getColorForPercentage((oddsArray[odd].players - minPlayers.players) /
+        (maxPlayers.players - minPlayers.players) || 0);
+        oddsArray[odd].colorHeat = getColorForPercentage((oddsArray[odd].chance - minPlayers.chance) /
+        (maxPlayers.chance - minPlayers.chance) || 0);
+    }
+    let oddsSurvival = Math.floor(100 * (1 - oddsElim)) + "%";
+    // Need to return:
+    // - Mapping structure with heat/odds colors
+    // - oddsSurvival
+    // - territoryCount
+    // - territoryExpectedCount
+    return {
+        "oddsArray": oddsArray,
+        "oddsSurvival": oddsSurvival,
+        "oddsElim": oddsElim,
+        "territoryCount": territoryCount,
+        "territoryExpectedCount": territoryExpectedCount
+    };
+}
+
+export function getMaxMin(arr, prop) {
+    var max;
+    var min;
+    for (var i = 0; i < arr.length; i++) {
+      if (max == null || parseInt(arr[i][prop]) > parseInt(max[prop]))
+        max = arr[i];
+      if (min == null || parseInt(arr[i][prop]) < parseInt(min[prop]))
+        min = arr[i];
+    }
+    return [max, min];
+  }

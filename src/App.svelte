@@ -26,6 +26,7 @@
     );
   });
   const showAbout = () => modal.set(bind(About));
+  const showMe = () => modal.set(bind(Me));
 </script>
 
 <main>
@@ -45,6 +46,11 @@
       <div class="menu-button" />
     </label>
     <ul class="menu">
+      {#key $user}
+      {#if $user != null}
+       <li><a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a></li>
+      {/if}
+      {/key}
       <li><a href="/">Map</a></li>
       <li><a href="/odds">Odds</a></li>
       <li><a href="#about" on:click={showAbout}>About</a></li>

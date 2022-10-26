@@ -37,6 +37,7 @@ onDestroy,
 import { getDay } from '../utils/loads.js';
 import { normalizeTerritoryName } from '../utils/normalization.js';
 import MyMove from "./MyMove.svelte";
+import Clock from "./Clock.svelte";
 var lockClick = false;
 var zooming = false;
 onMount(() => {
@@ -208,10 +209,20 @@ async function drawChaosLine(territory_name){
         <FontAwesomeIcon icon={faThermometerHalf}  />
     </label>
 </div>
+<div class="notices"><Clock/></div>
 <div class="map-wrap"><MapBase /></div>
 </div>
 
 <style>
+    .notices{
+        color: white;
+        position: absolute;
+        top: calc(var(--navbar-height));
+        right: 0%;
+        margin: 5px;
+        z-index: 2;
+        white-space: nowrap;
+    }
 .map-wrap {
     overflow: hidden;
 }
