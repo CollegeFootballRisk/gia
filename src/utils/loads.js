@@ -131,25 +131,19 @@ export async function getPlayer(player){
 
 // Get Team http://localhost:8000/api/teams?team={}
 export async function getTeam(team){
-    let players = await fetch(`${base_url}/api/players?team=${team}`);
-    let mercs = await fetch(`${base_url}/api/mercs?team=${team}`);
-    let stats = await fetch(`${base_url}/api/stats/team?team=${team}`);
-    let history = await fetch(`${base_url}/api/stats/team/history?team=${team}`);
-    let json = await get.json();
+    let players = await fetch(`${base_url}/api/players?team=${team}`).then(v => v.json());
+    let mercs = await fetch(`${base_url}/api/mercs?team=${team}`).then(v => v.json());
+    let stats = await fetch(`${base_url}/api/stats/team?team=${team}`).then(v => v.json());
+    let history = await fetch(`${base_url}/api/stats/team/history?team=${team}`).then(v => v.json());
 
-    if(get.ok){
-        return json;
-    } else{
-        throw new Error(json);
-    }  
-
-    // Structure to return
-    return {
-        teamData: history,
-        players: players,
-        mercs: mercs,
-        teamStats: stats,
-    };    
+    let returnable = await Promise.all([players, mercs, stats, history]).then(
+        values => { 
+            return {"teamData": history,
+             "players":players,
+             "mercs": mercs,
+             "teamStats":stats}
+        });
+        return returnable;
 }
 
 // Get player http://localhost:8000/api/team/odds?team,season,day

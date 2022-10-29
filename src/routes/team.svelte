@@ -1,6 +1,6 @@
 <script>
     import SvelteTable from "svelte-table";
-import { getPlayer } from "../utils/loads";
+import { getTeam } from "../utils/loads";
 import Loader from "../components/Loader.svelte";
 import { normalizeTeamName } from "../utils/normalization";
 
@@ -31,34 +31,31 @@ import { normalizeTeamName } from "../utils/normalization";
   </script>
   {#await teamLoad}
   <Loader/>
-  {:then player} 
-  <h1>{player.name}</h1>
-  <h2 style:text-shadow={`0px 0px 5px var(--${normalizeTeamName(player.team.name)}-secondary)`} style:color={`var(--${normalizeTeamName(player.team.name)}-primary)`}>{String.fromCharCode(0x272F).repeat(player.ratings.overall)}</h2>
-  <h4><i>{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}</i></h4>
+  {:then team} 
+  {#if console.log(team)}
+  onkeydown
+  {/if}
+  <h1>{team.teamStats.team}</h1>
   <center>
-        <div class="lrow">
-            <div class="lcol2">
-                <h3>{String.fromCharCode(0x272F).repeat(player.ratings.totalTurns)}</h3>
-                <i>Total turns:</i><br> {player.stats.totalTurns}
-            </div>
-            <div class="lcol2">
-                <h3>{String.fromCharCode(0x272F).repeat(player.ratings.gameTurns)} </h3>
-                <i>Round turns:</i><br> {player.stats.gameTurns}
-            </div>
-        </div>
-        <br>
-        <div class="lrow">
-            <div class="lcol2">
-                <h3>{String.fromCharCode(0x272F).repeat(player.ratings.streak)}</h3>
-                <i>Streak: </i><br> {player.stats.streak}
-            </div>
-            <div class="lcol2">
-                <h3>{String.fromCharCode(0x272F).repeat(player.ratings.mvps)} </h3>
-                <i>Total MVPS:</i><br> {player.stats.mvps}
-            </div>
-        </div>
+  <div class="lrow">
+    <div class="lcol2">
+        <i>Mercs:</i><br> {team.teamStats.mercs}
+    </div>
+    <div class="lcol2">
+        <i>Players:</i><br> {team.teamStats.players}
+    </div>
+</div>
+<br>
+<div class="lrow">
+    <div class="lcol2">
+        <i>Stars: </i><br> {team.teamStats.stars}
+    </div>
+    <div class="lcol2">
+        <i>Territories:</i><br> {team.teamStats.territories}
+    </div>
+</div>
     <br>
-    <SvelteTable
+    <!--<SvelteTable
   columns={cols}
   rows={player.turns}
   bind:sortBy
@@ -66,7 +63,7 @@ import { normalizeTeamName } from "../utils/normalization";
   classNameTable={["table table-striped"]}
   classNameThead={["table-primary"]}
   classNameSelect={["custom-select"]}
-/>
+/>-->
 </center>
   
   {/await}
