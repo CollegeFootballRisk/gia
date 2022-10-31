@@ -101,7 +101,7 @@ function handleMouseOver(e){
 const showLeaderboard = () => modal.set(bind(Leaderboard));
 const unsub_turn = turn.subscribe(recolorMap);
 const unsub_type = map_type.subscribe(recolorMap);
-onDestroy(() => {map_type.set('owners'); unsub_turn, unsub_type, console.log("Unsubbed")});
+onDestroy(() => {unsub_turn, unsub_type; map_type.set('owners');});
 
 async function recolorMap(){
     // Clear the map visually
