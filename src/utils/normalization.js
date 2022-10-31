@@ -114,7 +114,7 @@ export function getMaxMin(arr) {
             const keysInner = Object.keys(arr[0]["starBreakdown"]);
             for (const keyInner in keysInner){
                 max[keysInner[keyInner]] = null;
-            min[keysInner[keyInner]] = null;
+                min[keysInner[keyInner]] = null;
             }
         } else {
             max[keys[key]] = null;
@@ -128,18 +128,18 @@ export function getMaxMin(arr) {
                 const keysInner = Object.keys(arr[0]["starBreakdown"]);
                 for (const keyInner in keysInner){
                     if(max[keysInner[keyInner]] == null || parseInt(arr[i]["starBreakdown"][keysInner[keyInner]]) > parseInt(max[keysInner[keyInner]])){
-                        max[keysInner[keyInner]] = arr [i]["starBreakdown"][keysInner[keyInner]];
+                        max[keysInner[keyInner]] = arr[i]["starBreakdown"][keysInner[keyInner]];
                     }
                     if(min[keysInner[keyInner]] == null || parseInt(arr[i]["starBreakdown"][keysInner[keyInner]]) < parseInt(min[keysInner[keyInner]])){
-                        min[keysInner[keyInner]] = arr [i]["starBreakdown"][keysInner[keyInner]];
+                        min[keysInner[keyInner]] = arr[i]["starBreakdown"][keysInner[keyInner]];
                     }
                 }
             } else {
-                if(max[keys[key]] == null || parseInt(arr[i][keys[key]]) > parseInt(max[keys[key]])){
-                    max[keys[key]] = arr [i][keys[key]];
+                if(max[keys[key]] == null || parseFloat(arr[i][keys[key]]) > parseFloat(max[keys[key]])){
+                    max[keys[key]] = arr[i][keys[key]];
                 }
-                if(min[keys[key]] == null || parseInt(arr[i][keys[key]]) < parseInt(min[keys[key]])){
-                    min[keys[key]] = arr [i][keys[key]];
+                if(min[keys[key]] == null || parseFloat(arr[i][keys[key]]) < parseFloat(min[keys[key]])){
+                    min[keys[key]] = arr[i][keys[key]];
                 }
             }
         }
