@@ -1,7 +1,7 @@
 <script>
   import SvelteTable from "svelte-table";
   import { get } from 'svelte/store'
-  import { getPlayer } from "../utils/loads";
+  import { getDay, getPlayer } from "../utils/loads";
   import Loader from "../components/Loader.svelte";
   import { getTurnID, dynamicSort, normalizeTeamName, getTurnInfo } from "../utils/normalization";
   import { team, teams, turn, turns } from "../state/state.js";
@@ -14,6 +14,7 @@
 
   export var currentRoute;
   export var params;
+  var teams_available = [];
   var map_type = 'heat';
   // Set the current day to that of the url if needed
   onMount(async () => {
@@ -34,9 +35,15 @@
     //push(`/odds/${turnz.season}/${turnz.day}/${get(team)}`);
   }
 
+  async function changeTeams(turnNum){
+    let turn_data = await getDay(turnNum);
+    teams_available = [...new Set(turn_data.map(item => item.attributeInformation.owner))];
+  }
+
   const unsub_turn = turn.subscribe(newUrl);
   const unsub_team = team.subscribe(newUrl);
   onDestroy(() => {unsub_turn, unsub_team});
+  $: changeTeams($turn);
 </script>
 <div class="map-controls top-control">
 
@@ -46,12 +53,14 @@
       <option value={day.id}>{day.season}/{day.day}</option>
     {/each}
   </select>
+  {#key teams_available}
   <select bind:value={$team} title="select team">
     <option value={null}>Team</option>
-    {#each $teams.sort(dynamicSort("name")) as tea}
-      <option value={encodeURIComponent(tea.name)}>{tea.name}</option>
+    {#each teams_available.sort() as tea}
+      <option value={encodeURIComponent(tea)}>{tea}</option>
     {/each}
   </select>
+  {/key}
   <select bind:value={map_type} title="select display">
     <option value="heat">Chance</option>
     <option value="players">Players</option>

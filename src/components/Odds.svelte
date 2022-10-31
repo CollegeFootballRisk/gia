@@ -34,6 +34,7 @@
     .then((sent) => normalizeOdds(sent, team))
     .then((val) => {t_data = val; finished_load = true;})
     .catch((error) => {
+        finished_load = true;
       return { error: error };
     });
   }
