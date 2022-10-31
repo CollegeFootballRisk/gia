@@ -1,5 +1,5 @@
 import { turns } from "../state/state";
-import { get } from 'svelte/store'
+import { get } from 'svelte/store';
 import { getTurnsandTeams } from "./loads";
 import { getColorForPercentage } from "./map";
 
