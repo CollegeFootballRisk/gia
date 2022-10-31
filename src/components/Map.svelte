@@ -101,8 +101,7 @@ function handleMouseOver(e){
 const showLeaderboard = () => modal.set(bind(Leaderboard));
 const unsub_turn = turn.subscribe(recolorMap);
 const unsub_type = map_type.subscribe(recolorMap);
-
-onDestroy(() => {unsub_turn, unsub_type});
+onDestroy(() => {map_type.set('owners'); unsub_turn, unsub_type, console.log("Unsubbed")});
 
 async function recolorMap(){
     // Clear the map visually
@@ -122,7 +121,7 @@ async function recolorMap(){
                 node.parentNode.removeChild( node );
             });
                 terr.attributeInformation.neighbors.filter(function(obj){return drawChaosLine(normalizeTerritoryName(obj.name))});
-              }
+        }
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).style.fill = terr.primaryColor;
         document.querySelector('#map').querySelector(`path#${terr.normalizedName}`).info = terr;
     });
@@ -200,7 +199,7 @@ async function drawChaosLine(territory_name){
     </label>
     <select bind:value={$turn} title="select day">
         <option value = {null}><FontAwesomeIcon icon={faThermometerHalf}  />Latest</option>
-        {#each $turns.reverse().slice(1,$turns.length) as day}
+        {#each $turns.slice(1,$turns.length) as day}
             <option value = {day.id}>{day.season}/{day.day}</option>
         {/each}
     </select>

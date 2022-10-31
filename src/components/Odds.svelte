@@ -5,7 +5,7 @@
   export let season;
   export let day;
   export let team;
-  export var map_type;
+  export var local_map_type;
   import SvelteTable from "svelte-table";
   import { getTeamOdds } from "../utils/loads";
   import MapBase from "../components/MapBase.svelte";
@@ -40,7 +40,7 @@
   }
   $: waitKey = doNext(season, day, team);
 
-  $: recolorMap(t_data, map_type); 
+  $: recolorMap(t_data, local_map_type); 
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
@@ -113,13 +113,13 @@
     }
   }
 
-  function recolorMap(data, map_type){
+  function recolorMap(data, local_map_type){
     document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
     if (data == null) return;
     data.oddsArray.forEach(odd => {
         let t_tag = document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
-        switch(map_type){
-            case 'heat':
+        switch(local_map_type){
+            case 'chance':
             t_tag.style.fill = odd.colorHeat;
                 break;
             case 'wins':
