@@ -10,7 +10,8 @@ highlighted_territories,
     turn,
     turns,
     modal,
-team_territory_counts
+team_territory_counts,
+user
 } from '../state/state.js';
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
@@ -182,9 +183,13 @@ async function drawChaosLine(territory_name){
     <button on:click={toggleRegions} title="regions">
         <FontAwesomeIcon icon={faFlag} />
     </button>
-    <button on:click={toggleMove} title="regions">
+    {#key $user}
+    {#if $user != null}
+    <button on:click={toggleMove} title="your move">
         <FontAwesomeIcon icon={faBullseye} />
     </button>
+    {/if}
+    {/key}
     <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
     </button>
