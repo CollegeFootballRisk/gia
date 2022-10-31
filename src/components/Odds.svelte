@@ -120,6 +120,8 @@
         let t_tag = document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
         t_tag.style.fill = (map_type == "heat")? odd.colorHeat:odd.colorPlayer;
         t_tag.info = odd;
+        t_tag.info.primaryColor = (map_type == "heat")? odd.colorHeat:odd.colorPlayer;
+        t_tag.info.secondaryColor = 'rgba(255,255,255,0.5)';
     });
   }
 </script>
@@ -138,9 +140,9 @@
     >
       <FontAwesomeIcon icon={faHistory} />
     </button>
-    <button on:click={showLeaderboard} title="leaderboard">
+    <!--<button on:click={showLeaderboard} title="leaderboard">
       <FontAwesomeIcon icon={faTable} />
-    </button>
+    </button>-->
   </div>
   <div class="map-wrap"><MapBase /></div>
 </div>

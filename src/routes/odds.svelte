@@ -40,10 +40,17 @@
     teams_available = [...new Set(turn_data.map(item => item.attributeInformation.owner))];
   }
 
+  function changeUrl(turn, team) {
+    if (turn == null || team == null) {history.pushState(null, 'College Football Risk', `/odds`); return};
+    let t= $turns.find(e => e.id == turn);
+    history.pushState(null, 'College Football Risk', `/odds/${t.season}/${t.day}/${encodeURIComponent(team)}/`);
+  }
+
   const unsub_turn = turn.subscribe(newUrl);
   const unsub_team = team.subscribe(newUrl);
   onDestroy(() => {unsub_turn, unsub_team});
   $: changeTeams($turn);
+  $: changeUrl($turn, $team);
 </script>
 <div class="map-controls top-control">
 
