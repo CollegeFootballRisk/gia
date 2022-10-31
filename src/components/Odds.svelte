@@ -1,5 +1,5 @@
 <script>
-  import { dataset_dev, onMount } from "svelte/internal";
+  import { dataset_dev, onDestroy, onMount } from "svelte/internal";
   import Sidebar from "./Sidebar.svelte";
   import Panzoom from "panzoom";
   export let season;
@@ -63,6 +63,7 @@
     });
     document.addEventListener("keydown", handleWindowKeyDown);
   });
+  onDestroy(()=>{highlighted_territories.set(null);});
   function handleMouseOverPrevention(e) {
     if (e.touches.length > 1) {
       zooming = true;

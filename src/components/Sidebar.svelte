@@ -180,6 +180,8 @@ import ActionButton from "./ActionButton.svelte";
     background-color: var(--accent-2);
     transition: 0.7s;
     border-right: 4px solid var(--main-foreground-color);
+    padding-left:5px;
+    padding-right:5px;
   }
 
   .sidebar.is-closed {
@@ -187,6 +189,5 @@ import ActionButton from "./ActionButton.svelte";
   }
   ul{
     list-style-type: none;
-    padding-left: 5px;
   }
 </style>
