@@ -14,6 +14,7 @@
 
   export var currentRoute;
   export var params;
+  var map_type = 'heat';
   // Set the current day to that of the url if needed
   onMount(async () => {
     let dt = await getTurnID(
@@ -51,9 +52,13 @@
       <option value={encodeURIComponent(tea.name)}>{tea.name}</option>
     {/each}
   </select>
+  <select bind:value={map_type} title="select display">
+    <option value="heat">Chance</option>
+    <option value="players">Players</option>
+  </select>
 </div>
 {#if $turns != null && $turn != null && $team != null}
-  <Odds season={$turns.find(e => e.id == $turn).season} day={$turns.find(e => e.id == $turn).day} team={$team}></Odds>
+  <Odds season={$turns.find(e => e.id == $turn).season} day={$turns.find(e => e.id == $turn).day} team={$team} map_type={map_type}></Odds>
   {:else}
   <!--blank-->
 {/if}

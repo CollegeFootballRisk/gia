@@ -12,7 +12,6 @@
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
     let loggedIn = await isLoggedIn($user);
-    console.log(loggedIn);
     if (!loggedIn) modal.set(bind(Login));
     document.addEventListener(
       "touchmove",

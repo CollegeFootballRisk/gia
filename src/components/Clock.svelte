@@ -9,7 +9,7 @@
     let time = new Date();
 
     function set_clock_time(turns, turn){
-        getting = getTurnInfo(null).then(val => {rollTime = new Date(val.rollTime);}); // Get the latest turn
+        getting = getTurnInfo(null).then(val => {if(val.rollTime == null) return;rollTime = new Date(val.rollTime);}); // Get the latest turn
     }
 
     function returnTime(rollTime, time){
