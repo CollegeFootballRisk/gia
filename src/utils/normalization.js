@@ -60,20 +60,34 @@ export async function getTurnID(season, day){
 
 
 export async function normalizeOdds(oddsArray, team){
-    var maxPlayers, minPlayers, maxOdds, minOdds;
-    [maxPlayers, minPlayers] = getMaxMin(oddsArray, "players");
-    [maxOdds, minOdds] = getMaxMin(oddsArray, "chance"); //FIXME: remove extra iterations
+    var max, min;
+    [max, min] = getMaxMin(oddsArray);
     var territoryCount = 0; // count of sum of winner = team
     var territoryExpectedCount = 0; // sum of chance
     var oddsElim = 1; // fx of chance
     for (const odd in oddsArray) {
-        territoryCount += (oddsArray[odd].winner == team)? 1:0;
+        territoryCount += (oddsArray[odd].winner == decodeURIComponent(team))? 1:0;
         territoryExpectedCount += oddsArray[odd].chance;
         oddsElim *= (1 - oddsArray[odd].chance);
-        oddsArray[odd].colorPlayer = getColorForPercentage((oddsArray[odd].players - minPlayers.players) /
-        (maxPlayers.players - minPlayers.players) || 0);
-        oddsArray[odd].colorHeat = getColorForPercentage((oddsArray[odd].chance - minPlayers.chance) /
-        (maxPlayers.chance - minPlayers.chance) || 0);
+        oddsArray[odd].colorPlayer = getColorForPercentage((oddsArray[odd].players - min["players"]) /
+        (max["players"] - min["players"]) || 0);
+        oddsArray[odd].colorHeat = getColorForPercentage((oddsArray[odd].chance - min["chance"]) /
+        (max["chance"] - min["chance"]) || 0);
+        oddsArray[odd].colorWin = getColorForPercentage(1-(oddsArray[odd].winner == decodeURIComponent(team))? 1:0);
+        oddsArray[odd].colorOnes = getColorForPercentage((oddsArray[odd]["starBreakdown"].ones - min["ones"]) /
+        (max["ones"] - min["ones"]) || 0);
+        oddsArray[odd].colorTwos = getColorForPercentage((oddsArray[odd]["starBreakdown"].twos - min["twos"]) /
+        (max["twos"] - min["twos"]) || 0);
+        oddsArray[odd].colorThrees = getColorForPercentage((oddsArray[odd]["starBreakdown"].threes - min["threes"]) /
+        (max["threes"] - min["threes"]) || 0);
+        oddsArray[odd].colorFours = getColorForPercentage((oddsArray[odd]["starBreakdown"].fours - min["fours"]) /
+        (max["fours"] - min["fours"]) || 0);
+        oddsArray[odd].colorFives = getColorForPercentage((oddsArray[odd]["starBreakdown"].fives - min["fives"]) /
+        (max["fives"] - min["fives"]) || 0);
+        oddsArray[odd].colorTeamPower = getColorForPercentage((oddsArray[odd].teamPower - min["teamPower"]) /
+        (max["teamPower"] - min["teamPower"]) || 0);
+        oddsArray[odd].colorTerritoryPower = getColorForPercentage((oddsArray[odd].territoryPower - min["territoryPower"]) /
+        (max["territoryPower"] - min["territoryPower"]) || 0);
     }
     let oddsSurvival = Math.floor(100 * (1 - oddsElim)) + "%";
     // Need to return:
@@ -90,14 +104,45 @@ export async function normalizeOdds(oddsArray, team){
     };
 }
 
-export function getMaxMin(arr, prop) {
-    var max;
-    var min;
+export function getMaxMin(arr) {
+    var max = {};
+    var min = {};
+    const keys = Object.keys(arr[0]);
+    for (const key in keys){
+        if(keys[key] == "mvp" || keys[key] == "owner" || keys[key] == "territory" || keys[key] == "winner") continue;
+        if(keys[key] == "starBreakdown"){
+            const keysInner = Object.keys(arr[0]["starBreakdown"]);
+            for (const keyInner in keysInner){
+                max[keysInner[keyInner]] = null;
+            min[keysInner[keyInner]] = null;
+            }
+        } else {
+            max[keys[key]] = null;
+            min[keys[key]] = null;
+        }
+    }
     for (var i = 0; i < arr.length; i++) {
-      if (max == null || parseInt(arr[i][prop]) > parseInt(max[prop]))
-        max = arr[i];
-      if (min == null || parseInt(arr[i][prop]) < parseInt(min[prop]))
-        min = arr[i];
+        for (const key in keys){
+            if(keys[key] == "mvp" || keys[key] == "owner" || keys[key] == "territory" || keys[key] == "winner") continue;
+            if(keys[key] == "starBreakdown"){
+                const keysInner = Object.keys(arr[0]["starBreakdown"]);
+                for (const keyInner in keysInner){
+                    if(max[keysInner[keyInner]] == null || parseInt(arr[i]["starBreakdown"][keysInner[keyInner]]) > parseInt(max[keysInner[keyInner]])){
+                        max[keysInner[keyInner]] = arr [i]["starBreakdown"][keysInner[keyInner]];
+                    }
+                    if(min[keysInner[keyInner]] == null || parseInt(arr[i]["starBreakdown"][keysInner[keyInner]]) < parseInt(min[keysInner[keyInner]])){
+                        min[keysInner[keyInner]] = arr [i]["starBreakdown"][keysInner[keyInner]];
+                    }
+                }
+            } else {
+                if(max[keys[key]] == null || parseInt(arr[i][keys[key]]) > parseInt(max[keys[key]])){
+                    max[keys[key]] = arr [i][keys[key]];
+                }
+                if(min[keys[key]] == null || parseInt(arr[i][keys[key]]) < parseInt(min[keys[key]])){
+                    min[keys[key]] = arr [i][keys[key]];
+                }
+            }
+        }
     }
     return [max, min];
   }

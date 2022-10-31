@@ -118,9 +118,42 @@
     if (data == null) return;
     data.oddsArray.forEach(odd => {
         let t_tag = document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
-        t_tag.style.fill = (map_type == "heat")? odd.colorHeat:odd.colorPlayer;
+        switch(map_type){
+            case 'heat':
+            t_tag.style.fill = odd.colorHeat;
+                break;
+            case 'wins':
+            t_tag.style.fill = odd.colorWin;
+                break;
+            case 'players':
+            t_tag.style.fill = odd.colorPlayer;
+                break;
+            case 'ones':
+            t_tag.style.fill = odd.colorOnes;
+                break;
+            case 'twos':
+            t_tag.style.fill = odd.colorTwos;
+                break;
+            case 'threes':
+            t_tag.style.fill = odd.colorThrees;
+                break;
+            case 'fours':
+            t_tag.style.fill = odd.colorFours;
+                break;
+            case 'fives':
+            t_tag.style.fill = odd.colorFives;
+                break;
+            case 'territoryPower':
+            t_tag.style.fill = odd.colorTerritoryPower;
+                break;
+            case 'teamPower':
+            t_tag.style.fill = odd.colorTeamPower;
+                break;
+            default:
+                break;
+        }
         t_tag.info = odd;
-        t_tag.info.primaryColor = (map_type == "heat")? odd.colorHeat:odd.colorPlayer;
+        t_tag.info.primaryColor = t_tag.style.fill;
         t_tag.info.secondaryColor = 'rgba(255,255,255,0.5)';
     });
   }

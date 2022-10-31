@@ -43,7 +43,7 @@
   function changeUrl(turn, team) {
     if (turn == null || team == null) {history.pushState(null, 'College Football Risk', `/odds`); return};
     let t= $turns.find(e => e.id == turn);
-    history.pushState(null, 'College Football Risk', `/odds/${t.season}/${t.day}/${encodeURIComponent(team)}/`);
+    history.pushState(null, 'College Football Risk', `/odds/${t.season}/${t.day}/${team}/`);
   }
 
   const unsub_turn = turn.subscribe(newUrl);
@@ -71,12 +71,21 @@
   <select bind:value={map_type} title="select display">
     <option value="heat">Chance</option>
     <option value="players">Players</option>
+    <option value="wins">Wins</option>
+    <option value="ones">✯</option>
+    <option value="twos">✯✯</option>
+    <option value="threes">✯✯✯</option>
+    <option value="fours">✯✯✯✯</option>
+    <option value="fives">✯✯✯✯✯</option>
+    <option value="teamPower">Team Power</option>
+    <option value="territoryPower">Territory Power</option>
   </select>
 </div>
 {#if $turns != null && $turn != null && $team != null}
   <Odds season={$turns.find(e => e.id == $turn).season} day={$turns.find(e => e.id == $turn).day} team={$team} map_type={map_type}></Odds>
   {:else}
-  <!--blank-->
+  <br/><br/><br/>
+  <center class="note">Select a turn and team to get started <i style="font-size:2em;">&#10548;</i></center>
 {/if}
 
 <style>
