@@ -2,6 +2,7 @@
   export let flavor = "map";
   export let passthrough_data;
   export let team;
+  export let finished_load;
   import {
     FontAwesomeIcon,
     FontAwesomeLayers,
@@ -116,8 +117,10 @@ import ActionButton from "./ActionButton.svelte";
 <b>Territories Expected:</b> {passthrough_data.territoryExpectedCount.toFixed(2)}<br/>
 <b>Territories Won:</b> {passthrough_data.territoryCount}<br/>
 <hr/>
-{:else}
+{:else if finished_load}
 <h2 style="color:red;">{decodeURIComponent(team)} was eliminated before this turn</h2>
+{:else}
+<Loader/>
 {/if}
 <center
 ><h2>

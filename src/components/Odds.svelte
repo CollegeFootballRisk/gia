@@ -26,11 +26,13 @@
   var lockClick = false;
   var zooming = false;
   var t_data;
+  var finished_load = false;
   async function doNext(season, day, team){
     t_data = null;
+    finished_load = false;
     return getTeamOdds(season, day, team)
     .then((sent) => normalizeOdds(sent, team))
-    .then((val) => {t_data = val;})
+    .then((val) => {t_data = val; finished_load = true;})
     .catch((error) => {
       return { error: error };
     });
@@ -120,7 +122,7 @@
     });
   }
 </script>
-<Sidebar flavor="odds" team={team} passthrough_data={t_data}/>
+<Sidebar flavor="odds" team={team} passthrough_data={t_data} finished_load = {finished_load}/>
 <div class="map-container">
   <div class="map-controls">
     <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
