@@ -26,12 +26,16 @@
   var lockClick = false;
   var zooming = false;
   var t_data;
-  $: waitKey = getTeamOdds(season, day, team)
+  async function doNext(season, day, team){
+    t_data = null;
+    return getTeamOdds(season, day, team)
     .then((sent) => normalizeOdds(sent, team))
     .then((val) => {t_data = val;})
     .catch((error) => {
       return { error: error };
     });
+  }
+  $: waitKey = doNext(season, day, team);
 
   $: recolorMap(t_data, map_type); 
   const showLeaderboard = () => modal.set(bind(Leaderboard));
@@ -107,8 +111,8 @@
   }
 
   function recolorMap(data, map_type){
-    if (data == null) return;
     document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
+    if (data == null) return;
     data.oddsArray.forEach(odd => {
         let t_tag = document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
         t_tag.style.fill = (map_type == "heat")? odd.colorHeat:odd.colorPlayer;
@@ -116,43 +120,6 @@
     });
   }
 </script>
-
-<!--
-{#key team, season, day}
-{#await waitKey}
-    <Loader/>
-{:then data}
-{#if data.error != null}
-<center> <br/><br/><br/><br/>
-    <h2 style="color:red;">{decodeURIComponent(team)} was eliminated before day {season}/{day}</h2>
-</center>
-{:else}
-<ul>
-    {season}/{day} for {team}
-    <li>Survival Odds: {data.oddsSurvival}</li>
-    <li>Territories Expected: {data.territoryExpectedCount.toFixed(2)}</li>
-    <li>Territories Won: {data.territoryCount}</li>
-    <li>Heat Map (where team deployed forces):
-        <ul>
-            {#each data.oddsArray.sort((a,b) => a.players < b.players) as odd}
-                <li style:color={odd.colorPlayer}>{odd.territory}: {odd.players}</li>
-            {/each}
-        </ul>
-    </li>
-    <li>Odds Map (where team had highest odds of winning):
-        <ul>
-            {#each data.oddsArray.sort((a,b) => a.chance < b.chance) as odd}
-                <li style:color={odd.colorHeat}>{odd.territory}: {odd.chance.toFixed(2)}</li>
-            {/each}
-        </ul>
-    </li>
-    <li>odds-players-table: "/api/team/odds?team=" +   headings: ["Territory","Owner","Winner",encodeURIComponent()"MVPs","Players","1✯","2✯","3✯","4✯","5✯","Team Power","Territory Power","Chance",
-    ],</li>
-  </ul>
-{/if}
-{/await}
-{/key}
--->
 <Sidebar flavor="odds" team={team} passthrough_data={t_data}/>
 <div class="map-container">
   <div class="map-controls">

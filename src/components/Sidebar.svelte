@@ -108,7 +108,7 @@ import ActionButton from "./ActionButton.svelte";
 {/if}
 {:else}
 <center>
-  <h2>{team}</h2>
+  <h2>{decodeURIComponent(team)}</h2>
 </center>
 <hr/>
 {#if passthrough_data != null}
@@ -116,6 +116,8 @@ import ActionButton from "./ActionButton.svelte";
 <b>Territories Expected:</b> {passthrough_data.territoryExpectedCount.toFixed(2)}<br/>
 <b>Territories Won:</b> {passthrough_data.territoryCount}<br/>
 <hr/>
+{:else}
+<h2 style="color:red;">{decodeURIComponent(team)} was eliminated before this turn</h2>
 {/if}
 <center
 ><h2>
