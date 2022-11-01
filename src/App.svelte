@@ -8,11 +8,13 @@
   import About from "./components/About.svelte";
   import { isLoggedIn } from "./utils/auth";
   import Login from "./components/Login.svelte";
+  import JoinTeam from "./components/JoinTeam.svelte";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
     let loggedIn = await isLoggedIn($user);
     if (!loggedIn) modal.set(bind(Login));
+    if ($user.team == null ||  $user.team.name == null) {modal.set(bind(JoinTeam,{reason:"new"})) }else if ($user.active_team.name == null && $user.team.name != null) {modal.set(bind(JoinTeam,{reason:"eliminated"}))};
     document.addEventListener(
       "touchmove",
       function (event) {

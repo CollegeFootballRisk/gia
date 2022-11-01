@@ -15,19 +15,25 @@
       // Don't let people select teams not in current season
       if (team.seasons.indexOf($turns[$turns.length - 1].season) == -1) continue;
 
-      // Don't let people join teams with <1 territory:
+      // Don't let people join teams with <1 territory if they have a home team:
       if (
         territories.find((t) => {
           return t.attributeInformation.owner == team.name;
-        }) == undefined
+        }) == undefined && reason == "eliminated"
       ) {
         continue;
       } else {
         joinableTeams.push(team);
       }
     }
-    console.log(joinableTeams);
+    joinableTeams.sort((p, a) => p.name > a.name);
     return joinableTeams;
+  }
+
+  async function handleSubmit(e){
+    let formVal = document.querySelector('#team_h').value;
+    territories = await fetch(`/auth/join?team=${formVal}`);
+    location.reload();
   }
 </script>
 
@@ -41,26 +47,27 @@
 {:else}
   <center>
     <p>
-      Welcome! <br /> To get started, you will need to select a team. Still-active
-      teams:
+      Welcome! <br /><br /> To get started, you will need to select a team. Select your favorite FBS team below:
     </p>
   </center>
 {/if}
-// If a team is not joinable, we should still allow the user to join it as their current team. 
+{#key territories}
+
 {#await territories}
   <Loader />
 {:then joinables}
   <center>
-    <form action="/auth/join" method="GET" id="team-submit-form">
-      <select name="team" id="team" title="join team" placeholder="Join Team">
+    <form action="/auth/join" method="GET" id="team-submit-form" on:submit|preventDefault={handleSubmit}>
+      <select name="team_h" id="team_h" title="join team" placeholder="Join Team">
         {#each joinables as team}
-          <option value={team.name}>{team.name}</option>
+          <option value={team.id}>{team.name}</option>
         {/each}
       </select> <br />
       <input type="submit" value="Join" />
     </form>
   </center>
 {/await}
+{/key}
 
 <style>
   h1 {
