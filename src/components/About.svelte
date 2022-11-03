@@ -1,6 +1,7 @@
 <script>
 </script>
 
+<div class="overflow">
 <h1>About</h1>
   <center>
       <h2>
@@ -79,6 +80,7 @@
               </ul>
           </li>
 </ul>
+</div>
 
 <style>
   h1 {
@@ -90,4 +92,12 @@
     color: var( --main-foreground-color);
     background: var(--main-background);
   }
+
+  .overflow{
+        height: 100%;
+        overflow: auto;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>

@@ -1,4 +1,5 @@
 import Map from "./components/Map.svelte";
+import About from "./components/About.svelte";
 import Player from "./routes/player.svelte";
 import Odds from "./routes/odds.svelte";
 import Settings from "./routes/settings.svelte";
@@ -31,6 +32,10 @@ const routes = [
       {
         name: "settings",
         component: Settings
+      },
+      {
+        name: "about",
+        component: About
       },
       {
         name: "bugs",

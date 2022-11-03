@@ -26,7 +26,6 @@
       false
     );
   });
-  const showAbout = () => modal.set(bind(About));
   const showMe = () => modal.set(bind(Me));
 </script>
 
@@ -54,8 +53,8 @@
       {/key}
       <li><a href="/">Map</a></li>
       <li><a href="/odds">Odds</a></li>
-      <li><a href="#about" on:click={showAbout}>About</a></li>
-      <li><a href="https://collegefootballrisk.com/docs/">API</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/docs/">API</a></li>
       <li><a href="mailto:mautam@usa.com">Bugs</a></li>
       <li><a href="/settings">Settings</a></li>
     </ul>
@@ -95,6 +94,7 @@
     padding: 1em;
     width: 100vw;
     flex: 0 1 auto;
+    position: fixed;
   }
 
   .top-nav .logo {
@@ -286,17 +286,17 @@
     flex: 1 1 auto;
     width: 100vw;
     max-width: 100vw;
-    overflow: hidden;
     background: purple;
   }
 
   .main-container {
     /* Fill all available space */
     width: 100vw;
-    height: 100%;
+    height: calc(100% - var(--navbar-height));
     max-width: 100vw;
     overflow: hidden;
     color: var(--main-foreground-color);
     background: var(--main-background);
+    margin-top: var(--navbar-height);
   }
 </style>
