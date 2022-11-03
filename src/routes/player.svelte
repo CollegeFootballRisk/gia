@@ -88,15 +88,17 @@ import {
             </div>
         </div>
     <br>
-    <SvelteTable
-  columns={cols}
-  rows={player.turns}
-  bind:sortBy
-  bind:sortOrder
-  classNameTable={["table90 table-striped"]}
-  classNameThead={["table-primary"]}
-  classNameSelect={["custom-select"]}
-  />
+    <div class="player">
+        <SvelteTable
+            columns={cols}
+            rows={player.turns}
+            bind:sortBy
+            bind:sortOrder
+            classNameTable={["table90 table-striped"]}
+            classNameThead={["table-primary"]}
+            classNameSelect={["custom-select"]}
+        />
+    </div>
 </center>
   
 </div>
