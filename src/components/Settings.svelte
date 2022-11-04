@@ -1,17 +1,33 @@
 <script>
+  import { browser } from '$app/environment';
+
+  let ui = {
+    lightmode: false,
+    images: false,
+  };
+
+  let darkMode = true;
+
+  function handleSwitchDarkMode() {
+      darkMode = !darkMode;
+
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+
+      darkMode
+          ? document.documentElement.classList.add('dark')
+          : document.documentElement.classList.remove('dark');
+  }
+
+  if (browser) {
+      if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+          document.documentElement.classList.add('dark');
+          darkMode = true;
+      } else {
+          document.documentElement.classList.remove('dark');
+          darkMode = false;
+      }
+  }
 </script>
-
-<h1>Settings</h1>
-
-
-<style>
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-  }
-
-  :global(.table) {
-    color: var( --main-foreground-color);
-    background: var(--main-background);
-  }
-</style>

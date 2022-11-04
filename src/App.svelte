@@ -14,7 +14,11 @@
     await getTurnsandTeams();
     let loggedIn = await isLoggedIn($user);
     if (!loggedIn) modal.set(bind(Login));
-    if ($user.team == null ||  $user.team.name == null) {modal.set(bind(JoinTeam,{reason:"new"})) }else if ($user.active_team.name == null && $user.team.name != null) {modal.set(bind(JoinTeam,{reason:"eliminated"}))};
+    if ($user != null && ($user.team == null || $user.team.name == null)) {
+      modal.set(bind(JoinTeam, { reason: "new" }));
+    } else if ($user != null && ($user.active_team.name == null && $user.team.name != null)) {
+      modal.set(bind(JoinTeam, { reason: "eliminated" }));
+    }
     document.addEventListener(
       "touchmove",
       function (event) {
@@ -27,6 +31,7 @@
     );
   });
   const showMe = () => modal.set(bind(Me));
+  const goDocs = () => {location = '/docs'};
 </script>
 
 <main>
@@ -47,14 +52,16 @@
     </label>
     <ul class="menu">
       {#key $user}
-      {#if $user != null}
-       <li><a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a></li>
-      {/if}
+        {#if $user != null}
+          <li>
+            <a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a>
+          </li>
+        {/if}
       {/key}
       <li><a href="/">Map</a></li>
       <li><a href="/odds">Odds</a></li>
       <li><a href="/about">About</a></li>
-      <li><a href="/docs/">API</a></li>
+      <li><a href="/docs/" on:click={goDocs}>API</a></li>
       <li><a href="mailto:mautam@usa.com">Bugs</a></li>
       <li><a href="/settings">Settings</a></li>
     </ul>
@@ -82,6 +89,19 @@
     --navbar-height: 50px;
   }
 
+  :global([data-theme="light"]) {
+    --accent-1: #4060a8;
+    --accent-2: #4ea8ff;
+    --accent-fg: #ffffff;
+    --accent-bg: #ccc;
+    --main-foreground-color: #000;
+    --main-background: rgba(255, 225, 245, 1);
+  }
+
+  :global([data-image="true"]){
+    --main-background: url('https://raw.githubusercontent.com/CollegeFootballRisk/Risk/a06b5b1ce3084f891ab39b3667a6c317510321f5/static/images/background.jpg') no-repeat center center fixed;
+  }
+
   .top-nav {
     display: flex;
     flex-direction: row;
@@ -95,6 +115,7 @@
     width: 100vw;
     flex: 0 1 auto;
     position: fixed;
+    z-index: 22;
   }
 
   .top-nav .logo {
@@ -286,7 +307,7 @@
     flex: 1 1 auto;
     width: 100vw;
     max-width: 100vw;
-    background: purple;
+    background: var(--main-background);
   }
 
   .main-container {

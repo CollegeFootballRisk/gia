@@ -182,6 +182,7 @@ import ActionButton from "./ActionButton.svelte";
     border-right: 4px solid var(--main-foreground-color);
     padding-left:5px;
     padding-right:5px;
+    max-height: calc(100vh - var(--navbar-height));
   }
 
   .sidebar.is-closed {
