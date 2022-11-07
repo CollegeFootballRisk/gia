@@ -77,7 +77,7 @@ import ActionButton from "./ActionButton.svelte";
     </h4></center
   >
 {/if}
-{#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.neighbors != null}
+{#if $highlighted_territories != null && $highlighted_territories.info != null}
   <center
     ><h4>
       Owner: {$highlighted_territories.info.attributeInformation.owner} <br/>
@@ -85,6 +85,7 @@ import ActionButton from "./ActionButton.svelte";
     </h4></center
   >
   <hr />
+  {#if typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.neighbors != null}
   <center><h4>Neighbors</h4></center>
   <div style="width: 100%;max-height:20%;overflow:auto;">
     <ul>
@@ -99,6 +100,7 @@ import ActionButton from "./ActionButton.svelte";
     {/each}
     </ul>
   </div>
+  {/if}
 {/if}
 {#if $lock_highlighted}
 <hr />

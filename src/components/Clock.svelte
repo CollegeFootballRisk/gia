@@ -38,6 +38,7 @@
     $: set_clock_time(turns, turn);
     $: timeString = returnTime(rollTime, time);
 </script>
+<div style="text-align:right;">
 {#key getting}
     {#await getting}
         <Loader/>
@@ -50,3 +51,6 @@
         {/if}
     {/await}
 {/key}
+<br /><br/>
+<b style="color:red;font-size:1.25em;">THIS IS A TEST GAME</b>
+</div>

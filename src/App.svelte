@@ -30,8 +30,10 @@
       false
     );
   });
+  var navShownMobile = false;
   const showMe = () => modal.set(bind(Me));
   const goDocs = () => {location = '/docs'};
+  const hideNav = () => {navShownMobile = false;};
 </script>
 
 <main>
@@ -46,7 +48,7 @@
         />
       </a>
     </div>
-    <input id="menu-toggle" type="checkbox" />
+    <input id="menu-toggle" type="checkbox" bind:checked={navShownMobile}/>
     <label class="menu-button-container" for="menu-toggle">
       <div class="menu-button" />
     </label>
@@ -58,12 +60,12 @@
           </li>
         {/if}
       {/key}
-      <li><a href="/">Map</a></li>
-      <li><a href="/odds">Odds</a></li>
-      <li><a href="/about">About</a></li>
+      <li><a href="/" on:click={hideNav}>Map</a></li>
+      <li><a href="/odds" on:click={hideNav}>Odds</a></li>
+      <li><a href="/about" on:click={hideNav}>About</a></li>
       <li><a href="/docs/" on:click={goDocs}>API</a></li>
-      <li><a href="mailto:mautam@usa.com">Bugs</a></li>
-      <li><a href="/settings">Settings</a></li>
+      <li><a href="mailto:mautam@usa.com" on:click={hideNav}>Bugs</a></li>
+      <li><a href="/settings" on:click={hideNav}>Settings</a></li>
     </ul>
   </section>
   <div class="main-container">

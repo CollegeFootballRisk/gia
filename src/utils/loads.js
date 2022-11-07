@@ -58,7 +58,8 @@ export async function getDay(turn, team){
                     normalizedName: normalizeTerritoryName(terr.name),
                     primaryColor: `var(--${terr.owner.replace(/\W/g, "")}-primary)`,
                     secondaryColor: `var(--${terr.owner.replace(/\W/g, "")}-secondary)`,
-                    attributeInformation: terr
+                    attributeInformation: terr,
+                    canAttack: (terr.neighbors == null)?[]:terr.neighbors.map(x => x.name)
                 });
             });
             break;

@@ -10,7 +10,7 @@
     // Let's get a listing of all Joinable teams, that is, all teams with > 1 territory:
     for (const team of $teams) {
       // Don't let people join unjoinable teams
-      if (team.name == "Unjoinable Placeholder") continue;
+      if (team.id <= 0) continue;
 
       // Don't let people select teams not in current season
       if (team.seasons.indexOf($turns[$turns.length - 1].season) == -1) continue;
