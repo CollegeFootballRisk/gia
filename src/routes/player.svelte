@@ -1,4 +1,5 @@
 <script>
+    import Select from 'svelte-select';
     import SvelteTable from "svelte-table";
 import { getPlayer } from "../utils/loads";
 import Loader from "../components/Loader.svelte";
@@ -32,11 +33,23 @@ import {
   };
 
   $: cols = selectedCols.map(key => COLUMNS[key]);
+async function loadOptions (sString) {
+  var players = await (await fetch(`/api/players/search?s=%${sString}%`)).json();
+  return players;
+}
+const getSelectionLabel = (option) => option.value;
+const getOptionLabel = (option) => option.value;
+
+function handleSelect(event) {
+		window.location = `/player/${event.detail.value}`;
+	}
+
   </script>
   {#await playerLoad}
   <Loader/>
   {:then player} 
-  <div class="player-overflow">
+  <div class="player-overflow"><div class="selectContainer">
+    <Select {loadOptions} on:select={handleSelect} {getSelectionLabel} {getOptionLabel} placeholder="Search ..." ></Select></div>
   <h1>{player.name}</h1>
   <h2 style:text-shadow={`0px 0px 5px var(--${normalizeTeamName(player.team.name)}-secondary)`} style:color={`var(--${normalizeTeamName(player.team.name)}-primary)`}>{String.fromCharCode(0x272F).repeat(player.ratings.overall)}</h2>
   <h4><i>{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}</i></h4>
@@ -162,5 +175,13 @@ import {
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .selectContainer{ 
+        width: 300px;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+background: var(--accent-1);
     }
 </style>

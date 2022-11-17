@@ -89,6 +89,12 @@
     --main-foreground-color: #ffffff;
     --main-background: rgba(45, 45, 50, 1);
     --navbar-height: 50px;
+    --itemHoverColor: #ffffff;
+    --itemColor: #ffffff;
+    --listBackground: #4ea8ff;
+    --itemHoverBG: #4060a8;
+    --inputColor: #ffffff;
+    --background: #4ea8ff;
   }
 
   :global([data-theme="light"]) {
