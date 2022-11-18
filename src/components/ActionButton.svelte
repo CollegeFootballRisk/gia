@@ -33,7 +33,6 @@ async function isActionable(neighbors, owner, team, name){
         let owners = neighbors.map(item => item["owner"]).filter((value, index, self) => self.indexOf(value) === index);
         if(owner == team && (owners.length > 1 || (owners.length == 1 && owners.indexOf(team) == -1))) {action = "Defend"; return true}
     }
-    console.log(team, name);
     let acb = Array.from(document.querySelectorAll('#map > #Territories > path')).some(x => x.info.attributeInformation.owner == team && x.info.canAttack.indexOf(name) != -1);
     if(owner != team && acb) {action = "Attack"; return true}
 }

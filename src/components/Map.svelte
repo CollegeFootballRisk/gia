@@ -45,15 +45,14 @@ onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
     window.maphandle.on('panstart', function(){lockClick = true;})
     window.maphandle.on('panend', function(){lockClick = false});
-    let territoryHooks = document.querySelector('#map').querySelector('#Territories').querySelectorAll('path');
-    territoryHooks.forEach( el => {
-        el.addEventListener('mouseover', handleMouseOver, false);
-        el.addEventListener('mouseout', handleMouseOver, false);        
-        el.addEventListener('click', handleMouseOver, false); 
-        el.addEventListener('touchstart', handleMouseOverPrevention,false);
-        el.addEventListener('touchend', handleMouseOver, false);        
-    });
     document.addEventListener("keydown", handleWindowKeyDown);
+    let map = document.querySelector('#map')
+    map.addEventListener('click', handleMouseOver, false);
+    map.addEventListener('mouseover', handleMouseOver, false);
+    map.addEventListener('mouseout', handleMouseOver, false);        
+    map.addEventListener('click', handleMouseOver, false); 
+    map.addEventListener('touchstart', handleMouseOverPrevention,false);
+    map.addEventListener('touchend', handleMouseOver, false);   
 });
 
 function handleWindowKeyDown(event) {
@@ -73,6 +72,12 @@ function handleMouseOverPrevention(e){
 }
 
 function handleMouseOver(e){
+    if ((!lockClick && (e.type == 'click' || (e.type == "touchend" && !zooming))) && $lock_highlighted && e.target == document.getElementById('map')){
+        lock_highlighted.set(false);
+        $highlighted_territories.style.fill = $highlighted_territories.info.primaryColor;
+        highlighted_territories.set(null);
+        return;
+    }
     if(e.target.info == undefined) return;
     if(e.type == 'mouseover'){
         if($lock_highlighted) return;
