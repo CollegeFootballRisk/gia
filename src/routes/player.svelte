@@ -52,7 +52,7 @@ function handleSelect(event) {
     <Select {loadOptions} on:select={handleSelect} {getSelectionLabel} {getOptionLabel} placeholder="Search ..." ></Select></div>
   <h1>{player.name}</h1>
   <h2 style:text-shadow={`0px 0px 5px var(--${normalizeTeamName(player.team.name)}-secondary)`} style:color={`var(--${normalizeTeamName(player.team.name)}-primary)`}>{String.fromCharCode(0x272F).repeat(player.ratings.overall)}</h2>
-  <h4><i>{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}</i></h4>
+  <h4><a href="/team/{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}">{(player.team.name == player.active_team.name)? player.team.name : `${player.team.name}, playing for ${(player.active_team.name == null)?'Undecided':player.active_team.name}`}</a></h4>
   {#if player.awards.length != 0}
   <center>
     <hr />

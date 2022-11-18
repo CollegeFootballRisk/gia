@@ -5,7 +5,6 @@
   import { modal, user } from "./state/state.js";
   import { getTurnsandTeams } from "./utils/loads.js";
   import Modal, { bind } from "svelte-simple-modal";
-  import About from "./components/About.svelte";
   import { isLoggedIn } from "./utils/auth";
   import Login from "./components/Login.svelte";
   import JoinTeam from "./components/JoinTeam.svelte";

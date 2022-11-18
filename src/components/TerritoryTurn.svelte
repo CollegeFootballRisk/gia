@@ -23,7 +23,7 @@ window.closeModal = () => close();
     "power",
   ];
   const COLUMNS = {
-    team: { key: "team", title: "Team", value: (v) => v.team, sortable: true },
+    team: { key: "team", title: "Team", value: (v) => `<a onclick="window.closeModal()" href="/team/${v.team}">${v.team}</a>`, sortable: true },
     player: {
       key: "player",
       title: "Player",

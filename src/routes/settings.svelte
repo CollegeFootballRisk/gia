@@ -1,6 +1,11 @@
 <script>
   export var currentRoute;
   export var params;
+  import { modal } from "../state/state.js";
+  import { bind } from "svelte-simple-modal";
+  import VersionInfo from "../components/VersionInfo.svelte";
+
+  const showVersionInfo = () => modal.set(bind(VersionInfo));
   var ui = {};
   ui.lightmode = true;
   ui.images = false;
@@ -22,6 +27,7 @@
     <span class="toggle-label">Light Mode</span>
   </label>
   <hr/>
+  <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
 </div>
 <style>
   h1 {
