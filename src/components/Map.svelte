@@ -224,7 +224,7 @@ async function drawChaosLine(territory_name){
 
 <style>
     .notices{
-        color: white;
+        color: var(--main-foreground-color);
         position: absolute;
         top: calc(var(--navbar-height));
         right: 0%;

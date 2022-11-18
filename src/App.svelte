@@ -8,6 +8,7 @@
   import { isLoggedIn } from "./utils/auth";
   import Login from "./components/Login.svelte";
   import JoinTeam from "./components/JoinTeam.svelte";
+  import {settings} from "./state/settings";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
@@ -33,6 +34,8 @@
   const showMe = () => modal.set(bind(Me));
   const goDocs = () => {location = '/docs'};
   const hideNav = () => {navShownMobile = false;};
+  $: document.documentElement.setAttribute('data-theme',$settings.lightmode?'light':'dark');
+  $: document.documentElement.setAttribute('data-image',$settings.images);
 </script>
 
 <main>
@@ -100,9 +103,9 @@
     --accent-1: #4060a8;
     --accent-2: #4ea8ff;
     --accent-fg: #ffffff;
-    --accent-bg: #ccc;
+    --accent-bg: #fcfcfc;
     --main-foreground-color: #000;
-    --main-background: rgba(255, 225, 245, 1);
+    --main-background: #F9F9FB;
   }
 
   :global([data-image="true"]){
@@ -314,7 +317,6 @@
     flex: 1 1 auto;
     width: 100vw;
     max-width: 100vw;
-    background: var(--main-background);
   }
 
   .main-container {
@@ -324,7 +326,6 @@
     max-width: 100vw;
     overflow: hidden;
     color: var(--main-foreground-color);
-    background: var(--main-background);
     margin-top: var(--navbar-height);
   }
 </style>

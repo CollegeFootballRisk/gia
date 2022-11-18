@@ -4,11 +4,9 @@
   import { modal } from "../state/state.js";
   import { bind } from "svelte-simple-modal";
   import VersionInfo from "../components/VersionInfo.svelte";
+  import {settings} from "../state/settings";
 
   const showVersionInfo = () => modal.set(bind(VersionInfo));
-  var ui = {};
-  ui.lightmode = true;
-  ui.images = false;
 </script>
 
 
@@ -16,13 +14,13 @@
 <div class="overflow">
   <hr/>
   <label class="toggle">
-    <input bind:checked={ui.images} class="toggle-checkbox" type="checkbox">
+    <input bind:checked={$settings.images} class="toggle-checkbox" type="checkbox">
     <div class="toggle-switch"></div>
     <span class="toggle-label">Background Images</span>
   </label>
   <hr/>
   <label class="toggle">
-    <input bind:checked={ui.lightmode} class="toggle-checkbox" type="checkbox">
+    <input bind:checked={$settings.lightmode} class="toggle-checkbox" type="checkbox">
     <div class="toggle-switch"></div>
     <span class="toggle-label">Light Mode</span>
   </label>
