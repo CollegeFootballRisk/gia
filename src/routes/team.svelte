@@ -1,4 +1,5 @@
 <script>
+  import Select from "svelte-select";
   import SvelteTable from "svelte-table";
   import { Line } from "svelte-chartjs";
   import { getTeam } from "../utils/loads";
@@ -6,6 +7,7 @@
   import { normalizeTeamName } from "../utils/normalization";
   import PlayerTime from "../components/PlayerTime.svelte";
   import PlayerChart from "../components/PlayerChart.svelte";
+  import { teams } from "../state/state";
 
   export var currentRoute;
   export var params;
@@ -59,6 +61,13 @@
     mvps: { key: "mvps", title: "MVPS", value: (v) => v.mvps, sortable: true },
   };
 
+  const getSelectionLabel = (option) => option.name;
+  const getOptionLabel = (option) => option.name;
+
+  function handleSelect(event) {
+    window.location = `/team/${encodeURIComponent(event.detail.name)}`;
+  }
+
   $: cols2 = selectedCols2.map((key) => COLUMNS2[key]);
 </script>
 
@@ -69,6 +78,16 @@
     onkeydown
   {/if}
   <div class="team-overflow">
+    <div class="selectContainer">
+      <Select
+        items={$teams.sort((a, b) => a.name > b.name)}
+        on:select={handleSelect}
+        {getSelectionLabel}
+        {getOptionLabel}
+        containerClasses="searchInner"
+        placeholder="Search ..."
+      />
+    </div>
     <center>
       <img
         src="/images/logos/{team.teamStats.team}.png"
@@ -206,5 +225,17 @@
 
   h4 {
     text-align: center;
+  }
+
+  .selectContainer {
+    width: 300px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--accent-1);
+  }
+
+  .selectContainer :global(::placeholder) {
+    color: var(--main-foreground-color) !important;
   }
 </style>

@@ -27,7 +27,9 @@
       key: "team",
       title: "Team",
       value: (v) =>
-        `<a onclick="window.closeModal()" href="/team/${v.team}">${v.team}</a>`,
+        `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+          v.team
+        )}">${v.team}</a>`,
       sortable: true,
     },
     player: {

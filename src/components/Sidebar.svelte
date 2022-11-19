@@ -76,7 +76,11 @@
     {#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.power != null}
       <center
         ><h4>
-          Winner: {$highlighted_territories.info.attributeInformation.winner}
+          Winner: <a
+            href="/team/{encodeURIComponent(
+              $highlighted_territories.info.attributeInformation.winner
+            )}">{$highlighted_territories.info.attributeInformation.winner}</a
+          >
         </h4>
         <h4>
           Power: {$highlighted_territories.info.attributeInformation.power}
@@ -86,10 +90,14 @@
         </h4></center
       >
     {/if}
-    {#if $highlighted_territories != null && $highlighted_territories.info != null}
+    {#if $highlighted_territories != null && $highlighted_territories.info != null && $highlighted_territories.info.attributeInformation.owner != undefined}
       <center
         ><h4>
-          Owner: {$highlighted_territories.info.attributeInformation.owner}
+          Owner: <a
+            href="/team/{encodeURIComponent(
+              $highlighted_territories.info.attributeInformation.owner
+            )}">{$highlighted_territories.info.attributeInformation.owner}</a
+          >
           <br />
           Region: {$highlighted_territories.info.attributeInformation
             .region_name}
@@ -214,5 +222,9 @@
   }
   ul {
     list-style-type: none;
+  }
+  a {
+    color: var(--accent-fg);
+    text-decoration: underline;
   }
 </style>

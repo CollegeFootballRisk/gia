@@ -81,30 +81,40 @@
     </div>
     <h1>{player.name}</h1>
     <h2
-      style:text-shadow={`0px 0px 5px var(--${normalizeTeamName(
-        player.team.name
-      )}-secondary)`}
-      style:color={`var(--${normalizeTeamName(player.team.name)}-primary)`}
+      style:text-shadow={`0px 0px 5px var(--${
+        player.team.name == null
+          ? "main-foreground-color"
+          : normalizeTeamName(player.team.name)
+      }-secondary)`}
+      style:color={`var(--${
+        player.team.name == null
+          ? "main-foreground-color"
+          : normalizeTeamName(player.team.name)
+      }-primary)`}
     >
       {String.fromCharCode(0x272f).repeat(player.ratings.overall)}
     </h2>
     <h4>
-      <a
-        href="/team/{player.team.name == player.active_team.name
-          ? player.team.name
-          : `${player.team.name}, playing for ${
-              player.active_team.name == null
-                ? 'Undecided'
-                : player.active_team.name
-            }`}"
-        >{player.team.name == player.active_team.name
-          ? player.team.name
-          : `${player.team.name}, playing for ${
-              player.active_team.name == null
-                ? "Undecided"
-                : player.active_team.name
-            }`}</a
-      >
+      {#if player.team.name != null}
+        <a
+          href="/team/{player.team.name == player.active_team.name
+            ? encodeURIComponent(player.team.name)
+            : `${player.team.name}, playing for ${
+                player.active_team.name == null
+                  ? 'Undecided'
+                  : encodeURIComponent(player.active_team.name)
+              }`}"
+          >{player.team.name == player.active_team.name
+            ? player.team.name
+            : `${player.team.name}, playing for ${
+                player.active_team.name == null
+                  ? "Undecided"
+                  : player.active_team.name
+              }`}</a
+        >
+      {:else}
+        Undecided
+      {/if}
     </h4>
     {#if player.awards.length != 0}
       <center>
@@ -251,5 +261,9 @@
     margin-left: auto;
     margin-right: auto;
     background: var(--accent-1);
+  }
+
+  .selectContainer :global(::placeholder) {
+    color: var(--main-foreground-color) !important;
   }
 </style>
