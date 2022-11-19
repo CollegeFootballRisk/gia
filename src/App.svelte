@@ -33,6 +33,7 @@
   var navShownMobile = false;
   const showMe = () => modal.set(bind(Me));
   const goDocs = () => {location = '/docs'};
+  const goBugs = () => (location = 'https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform');
   const hideNav = () => {navShownMobile = false;};
   $: document.documentElement.setAttribute('data-theme',$settings.lightmode?'light':'dark');
   $: document.documentElement.setAttribute('data-image',$settings.images);
@@ -66,7 +67,7 @@
       <li><a href="/odds" on:click={hideNav}>Odds</a></li>
       <li><a href="/about" on:click={hideNav}>About</a></li>
       <li><a href="/docs/" on:click={goDocs}>API</a></li>
-      <li><a href="mailto:mautam@usa.com" on:click={hideNav}>Bugs</a></li>
+      <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform" on:click={goBugs}>Bugs</a></li>
       <li><a href="/settings" on:click={hideNav}>Settings</a></li>
     </ul>
   </section>

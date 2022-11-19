@@ -25,6 +25,12 @@
     <span class="toggle-label">Light Mode</span>
   </label>
   <hr/>
+  <label class="toggle">
+    <input bind:checked={$settings.prompt_move} class="toggle-checkbox" type="checkbox">
+    <div class="toggle-switch"></div>
+    <span class="toggle-label">Prompt me to make a move if I haven't</span>
+  </label>
+  <hr/>
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
 </div>
 <style>

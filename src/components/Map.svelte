@@ -11,8 +11,14 @@ highlighted_territories,
     turns,
     modal,
 team_territory_counts,
-user
+user,
+prompt_move
 } from '../state/state.js';
+
+import {
+   settings
+} from "../state/settings";
+
 import Panzoom from 'panzoom';
 import MapBase from './MapBase.svelte';
 import Modal, { bind } from "svelte-simple-modal";
@@ -108,11 +114,11 @@ const showLeaderboard = () => modal.set(bind(Leaderboard));
 const unsub_turn = turn.subscribe(recolorMap);
 const unsub_type = map_type.subscribe(recolorMap);
 onDestroy(() => {unsub_turn(), unsub_type(); map_type.set('owners'); highlighted_territories.set(null);});
-
+var territoryInfo;
 async function recolorMap(){
     // Clear the map visually
     document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
-    let territoryInfo = await getDay($turn);
+    territoryInfo = await getDay($turn);
     var owners = {};
     territoryInfo.forEach(terr => {
         if($map_type == "owners"){
@@ -146,7 +152,7 @@ function toggleBridges(){
 }
 
 function toggleMove(){
-    modal.set(bind(MyMove));
+    modal.set(bind(MyMove,{territoryInfo: territoryInfo}));
 }
 
 async function drawChaosLine(territory_name){
@@ -162,11 +168,30 @@ async function drawChaosLine(territory_name){
   newpath.setAttributeNS(null, "chaos", "true");
   document.getElementById("map").getElementById('Bridges').appendChild(newpath);
   }
+
+  async function promptMoveCheck(user){
+    if($settings.prompt_move == false) {
+        $prompt_move = false;
+        return;
+    }
+    console.log($prompt_move);
+    let move = await fetch("/auth/my_move").then((response) => {if(response.ok) return response.text(); return "";});
+    if(JSON.parse(move) == ""){
+        $prompt_move = true;
+    } else {
+        $prompt_move = false;
+    }
+  }
+
+  $: promptMoveCheck($user);
 </script>
 
-<Sidebar />
+<Sidebar/>
 <div class="map-container">
 <div class="map-controls">
+    {#if $prompt_move}
+    <center class="note">Click <b style="font-size:0.5em">&#127919;</b> to submit your move <b style="font-size:0.5em">&#10549;</b></center>
+    {/if}
     <button
         onclick="window.maphandle.zoomTo(500, 500, 1.5);"
         title="zoom in"
@@ -190,7 +215,7 @@ async function drawChaosLine(territory_name){
     </button>
     {#key $user}
     {#if $user != null}
-    <button on:click={toggleMove} title="your move">
+    <button on:click={toggleMove} title="your move" style:animation={($prompt_move)?'5000ms ease-in-out infinite color-change':''}>
         <FontAwesomeIcon icon={faBullseye} />
     </button>
     {/if}
@@ -314,5 +339,26 @@ async function drawChaosLine(territory_name){
     height: 100%;
     overflow: hidden;
   }
+
+  @keyframes -global-color-change {
+  0% {
+    background-color: teal;
+  }
+  20% {
+    background-color: gold;
+  }
+  40% {
+    background-color: indianred;
+  }
+  60% {
+    background-color: violet;
+  }
+  80% {
+    background-color: green;
+  }
+  100% {
+    background-color: teal;
+  }
+}
 
 </style>

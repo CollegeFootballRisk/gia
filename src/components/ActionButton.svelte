@@ -2,10 +2,9 @@
 <script>
 import { onDestroy, onMount } from "svelte";
 import { highlighted_territories, turn, modal, user, team_territory_counts } from "../state/state";
-import { bind } from "svelte-simple-modal";
 import {getTurnInfo, normalizeTerritoryName} from "../utils/normalization";
-import Popup from "../components/Popup.svelte";
 import Loader from "./Loader.svelte";
+import {runAction} from "../utils/actions";
 
 
 var action = null; // Territory ownership
@@ -37,44 +36,6 @@ async function isActionable(neighbors, owner, team, name){
     if(owner != team && acb) {action = "Attack"; return true}
 }
 
-async function runAction(){
-		modal.set(bind(
-			Popup,
-			{
-                title: `Submitting Move`,
-				message: `Registering your move on ${highlighted.info.attributeInformation.name}...`,
-                loading: true
-            }
-		));
-        // TODO: Need to determine if we need to prompt for AON
-        let curr_turn = await getTurnInfo(null);
-        console.log($team_territory_counts[$user.active_team.name], curr_turn.allOrNothingEnabled);
-        var aon_choice = false;
-        if($team_territory_counts[$user.active_team.name] == 1 && curr_turn.allOrNothingEnabled){
-            aon_choice = confirm("Press Ok to wager All or Nothing, or Cancel to submit a regular move.")
-        }
-        let promised = await fetch(`/auth/move?target=${highlighted.info.attributeInformation.id}&aon=${aon_choice}&timestamp=${new Date().valueOf()}`);
-        if(promised.ok){
-            modal.set(bind(
-			Popup,
-			{
-                title: `Move Submitted`,
-				message: `Your move on ${highlighted.info.attributeInformation.name} has been successfully made.`,
-                loading: false
-            }
-		));
-        } else{
-            modal.set(bind(
-			Popup,
-			{
-                title: `Move Failed to Submit`,
-				message: `Your move on ${highlighted.info.attributeInformation.name} has failed. Please try again.`,
-                loading: false,
-                error: true,
-            }
-		));
-        }
-}
 </script>
 {#if $user != null && $user.team != null && $user.team.name != null}
 {#if (localDay == null && highlighted != null && $user.team.name != null)}
@@ -83,7 +44,7 @@ async function runAction(){
 {:then is_actionable_unwrapped} 
 {#if is_actionable_unwrapped}
 <center>
-    <input type="button" on:click={runAction} class={action} value={action} />
+    <input type="button" on:click={runAction} class={action} terr_id={ highlighted.info.attributeInformation.id} terr_name={ highlighted.info.attributeInformation.name} value={action} />
   </center>
   {/if}
 {/await}

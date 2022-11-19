@@ -35,3 +35,5 @@ export const fetches = writable({});
 
 // Current AON
 export const team_territory_counts = writable([]);
+
+export const prompt_move = writable(false);
