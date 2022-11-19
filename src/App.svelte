@@ -8,7 +8,7 @@
   import { isLoggedIn } from "./utils/auth";
   import Login from "./components/Login.svelte";
   import JoinTeam from "./components/JoinTeam.svelte";
-  import {settings} from "./state/settings";
+  import { settings } from "./state/settings";
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
     await getTurnsandTeams();
@@ -16,7 +16,11 @@
     if (!loggedIn) modal.set(bind(Login));
     if ($user != null && ($user.team == null || $user.team.name == null)) {
       modal.set(bind(JoinTeam, { reason: "new" }));
-    } else if ($user != null && ($user.active_team.name == null && $user.team.name != null)) {
+    } else if (
+      $user != null &&
+      $user.active_team.name == null &&
+      $user.team.name != null
+    ) {
       modal.set(bind(JoinTeam, { reason: "eliminated" }));
     }
     document.addEventListener(
@@ -32,11 +36,20 @@
   });
   var navShownMobile = false;
   const showMe = () => modal.set(bind(Me));
-  const goDocs = () => {location = '/docs'};
-  const goBugs = () => (location = 'https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform');
-  const hideNav = () => {navShownMobile = false;};
-  $: document.documentElement.setAttribute('data-theme',$settings.lightmode?'light':'dark');
-  $: document.documentElement.setAttribute('data-image',$settings.images);
+  const goDocs = () => {
+    location = "/docs";
+  };
+  const goBugs = () =>
+    (location =
+      "https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform");
+  const hideNav = () => {
+    navShownMobile = false;
+  };
+  $: document.documentElement.setAttribute(
+    "data-theme",
+    $settings.lightmode ? "light" : "dark"
+  );
+  $: document.documentElement.setAttribute("data-image", $settings.images);
 </script>
 
 <main>
@@ -51,7 +64,7 @@
         />
       </a>
     </div>
-    <input id="menu-toggle" type="checkbox" bind:checked={navShownMobile}/>
+    <input id="menu-toggle" type="checkbox" bind:checked={navShownMobile} />
     <label class="menu-button-container" for="menu-toggle">
       <div class="menu-button" />
     </label>
@@ -67,7 +80,12 @@
       <li><a href="/odds" on:click={hideNav}>Odds</a></li>
       <li><a href="/about" on:click={hideNav}>About</a></li>
       <li><a href="/docs/" on:click={goDocs}>API</a></li>
-      <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform" on:click={goBugs}>Bugs</a></li>
+      <li>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform"
+          on:click={goBugs}>Bugs</a
+        >
+      </li>
       <li><a href="/settings" on:click={hideNav}>Settings</a></li>
     </ul>
   </section>
@@ -106,11 +124,12 @@
     --accent-fg: #ffffff;
     --accent-bg: #fcfcfc;
     --main-foreground-color: #000;
-    --main-background: #F9F9FB;
+    --main-background: #f9f9fb;
   }
 
-  :global([data-image="true"]){
-    --main-background: url('https://raw.githubusercontent.com/CollegeFootballRisk/Risk/a06b5b1ce3084f891ab39b3667a6c317510321f5/static/images/background.jpg') no-repeat center center fixed;
+  :global([data-image="true"]) {
+    --main-background: url("https://raw.githubusercontent.com/CollegeFootballRisk/Risk/a06b5b1ce3084f891ab39b3667a6c317510321f5/static/images/background.jpg")
+      no-repeat center center fixed;
   }
 
   .top-nav {

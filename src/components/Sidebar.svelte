@@ -21,15 +21,19 @@
   import Loader from "./Loader.svelte";
   import { onDestroy, onMount } from "svelte";
   import OwnershipHistory from "./OwnershipHistory.svelte";
-import ActionButton from "./ActionButton.svelte";
+  import ActionButton from "./ActionButton.svelte";
   import { loop_guard } from "svelte/internal";
   function isNullTerr() {
     return $highlighted_territories == null;
   }
   var turnLocal = $turn;
   var territoryLocal = $highlighted_territories;
-  const unsub_turn = turn.subscribe(()=>{turnLocal = $turn});
- const unsub_territory = highlighted_territories.subscribe(() => {territoryLocal = $highlighted_territories;});
+  const unsub_turn = turn.subscribe(() => {
+    turnLocal = $turn;
+  });
+  const unsub_territory = highlighted_territories.subscribe(() => {
+    territoryLocal = $highlighted_territories;
+  });
 
   onMount(() => {
     // credit to Timothy Huang for this regex test:
@@ -43,8 +47,12 @@ import ActionButton from "./ActionButton.svelte";
     }
   });
 
-  onDestroy(() => {unsub_territory(); unsub_turn();});
-  $: territoryName = (territoryLocal == undefined)?null:territoryLocal.info.name;
+  onDestroy(() => {
+    unsub_territory();
+    unsub_turn();
+  });
+  $: territoryName =
+    territoryLocal == undefined ? null : territoryLocal.info.name;
 </script>
 
 <div class="sidebar" class:is-closed={!$sidebarOpen} title="Sidebar Toggle">
@@ -58,92 +66,106 @@ import ActionButton from "./ActionButton.svelte";
     />
   </button>
   {#if flavor == "map"}
-  <center
-  ><h2>
-    {isNullTerr() ? "North America" : $highlighted_territories.info.name}
-  </h2></center>
-<ActionButton/>
-<hr />
-{#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.power != null}
-  <center
-    ><h4>
-      Winner: {$highlighted_territories.info.attributeInformation.winner}
-    </h4>
-    <h4>
-      Power: {$highlighted_territories.info.attributeInformation.power}
-    </h4>
-    <h4>
-      Players: {$highlighted_territories.info.attributeInformation.players}
-    </h4></center
-  >
-{/if}
-{#if $highlighted_territories != null && $highlighted_territories.info != null}
-  <center
-    ><h4>
-      Owner: {$highlighted_territories.info.attributeInformation.owner} <br/>
-      Region: {$highlighted_territories.info.attributeInformation.region_name}
-    </h4></center
-  >
-  <hr />
-  {#if typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.neighbors != null}
-  <center><h4>Neighbors</h4></center>
-  <div style="width: 100%;max-height:20%;overflow:auto;">
-    <ul>
-      {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
-        var textA = a.name.toUpperCase();
-        var textB = b.name.toUpperCase();
-        return textA < textB ? -1 : textA > textB ? 1 : 0;
-      } ) as neighbor}
-      <li>
-        {neighbor.name}
-      </li>
-    {/each}
-    </ul>
-  </div>
-  {/if}
-{/if}
-{#if $lock_highlighted}
-<hr />
-{#key territoryName}
-  <OwnershipHistory turn={turnLocal} territory = {territoryName} />
-{/key}
-  <hr />
-{/if}
-{:else}
-<center>
-  <h2>{decodeURIComponent(team)}</h2>
-</center>
-<hr/>
-{#if passthrough_data != null}
-<b>Survival Odds:</b> {passthrough_data.oddsSurvival}<br/>
-<b>Territories Expected:</b> {passthrough_data.territoryExpectedCount.toFixed(2)}<br/>
-<b>Territories Won:</b> {passthrough_data.territoryCount}<br/>
-<hr/>
-{:else if finished_load}
-<h2 style="color:red;">{decodeURIComponent(team)} was eliminated before this turn</h2>
-{:else}
-<Loader/>
-{/if}
-<center
-><h2>
-  {isNullTerr() ? "North America" : $highlighted_territories.info.territory}
-</h2></center>
-<hr/>
-{#if $highlighted_territories != null && $highlighted_territories.info != null}
-<b>Owner: </b>{$highlighted_territories.info.owner}<br/>
-<b>Winner: </b>{$highlighted_territories.info.winner}<br/>
-<b>Players: </b>{$highlighted_territories.info.players}<br/>
-<b>MVP: </b>{$highlighted_territories.info.mvp}<br/>
-<b>✯: </b>{$highlighted_territories.info.starBreakdown.ones}<br/>
-<b>✯✯: </b>{$highlighted_territories.info.starBreakdown.twos}<br/>
-<b>✯✯✯: </b>{$highlighted_territories.info.starBreakdown.threes}<br/>
-<b>✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fours}<br/>
-<b>✯✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fives}<br/>
-<b>Team Power: </b>{$highlighted_territories.info.teamPower}<br/>
-<b>Territory Power: </b>{$highlighted_territories.info.territoryPower}<br/>
-<b>Chance: </b>{(100*$highlighted_territories.info.chance).toFixed(2)}%<br/>
-<hr />
-{/if}
+    <center
+      ><h2>
+        {isNullTerr() ? "North America" : $highlighted_territories.info.name}
+      </h2></center
+    >
+    <ActionButton />
+    <hr />
+    {#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.power != null}
+      <center
+        ><h4>
+          Winner: {$highlighted_territories.info.attributeInformation.winner}
+        </h4>
+        <h4>
+          Power: {$highlighted_territories.info.attributeInformation.power}
+        </h4>
+        <h4>
+          Players: {$highlighted_territories.info.attributeInformation.players}
+        </h4></center
+      >
+    {/if}
+    {#if $highlighted_territories != null && $highlighted_territories.info != null}
+      <center
+        ><h4>
+          Owner: {$highlighted_territories.info.attributeInformation.owner}
+          <br />
+          Region: {$highlighted_territories.info.attributeInformation
+            .region_name}
+        </h4></center
+      >
+      <hr />
+      {#if typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.neighbors != null}
+        <center><h4>Neighbors</h4></center>
+        <div style="width: 100%;max-height:20%;overflow:auto;">
+          <ul>
+            {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
+                var textA = a.name.toUpperCase();
+                var textB = b.name.toUpperCase();
+                return textA < textB ? -1 : textA > textB ? 1 : 0;
+              } ) as neighbor}
+              <li>
+                {neighbor.name}
+              </li>
+            {/each}
+          </ul>
+        </div>
+      {/if}
+    {/if}
+    {#if $lock_highlighted}
+      <hr />
+      {#key territoryName}
+        <OwnershipHistory turn={turnLocal} territory={territoryName} />
+      {/key}
+      <hr />
+    {/if}
+  {:else}
+    <center>
+      <h2>{decodeURIComponent(team)}</h2>
+    </center>
+    <hr />
+    {#if passthrough_data != null}
+      <b>Survival Odds:</b>
+      {passthrough_data.oddsSurvival}<br />
+      <b>Territories Expected:</b>
+      {passthrough_data.territoryExpectedCount.toFixed(2)}<br />
+      <b>Territories Won:</b>
+      {passthrough_data.territoryCount}<br />
+      <hr />
+    {:else if finished_load}
+      <h2 style="color:red;">
+        {decodeURIComponent(team)} was eliminated before this turn
+      </h2>
+    {:else}
+      <Loader />
+    {/if}
+    <center
+      ><h2>
+        {isNullTerr()
+          ? "North America"
+          : $highlighted_territories.info.territory}
+      </h2></center
+    >
+    <hr />
+    {#if $highlighted_territories != null && $highlighted_territories.info != null}
+      <b>Owner: </b>{$highlighted_territories.info.owner}<br />
+      <b>Winner: </b>{$highlighted_territories.info.winner}<br />
+      <b>Players: </b>{$highlighted_territories.info.players}<br />
+      <b>MVP: </b>{$highlighted_territories.info.mvp}<br />
+      <b>✯: </b>{$highlighted_territories.info.starBreakdown.ones}<br />
+      <b>✯✯: </b>{$highlighted_territories.info.starBreakdown.twos}<br />
+      <b>✯✯✯: </b>{$highlighted_territories.info.starBreakdown.threes}<br />
+      <b>✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fours}<br />
+      <b>✯✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fives}<br />
+      <b>Team Power: </b>{$highlighted_territories.info.teamPower}<br />
+      <b>Territory Power: </b>{$highlighted_territories.info.territoryPower}<br
+      />
+      <b>Chance: </b>{(100 * $highlighted_territories.info.chance).toFixed(
+        2
+      )}%<br />
+      <hr />
+    {/if}
   {/if}
 </div>
 
@@ -182,15 +204,15 @@ import ActionButton from "./ActionButton.svelte";
     background-color: var(--accent-2);
     transition: 0.7s;
     border-right: 4px solid var(--main-foreground-color);
-    padding-left:5px;
-    padding-right:5px;
+    padding-left: 5px;
+    padding-right: 5px;
     max-height: calc(100vh - var(--navbar-height));
   }
 
   .sidebar.is-closed {
     transform: translateX(-15em);
   }
-  ul{
+  ul {
     list-style-type: none;
   }
 </style>

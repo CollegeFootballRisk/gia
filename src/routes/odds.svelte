@@ -1,17 +1,27 @@
 <script>
-  import { get } from 'svelte/store'
+  import { get } from "svelte/store";
   import { getDay, getPlayer } from "../utils/loads";
   import Loader from "../components/Loader.svelte";
-  import { getTurnID, dynamicSort, normalizeTeamName, getTurnInfo } from "../utils/normalization";
-  import { team, teams, team_territory_counts, turn, turns } from "../state/state.js";
+  import {
+    getTurnID,
+    dynamicSort,
+    normalizeTeamName,
+    getTurnInfo,
+  } from "../utils/normalization";
+  import {
+    team,
+    teams,
+    team_territory_counts,
+    turn,
+    turns,
+  } from "../state/state.js";
   import { onMount, onDestroy } from "svelte";
   import Odds from "../components/Odds.svelte";
-
 
   export var currentRoute;
   export var params;
   var teams_available = [];
-  var local_map_type = 'chance';
+  var local_map_type = "chance";
   // Set the current day to that of the url if needed
   onMount(async () => {
     let dt = await getTurnID(
@@ -25,35 +35,44 @@
       team.set(currentRoute.namedParams.team);
     }
   });
-  async function changeTeams(turnNum){
+  async function changeTeams(turnNum) {
     let turn_data = await getDay(turnNum);
-    teams_available = [...new Set(turn_data.map(item => item.attributeInformation.owner))];
-    if($team == null) $team=(teams_available.sort()[0]);
-    if($turn == null) $turn= $turns.length - 1;
+    teams_available = [
+      ...new Set(turn_data.map((item) => item.attributeInformation.owner)),
+    ];
+    if ($team == null) $team = teams_available.sort()[0];
+    if ($turn == null) $turn = $turns.length - 1;
   }
 
   function changeUrl(turn, team) {
-    if (turn == null || team == null) {history.pushState(null, 'College Football Risk', `/odds`); return};
-    let t= $turns.find(e => e.id == turn);
-    history.pushState(null, 'College Football Risk', `/odds/${t.season}/${t.day}/${team}/`);
+    if (turn == null || team == null) {
+      history.pushState(null, "College Football Risk", `/odds`);
+      return;
+    }
+    let t = $turns.find((e) => e.id == turn);
+    history.pushState(
+      null,
+      "College Football Risk",
+      `/odds/${t.season}/${t.day}/${team}/`
+    );
   }
 
   $: changeTeams($turn);
   $: changeUrl($turn, $team);
 </script>
-<div class="map-controls top-control">
 
+<div class="map-controls top-control">
   <select bind:value={$turn} title="select day">
     {#each $turns.slice(1, $turns.length) as day, index}
       <option value={day.id}>{day.season}/{day.day}</option>
     {/each}
   </select>
   {#key teams_available}
-  <select bind:value={$team} title="select team">
-    {#each teams_available.sort() as tea}
-      <option value={encodeURIComponent(tea)}>{tea}</option>
-    {/each}
-  </select>
+    <select bind:value={$team} title="select team">
+      {#each teams_available.sort() as tea}
+        <option value={encodeURIComponent(tea)}>{tea}</option>
+      {/each}
+    </select>
   {/key}
   <select bind:value={local_map_type} title="select display">
     <option value="chance">Chance</option>
@@ -69,10 +88,18 @@
   </select>
 </div>
 {#if $turns != null && $turn != null && $team != null}
-  <Odds season={$turns.find(e => e.id == $turn).season} day={$turns.find(e => e.id == $turn).day} team={$team} local_map_type={local_map_type}></Odds>
-  {:else}
-  <br/><br/><br/>
-  <center class="note">Select a turn and team to get started <i style="font-size:2em;">&#10548;</i></center>
+  <Odds
+    season={$turns.find((e) => e.id == $turn).season}
+    day={$turns.find((e) => e.id == $turn).day}
+    team={$team}
+    {local_map_type}
+  />
+{:else}
+  <br /><br /><br />
+  <center class="note"
+    >Select a turn and team to get started <i style="font-size:2em;">&#10548;</i
+    ></center
+  >
 {/if}
 
 <style>

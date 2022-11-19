@@ -9,7 +9,10 @@
   import SvelteTable from "svelte-table";
   import { getTeamOdds } from "../utils/loads";
   import MapBase from "../components/MapBase.svelte";
-  import { normalizeOdds, normalizeTerritoryName } from "../utils/normalization";
+  import {
+    normalizeOdds,
+    normalizeTerritoryName,
+  } from "../utils/normalization";
   import {
     faHistory,
     faSearchMinus,
@@ -21,26 +24,29 @@
     highlighted_territories,
     lock_highlighted,
     modal,
-    sidebarOpen
+    sidebarOpen,
   } from "../state/state.js";
   var lockClick = false;
   var zooming = false;
   var t_data;
   var finished_load = false;
-  async function doNext(season, day, team){
+  async function doNext(season, day, team) {
     t_data = null;
     finished_load = false;
     return getTeamOdds(season, day, team)
-    .then((sent) => normalizeOdds(sent, team))
-    .then((val) => {t_data = val; finished_load = true;})
-    .catch((error) => {
+      .then((sent) => normalizeOdds(sent, team))
+      .then((val) => {
+        t_data = val;
         finished_load = true;
-      return { error: error };
-    });
+      })
+      .catch((error) => {
+        finished_load = true;
+        return { error: error };
+      });
   }
   $: waitKey = doNext(season, day, team);
 
-  $: recolorMap(t_data, local_map_type); 
+  $: recolorMap(t_data, local_map_type);
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
@@ -63,7 +69,9 @@
     });
     document.addEventListener("keydown", handleWindowKeyDown);
   });
-  onDestroy(()=>{highlighted_territories.set(null);});
+  onDestroy(() => {
+    highlighted_territories.set(null);
+  });
   function handleMouseOverPrevention(e) {
     if (e.touches.length > 1) {
       zooming = true;
@@ -114,52 +122,58 @@
     }
   }
 
-  function recolorMap(data, local_map_type){
-    document.querySelectorAll("#map #Territories path").forEach(e=> {e.info = null; e.style.fill = "rgba(128, 128, 128, 0)"});
+  function recolorMap(data, local_map_type) {
+    document.querySelectorAll("#map #Territories path").forEach((e) => {
+      e.info = null;
+      e.style.fill = "rgba(128, 128, 128, 0)";
+    });
     if (data == null) return;
-    data.oddsArray.forEach(odd => {
-        let t_tag = document.querySelector('#map').querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
-        switch(local_map_type){
-            case 'chance':
-            t_tag.style.fill = odd.colorHeat;
-                break;
-            case 'wins':
-            t_tag.style.fill = odd.colorWin;
-                break;
-            case 'players':
-            t_tag.style.fill = odd.colorPlayer;
-                break;
-            case 'ones':
-            t_tag.style.fill = odd.colorOnes;
-                break;
-            case 'twos':
-            t_tag.style.fill = odd.colorTwos;
-                break;
-            case 'threes':
-            t_tag.style.fill = odd.colorThrees;
-                break;
-            case 'fours':
-            t_tag.style.fill = odd.colorFours;
-                break;
-            case 'fives':
-            t_tag.style.fill = odd.colorFives;
-                break;
-            case 'territoryPower':
-            t_tag.style.fill = odd.colorTerritoryPower;
-                break;
-            case 'teamPower':
-            t_tag.style.fill = odd.colorTeamPower;
-                break;
-            default:
-                break;
-        }
-        t_tag.info = odd;
-        t_tag.info.primaryColor = t_tag.style.fill;
-        t_tag.info.secondaryColor = 'rgba(255,255,255,0.5)';
+    data.oddsArray.forEach((odd) => {
+      let t_tag = document
+        .querySelector("#map")
+        .querySelector(`path#${normalizeTerritoryName(odd.territory)}`);
+      switch (local_map_type) {
+        case "chance":
+          t_tag.style.fill = odd.colorHeat;
+          break;
+        case "wins":
+          t_tag.style.fill = odd.colorWin;
+          break;
+        case "players":
+          t_tag.style.fill = odd.colorPlayer;
+          break;
+        case "ones":
+          t_tag.style.fill = odd.colorOnes;
+          break;
+        case "twos":
+          t_tag.style.fill = odd.colorTwos;
+          break;
+        case "threes":
+          t_tag.style.fill = odd.colorThrees;
+          break;
+        case "fours":
+          t_tag.style.fill = odd.colorFours;
+          break;
+        case "fives":
+          t_tag.style.fill = odd.colorFives;
+          break;
+        case "territoryPower":
+          t_tag.style.fill = odd.colorTerritoryPower;
+          break;
+        case "teamPower":
+          t_tag.style.fill = odd.colorTeamPower;
+          break;
+        default:
+          break;
+      }
+      t_tag.info = odd;
+      t_tag.info.primaryColor = t_tag.style.fill;
+      t_tag.info.secondaryColor = "rgba(255,255,255,0.5)";
     });
   }
 </script>
-<Sidebar flavor="odds" team={team} passthrough_data={t_data} finished_load = {finished_load}/>
+
+<Sidebar flavor="odds" {team} passthrough_data={t_data} {finished_load} />
 <div class="map-container">
   <div class="map-controls">
     <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">

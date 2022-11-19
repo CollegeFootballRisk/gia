@@ -2,7 +2,7 @@
   import { faSort } from "@fortawesome/free-solid-svg-icons";
   import Loader from "../components/Loader.svelte";
   import { user } from "../state/state";
-  import {runAction} from "../utils/actions";
+  import { runAction } from "../utils/actions";
   export let territoryInfo;
   async function getMove() {
     return await fetch("/auth/my_move").then((response) => {
@@ -14,17 +14,41 @@
   function getActionableTerritories() {
     var attackable_territories = [];
     var defendable_territories = [];
-    var owned_territories = territoryInfo.filter(x => x.attributeInformation.owner == $user.active_team.name);
+    var owned_territories = territoryInfo.filter(
+      (x) => x.attributeInformation.owner == $user.active_team.name
+    );
 
     // Attackable:
     // Iterate over all the owned territories's neighors and push if the owner of the territory is not me
-    attackable_territories = owned_territories.map(a=>{return (a.attributeInformation.neighbors == null)?[]:a.attributeInformation.neighbors.filter(x=>x.owner != $user.active_team.name)}).flat();
-    
+    attackable_territories = owned_territories
+      .map((a) => {
+        return a.attributeInformation.neighbors == null
+          ? []
+          : a.attributeInformation.neighbors.filter(
+              (x) => x.owner != $user.active_team.name
+            );
+      })
+      .flat();
+
     // Defendable:
     // Iterate over territories not owned by us, find those with neighbors with owner = our team.
-    defendable_territories = territoryInfo.filter(x => x.attributeInformation.owner != $user.active_team.name).map(x=>(x.attributeInformation.neighbors==null)?[]:x.attributeInformation.neighbors).flat();
-    defendable_territories = defendable_territories.filter((y,i, s)=>(y.owner == $user.active_team.name && s.findIndex((t)=>t.name == y.name) === i));
-    return {'attackable':attackable_territories, 'defendable':defendable_territories};
+    defendable_territories = territoryInfo
+      .filter((x) => x.attributeInformation.owner != $user.active_team.name)
+      .map((x) =>
+        x.attributeInformation.neighbors == null
+          ? []
+          : x.attributeInformation.neighbors
+      )
+      .flat();
+    defendable_territories = defendable_territories.filter(
+      (y, i, s) =>
+        y.owner == $user.active_team.name &&
+        s.findIndex((t) => t.name == y.name) === i
+    );
+    return {
+      attackable: attackable_territories,
+      defendable: defendable_territories,
+    };
   }
 
   var territoryCapture = getActionableTerritories();
@@ -36,7 +60,7 @@
     <Loader />
   {:then my_move}
     {#if JSON.parse(my_move) == ""}
-      <center><b>Your move has not yet been made</b></center><br/>
+      <center><b>Your move has not yet been made</b></center><br />
     {:else}
       <center>
         Your move is on:
@@ -45,49 +69,67 @@
     {/if}
   {/await}
   <!--Show moves that can be made-->
-  <i><center>You can select a territory to make your move on below:<br/></center></i>
-  {#if territoryCapture['defendable'].length > 0}
-  <h3>Defend:</h3>
-  {#each territoryCapture['defendable'].sort((a,b)=>a.name>b.name) as defendable}
-  <input type="button" on:click={runAction} class="Defend" terr_id={defendable.id} terr_name={defendable.name} value={defendable.name} />
-  {/each}
+  <i
+    ><center
+      >You can select a territory to make your move on below:<br /></center
+    ></i
+  >
+  {#if territoryCapture["defendable"].length > 0}
+    <h3>Defend:</h3>
+    {#each territoryCapture["defendable"].sort((a, b) => a.name > b.name) as defendable}
+      <input
+        type="button"
+        on:click={runAction}
+        class="Defend"
+        terr_id={defendable.id}
+        terr_name={defendable.name}
+        value={defendable.name}
+      />
+    {/each}
   {/if}
 
-  {#if territoryCapture['attackable'].length > 0}
-  <h3>Attack:</h3>
-  {#each territoryCapture['attackable'].sort((a,b)=>a.name>b.name) as attackable}
-  <input type="button" on:click={runAction} class="Attack" terr_id={attackable.id} terr_name={attackable.name} value={attackable.name} />
-  {/each}
+  {#if territoryCapture["attackable"].length > 0}
+    <h3>Attack:</h3>
+    {#each territoryCapture["attackable"].sort((a, b) => a.name > b.name) as attackable}
+      <input
+        type="button"
+        on:click={runAction}
+        class="Attack"
+        terr_id={attackable.id}
+        terr_name={attackable.name}
+        value={attackable.name}
+      />
+    {/each}
   {/if}
 </div>
 
 <style>
-  input[type=button]{
+  input[type="button"] {
     margin: 5px;
   }
 
   :global(.Defend, .Attack) {
-      height: 2em;
-      border: none;
-      padding: 0.3em;
-      font-size: 1.3em;
-      line-height: 1em;
-      border-radius: 10%;
-      cursor: pointer;
+    height: 2em;
+    border: none;
+    padding: 0.3em;
+    font-size: 1.3em;
+    line-height: 1em;
+    border-radius: 10%;
+    cursor: pointer;
   }
-  
+
   :global(.Defend:hover, .Attack:hover) {
-      background: blue;
+    background: blue;
   }
-  
-  :global(.Defend){
-      color: white;
-      background: red;
+
+  :global(.Defend) {
+    color: white;
+    background: red;
   }
-  
-  :global(.Attack){
-      color: white;
-      background: green;
+
+  :global(.Attack) {
+    color: white;
+    background: green;
   }
   h2 {
     font-size: 2rem;

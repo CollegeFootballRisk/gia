@@ -15,9 +15,9 @@
   {#await promise}
     <Loader />
   {:then turns}
-  <ul>
-    <li>{turns[0].season}/{turns[0].day} -> {turns[0].owner} (current)</li>
-    {#each turns.slice(1,turns.length) as turnDisplay}
+    <ul>
+      <li>{turns[0].season}/{turns[0].day} -> {turns[0].owner} (current)</li>
+      {#each turns.slice(1, turns.length) as turnDisplay}
         <li>
           <a
             href={null}
@@ -30,8 +30,8 @@
             )}>{turnDisplay.season}/{turnDisplay.day} -> {turnDisplay.owner}</a
           >
         </li>
-    {/each}
-  </ul>
+      {/each}
+    </ul>
   {/await}
 </div>
 
@@ -44,7 +44,7 @@
     text-decoration: underline;
     color: var(--main-foreground-color);
   }
-  ul{
+  ul {
     list-style-type: none;
     padding-left: 5px;
   }

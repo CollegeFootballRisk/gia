@@ -5,12 +5,12 @@
   import SvelteTable from "svelte-table";
   import { getTerritoryTurn } from "../utils/loads";
   import Loader from "./Loader.svelte";
-  import {Doughnut} from "svelte-chartjs/src";
-import { normalizeTeamName } from "../utils/normalization";
-import { getContext } from "svelte";
+  import { Doughnut } from "svelte-chartjs/src";
+  import { normalizeTeamName } from "../utils/normalization";
+  import { getContext } from "svelte";
 
-const {open, close} = getContext('simple-modal');
-window.closeModal = () => close();
+  const { open, close } = getContext("simple-modal");
+  window.closeModal = () => close();
 
   let sortBy = "team";
   let sortOrder = 1;
@@ -23,11 +23,22 @@ window.closeModal = () => close();
     "power",
   ];
   const COLUMNS = {
-    team: { key: "team", title: "Team", value: (v) => `<a onclick="window.closeModal()" href="/team/${v.team}">${v.team}</a>`, sortable: true },
+    team: {
+      key: "team",
+      title: "Team",
+      value: (v) =>
+        `<a onclick="window.closeModal()" href="/team/${v.team}">${v.team}</a>`,
+      sortable: true,
+    },
     player: {
       key: "player",
       title: "Player",
-      value: (v) => `${(v.mvp==true)?String.fromCharCode(0x272F):''}<a onclick="window.closeModal()" href="/player/${v.player}">${v.player}</a>`,
+      value: (v) =>
+        `${
+          v.mvp == true ? String.fromCharCode(0x272f) : ""
+        }<a onclick="window.closeModal()" href="/player/${v.player}">${
+          v.player
+        }</a>`,
       sortable: true,
     },
     stars: {
@@ -56,21 +67,31 @@ window.closeModal = () => close();
     },
   };
   let data = getTerritoryTurn(territory, season, day);
-  function c_data(teams) {return {
-    labels: teams.map(a => a.team),
-    datasets: [
-      {
-        data: teams.map(a => a.power),
-        backgroundColor: teams.map(a => getComputedStyle(document.body).getPropertyValue(`--${normalizeTeamName(a.team)}-primary`)),
-        hoverBackgroundColor: teams.map(a => getComputedStyle(document.body).getPropertyValue(`--${normalizeTeamName(a.team)}-secondary`))
-      }
-    ]
-  };}
+  function c_data(teams) {
+    return {
+      labels: teams.map((a) => a.team),
+      datasets: [
+        {
+          data: teams.map((a) => a.power),
+          backgroundColor: teams.map((a) =>
+            getComputedStyle(document.body).getPropertyValue(
+              `--${normalizeTeamName(a.team)}-primary`
+            )
+          ),
+          hoverBackgroundColor: teams.map((a) =>
+            getComputedStyle(document.body).getPropertyValue(
+              `--${normalizeTeamName(a.team)}-secondary`
+            )
+          ),
+        },
+      ],
+    };
+  }
 
   let c_options = {
     responsive: true,
   };
-  
+
   $: cols = selectedCols.map((key) => COLUMNS[key]);
 </script>
 
@@ -79,7 +100,7 @@ window.closeModal = () => close();
 {#await data}
   <Loader />
 {:then data_json}
-<h3>Players</h3>
+  <h3>Players</h3>
   <SvelteTable
     columns={cols}
     rows={data_json.players}
@@ -90,8 +111,7 @@ window.closeModal = () => close();
     classNameSelect={["custom-select"]}
   />
   <h3>Power</h3>
-    <Doughnut data={c_data(data_json.teams)} options={c_options}
-    />
+  <Doughnut data={c_data(data_json.teams)} options={c_options} />
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
@@ -103,13 +123,13 @@ window.closeModal = () => close();
   }
 
   h2 {
-      font-size: 1.4rem;
-      text-align: center;
+    font-size: 1.4rem;
+    text-align: center;
   }
 
   h3 {
-      font-size: 1.2rem;
-      text-align: center;
+    font-size: 1.2rem;
+    text-align: center;
   }
 
   :global(.table) {

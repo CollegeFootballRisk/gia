@@ -13,13 +13,15 @@
       if (team.id <= 0) continue;
 
       // Don't let people select teams not in current season
-      if (team.seasons.indexOf($turns[$turns.length - 1].season) == -1) continue;
+      if (team.seasons.indexOf($turns[$turns.length - 1].season) == -1)
+        continue;
 
       // Don't let people join teams with <1 territory if they have a home team:
       if (
         territories.find((t) => {
           return t.attributeInformation.owner == team.name;
-        }) == undefined && reason == "eliminated"
+        }) == undefined &&
+        reason == "eliminated"
       ) {
         continue;
       } else {
@@ -30,8 +32,8 @@
     return joinableTeams;
   }
 
-  async function handleSubmit(e){
-    let formVal = document.querySelector('#team_h').value;
+  async function handleSubmit(e) {
+    let formVal = document.querySelector("#team_h").value;
     territories = await fetch(`/auth/join?team=${formVal}`);
     location.reload();
   }
@@ -47,26 +49,36 @@
 {:else}
   <center>
     <p>
-      Welcome! <br /><br /> To get started, you will need to select a team. Select your favorite FBS team below:
+      Welcome! <br /><br /> To get started, you will need to select a team. Select
+      your favorite FBS team below:
     </p>
   </center>
 {/if}
 {#key territories}
-
-{#await territories}
-  <Loader />
-{:then joinables}
-  <center>
-    <form action="/auth/join" method="GET" id="team-submit-form" on:submit|preventDefault={handleSubmit}>
-      <select name="team_h" id="team_h" title="join team" placeholder="Join Team">
-        {#each joinables as team}
-          <option value={team.id}>{team.name}</option>
-        {/each}
-      </select> <br />
-      <input type="submit" value="Join" />
-    </form>
-  </center>
-{/await}
+  {#await territories}
+    <Loader />
+  {:then joinables}
+    <center>
+      <form
+        action="/auth/join"
+        method="GET"
+        id="team-submit-form"
+        on:submit|preventDefault={handleSubmit}
+      >
+        <select
+          name="team_h"
+          id="team_h"
+          title="join team"
+          placeholder="Join Team"
+        >
+          {#each joinables as team}
+            <option value={team.id}>{team.name}</option>
+          {/each}
+        </select> <br />
+        <input type="submit" value="Join" />
+      </form>
+    </center>
+  {/await}
 {/key}
 
 <style>

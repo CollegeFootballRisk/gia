@@ -12,52 +12,52 @@ const routes = [
     name: `/`,
     component: Map,
   },
+  {
+    name: "login",
+    nestedRoutes: [
       {
-        name: "login",
-        nestedRoutes:[
-          {
-            name:"reddit",
-            redirectTo:"https://google.com/reddit",
-          }
-        ]
+        name: "reddit",
+        redirectTo: "https://google.com/reddit",
       },
-      {
-        name: "map",
-        component: Map
-      },
-      {
-        name: "odds/:season/:day/:team",
-        component: Odds
-      },
-      {
-        name: "settings",
-        component: Settings
-      },
-      {
-        name: "about",
-        component: About
-      },
-      {
-        name: "bugs",
-        component: Bugs
-      },
-      {
-        name: "map/:season/:day",
-        component: Map
-      },
-      {
-        name: "player/:player",
-        component: Player
-      },
-      {
-        name: "team/:team",
-        component: Team
-      },
-      {
-        name: '404',
-        path: '404.html',
-        component: E404,
-      }
+    ],
+  },
+  {
+    name: "map",
+    component: Map,
+  },
+  {
+    name: "odds/:season/:day/:team",
+    component: Odds,
+  },
+  {
+    name: "settings",
+    component: Settings,
+  },
+  {
+    name: "about",
+    component: About,
+  },
+  {
+    name: "bugs",
+    component: Bugs,
+  },
+  {
+    name: "map/:season/:day",
+    component: Map,
+  },
+  {
+    name: "player/:player",
+    component: Player,
+  },
+  {
+    name: "team/:team",
+    component: Team,
+  },
+  {
+    name: "404",
+    path: "404.html",
+    component: E404,
+  },
 ];
 
 export { routes };
