@@ -157,10 +157,10 @@
     >
     <hr />
     {#if $highlighted_territories != null && $highlighted_territories.info != null}
-      <b>Owner: </b>{$highlighted_territories.info.owner}<br />
-      <b>Winner: </b>{$highlighted_territories.info.winner}<br />
+      <b>Owner: </b><a href="/team/{encodeURIComponent($highlighted_territories.info.owner)}">{$highlighted_territories.info.owner}</a><br />
+      <b>Winner: </b><a href="/team/{encodeURIComponent($highlighted_territories.info.winner)}">{$highlighted_territories.info.winner}</a><br />
       <b>Players: </b>{$highlighted_territories.info.players}<br />
-      <b>MVP: </b>{$highlighted_territories.info.mvp}<br />
+      <b>MVP: </b><a href="/player/{encodeURIComponent($highlighted_territories.info.mvp)}">{$highlighted_territories.info.mvp}</a><br />
       <b>✯: </b>{$highlighted_territories.info.starBreakdown.ones}<br />
       <b>✯✯: </b>{$highlighted_territories.info.starBreakdown.twos}<br />
       <b>✯✯✯: </b>{$highlighted_territories.info.starBreakdown.threes}<br />
