@@ -152,13 +152,17 @@
           return drawChaosLine(normalizeTerritoryName(obj.name));
         });
       }
-      document
-        .querySelector("#map")
-        .querySelector(`path#${terr.normalizedName}`).style.fill =
-        terr.primaryColor;
-      document
-        .querySelector("#map")
-        .querySelector(`path#${terr.normalizedName}`).info = terr;
+      try {
+        document
+          .querySelector("#map")
+          .querySelector(`path#${terr.normalizedName}`).style.fill =
+          terr.primaryColor;
+        document
+          .querySelector("#map")
+          .querySelector(`path#${terr.normalizedName}`).info = terr;
+      } catch {
+        console.log(`Couldn't find territory ${terr.normalizedName}`);
+      }
     });
     if ($highlighted_territories != null) {
       $highlighted_territories.style.fill =

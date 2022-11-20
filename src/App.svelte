@@ -92,7 +92,7 @@
   <div class="main-container">
     <Router {routes} />
   </div>
-  <Modal show={$modal} />
+  <Modal classWindow="modalWindow rainbowBorder" show={$modal} />
 </main>
 
 <style>
@@ -109,6 +109,7 @@
     --accent-bg: #ccc;
     --main-foreground-color: #ffffff;
     --main-background: rgba(45, 45, 50, 1);
+    --main-background-color: rgba(45, 45, 50, 1);
     --navbar-height: 50px;
     --itemHoverColor: #ffffff;
     --itemColor: #ffffff;
@@ -125,6 +126,7 @@
     --accent-bg: #fcfcfc;
     --main-foreground-color: #000;
     --main-background: #f9f9fb;
+    --main-background-color: #f9f9fb;
   }
 
   :global([data-image="true"]) {
@@ -347,5 +349,54 @@
     overflow: hidden;
     color: var(--main-foreground-color);
     margin-top: var(--navbar-height);
+  }
+
+  :global(.modalWindow) {
+    background: var(--main-background-color) !important;
+    color: var(--main-foreground-color) !important;
+    position: relative;
+    width: 40rem;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    --borderWidth: 3px;
+    border-radius: var(--borderWidth);
+  }
+
+  :global(.rainbowBorder:after) {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2.1);
+    background: linear-gradient(
+      60deg,
+      #f79533,
+      #f37055,
+      #ef4e7b,
+      #a166ab,
+      #5073b8,
+      #1098ad,
+      #07b39b,
+      #6fba82
+    );
+    border-radius: calc(2 * var(--borderWidth));
+    z-index: -1;
+    animation: animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+
+  @keyframes animatedgradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 </style>
