@@ -10,6 +10,7 @@
     "pretty": "prettier --write \"./**/*.{js,svelte,html,.css}\""
   },
   "devDependencies": {
+    "@a-luna/svelte-simple-tables": "^0.0.29",
     "@carbon/charts-svelte": "^1.1.0",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
