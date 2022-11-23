@@ -28,7 +28,7 @@
         joinableTeams.push(team);
       }
     }
-    joinableTeams.sort((p, a) => p.name > a.name);
+    joinableTeams.sort((b, a) => b.name.localeCompare(a.name));
     return joinableTeams;
   }
 

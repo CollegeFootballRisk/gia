@@ -80,7 +80,7 @@
   <div class="team-overflow">
     <div class="selectContainer">
       <Select
-        items={$teams.sort((a, b) => a.name > b.name)}
+        items={$teams.sort((b, a) => b.name.localeCompare(a.name))}
         on:select={handleSelect}
         {getSelectionLabel}
         {getOptionLabel}

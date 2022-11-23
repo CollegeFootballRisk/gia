@@ -76,7 +76,7 @@
   >
   {#if territoryCapture["defendable"].length > 0}
     <h3>Defend:</h3>
-    {#each territoryCapture["defendable"].sort((a, b) => a.name > b.name) as defendable}
+    {#each territoryCapture["defendable"].sort( (b, a) => b.name.localeCompare(a.name) ) as defendable}
       <input
         type="button"
         on:click={runAction}
@@ -90,7 +90,7 @@
 
   {#if territoryCapture["attackable"].length > 0}
     <h3>Attack:</h3>
-    {#each territoryCapture["attackable"].sort((a, b) => a.name > b.name) as attackable}
+    {#each territoryCapture["attackable"].sort( (b, a) => b.name.localeCompare(a.name) ) as attackable}
       <input
         type="button"
         on:click={runAction}

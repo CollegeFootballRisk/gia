@@ -108,11 +108,7 @@
         <center><h4>Neighbors</h4></center>
         <div style="width: 100%;max-height:20%;overflow:auto;">
           <ul>
-            {#each $highlighted_territories.info.attributeInformation.neighbors.sort( function (a, b) {
-                var textA = a.name.toUpperCase();
-                var textB = b.name.toUpperCase();
-                return textA < textB ? -1 : textA > textB ? 1 : 0;
-              } ) as neighbor}
+            {#each $highlighted_territories.info.attributeInformation.neighbors.sort( (b, a) => b.name.localeCompare(a.name) ) as neighbor}
               <li>
                 {neighbor.name}
               </li>
