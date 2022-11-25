@@ -186,7 +186,7 @@
           rows={player.turns}
           bind:sortBy
           bind:sortOrder
-          classNameTable={["table90 table-striped"]}
+          classNameTable={["table table-striped"]}
           classNameThead={["table-primary"]}
           classNameSelect={["custom-select"]}
         />
@@ -196,6 +196,9 @@
 {/await}
 
 <style>
+  :global(.table){
+    color: var(--main-foreground-color) !important;
+  }
   .lrow {
     display: flex;
     justify-content: center;
