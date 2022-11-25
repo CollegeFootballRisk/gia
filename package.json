@@ -4,7 +4,7 @@
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c; sh replace_trail.sh",
+    "build": "rollup -c; bash replace_trail.sh",
     "dev": "rollup -c -w",
     "start": "sirv public -s",
     "pretty": "prettier --write \"./**/*.{js,svelte,html,.css}\""
