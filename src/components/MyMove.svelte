@@ -45,6 +45,10 @@
         y.owner == $user.active_team.name &&
         s.findIndex((t) => t.name == y.name) === i
     );
+    attackable_territories = attackable_territories.filter(
+      (y, i, s) =>
+        s.findIndex((t) => t.name == y.name) === i
+    );
     return {
       attackable: attackable_territories,
       defendable: defendable_territories,
