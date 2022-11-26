@@ -51,6 +51,9 @@
     <div class="toggle-switch" />
     <span class="toggle-label">Opt-in to temporary experiments (e.g. bug fixes)</span>
   </label>
+  {#if ("WebkitTouchCallout" in document.body.style)}
+    CHROME ON ANDROID.
+  {/if}
   <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
 </div>
