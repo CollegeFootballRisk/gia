@@ -42,9 +42,11 @@
   var zooming = false;
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    window.maphandle.on("panstart", function () {
+    if(!"WebkitTouchCallout" in document.body.style){
+      window.maphandle.on("panstart", function () {
       lockClick = true;
-    });
+      });
+    }
     window.maphandle.on("panend", function () {
       lockClick = false;
     });
