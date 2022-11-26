@@ -5,10 +5,11 @@
   export let season;
   export let day;
   export let team;
+  import { settings } from "../state/settings";
   export var local_map_type;
   import SvelteTable from "svelte-table";
   import { getTeamOdds } from "../utils/loads";
-  import MapBase from "../components/MapBase.svelte";
+  import MapBase from "./MapBaseold.svelte";
   import {
     normalizeOdds,
     normalizeTerritoryName,
@@ -175,7 +176,7 @@
 
 <Sidebar flavor="odds" {team} passthrough_data={t_data} {finished_load} />
 <div class="map-container">
-  <div class="map-controls">
+  <div class="map-controls" {$settings.experiments && lockClick?'red':''}>
     <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
       <FontAwesomeIcon icon={faSearchPlus} />
     </button>
@@ -229,6 +230,10 @@
     transform: translate(-50%, 0%);
     z-index: 2;
     white-space: nowrap;
+  }
+
+  .red, .red button, .red label, .red select{
+    background: red !important;
   }
 
   .map-controls button,
