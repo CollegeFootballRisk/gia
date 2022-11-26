@@ -176,7 +176,7 @@
 
 <Sidebar flavor="odds" {team} passthrough_data={t_data} {finished_load} />
 <div class="map-container">
-  <div class="map-controls" {$settings.experiments && lockClick?'red':''}>
+  <div class="map-controls {$settings.experiments && lockClick?'red':''}">
     <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
       <FontAwesomeIcon icon={faSearchPlus} />
     </button>
