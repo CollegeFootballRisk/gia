@@ -213,9 +213,9 @@
     flex: 1;
     flex-basis: 33%;
   }
-  .lrowthin {
+  /*.lrowthin {
     width: 50%;
-  }
+  }*/
   h1 {
     padding-top: 10px;
     font-size: 2em;

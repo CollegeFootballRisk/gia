@@ -56,6 +56,20 @@
     map.addEventListener("click", handleMouseOver, false);
     map.addEventListener("touchstart", handleMouseOverPrevention, false);
     map.addEventListener("touchend", handleMouseOver, false);
+    // We add this as a test for Chrome Android
+    if(/Android|Opera Mini/i.test(navigator.userAgent)){
+      let territoryHooks = document
+        .querySelector("#map")
+        .querySelector("#Territories")
+        .querySelectorAll("path");
+      territoryHooks.forEach((el) => {
+        el.addEventListener("mouseover", handleMouseOver, false);
+        el.addEventListener("mouseout", handleMouseOver, false);
+        el.addEventListener("click", handleMouseOver, false);
+        el.addEventListener("touchstart", handleMouseOverPrevention, false);
+        el.addEventListener("touchend", handleMouseOver, false);
+      });
+    }
   });
 
   function handleWindowKeyDown(event) {
@@ -245,7 +259,7 @@
 
 <Sidebar />
 <div class="map-container">
-  <div class="map-controls">
+  <div class="map-controls {$settings.experiments && lockClick?'red':''}">
     {#if $prompt_move}
       <center class="note"
         >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
@@ -353,6 +367,10 @@
     transform: translate(-50%, 0%);
     z-index: 2;
     white-space: nowrap;
+  }
+
+  .red, .red button, .red label, .red select{
+    background: red !important;
   }
 
   .map-controls button,
