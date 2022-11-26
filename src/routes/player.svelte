@@ -122,11 +122,11 @@
         <div class="lrow lrowthin">
           {#each player.awards as award}
             <div class="lcol">
-              {#if award.name == "Developer"}
+              {#if award.name == "Dev"}
                 <b title={award.info}
                   ><FontAwesomeIcon icon={faJedi} />&nbsp; {award.name}</b
                 >
-              {:else if award.name == "Moderator"}
+              {:else if award.name == "Mod"}
                 <b title={award.info}
                   ><FontAwesomeIcon icon={faShield} />&nbsp; {award.name}</b
                 >
