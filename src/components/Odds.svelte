@@ -51,7 +51,7 @@
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    if(!("WebkitTouchCallout" in document.body.style) && $settings.experiments){
+    if(!$settings.experiments){
       window.maphandle.on("panstart", function () {
       lockClick = true;
       });
