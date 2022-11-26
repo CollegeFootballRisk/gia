@@ -51,9 +51,11 @@
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    window.maphandle.on("panstart", function () {
+    if(!/Android|Opera Mini/i.test(navigator.userAgent)){
+      window.maphandle.on("panstart", function () {
       lockClick = true;
-    });
+      });
+    }
     window.maphandle.on("panend", function () {
       lockClick = false;
     });
