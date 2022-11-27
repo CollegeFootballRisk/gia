@@ -89,6 +89,7 @@
     if (e.touches.length > 1) {
       zooming = true;
     } else {
+      e.preventDefault();
       zooming = false;
     }
   }

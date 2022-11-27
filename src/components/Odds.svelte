@@ -9,7 +9,7 @@
   export var local_map_type;
   import SvelteTable from "svelte-table";
   import { getTeamOdds } from "../utils/loads";
-  import MapBase from "./MapBaseold.svelte";
+  import MapBase from "./MapBase.svelte";
   import {
     normalizeOdds,
     normalizeTerritoryName,
@@ -92,6 +92,7 @@
     if (e.touches.length > 1) {
       zooming = true;
     } else {
+      e.preventDefault();
       zooming = false;
     }
   }
