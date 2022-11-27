@@ -51,24 +51,33 @@
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    if(!$settings.experiments){
+    if(!$settings.dont_check_map_lock || (navigator.userAgent.indexOf('Android') != -1 && navigator.userAgent.indexOf('Chrome') != -1)){
       window.maphandle.on("panstart", function () {
       lockClick = true;
       });
-    }
-    window.maphandle.on("panend", function () {
-      lockClick = false;
-    });
-    let territoryHooks = document
+      let territoryHooks = document
       .querySelector("#map")
       .querySelector("#Territories")
       .querySelectorAll("path");
     territoryHooks.forEach((el) => {
-      el.addEventListener("mouseover", handleMouseOver, false);
-      el.addEventListener("mouseout", handleMouseOver, false);
-      el.addEventListener("click", handleMouseOver, false);
+      el.addEventListener("mouseover", handleMouseOverAndroid, false);
+      el.addEventListener("mouseout", handleMouseOverAndroid, false);
+      el.addEventListener("click", handleMouseOverAndroid, false);
       el.addEventListener("touchstart", handleMouseOverPrevention, false);
-      el.addEventListener("touchend", handleMouseOver, false);
+      el.addEventListener("touchend", handleMouseOverAndroid, false);
+    });
+    } else {
+      let map = document.querySelector("#map");
+      map.addEventListener("click", handleMouseOver, false);
+      map.addEventListener("mouseover", handleMouseOver, false);
+      map.addEventListener("mouseout", handleMouseOver, false);
+      map.addEventListener("click", handleMouseOver, false);
+      map.addEventListener("touchstart", handleMouseOverPrevention, false);
+      map.addEventListener("touchend", handleMouseOver, false);
+    }
+
+    window.maphandle.on("panend", function () {
+      lockClick = false;
     });
     document.addEventListener("keydown", handleWindowKeyDown);
   });
@@ -92,6 +101,52 @@
   }
 
   function handleMouseOver(e) {
+    if (
+      !lockClick &&
+      (e.type == "click" || (e.type == "touchend" && !zooming)) &&
+      $lock_highlighted &&
+      e.target == document.getElementById("map")
+    ) {
+      lock_highlighted.set(false);
+      $highlighted_territories.style.fill =
+        $highlighted_territories.info.primaryColor;
+      highlighted_territories.set(null);
+      return;
+    }
+    if (e.target.info == undefined) return;
+    if (e.type == "mouseover") {
+      if ($lock_highlighted) return;
+      e.target.style.fill = e.target.info.secondaryColor;
+      highlighted_territories.set(e.target);
+    } else if (e.type == "mouseout") {
+      if ($lock_highlighted) return;
+      e.target.style.fill = e.target.info.primaryColor;
+      highlighted_territories.set(null);
+    } else if (
+      !lockClick &&
+      (e.type == "click" || (e.type == "touchend" && !zooming))
+    ) {
+      if ($highlighted_territories != null) {
+        $highlighted_territories.style.fill =
+          $highlighted_territories.info.primaryColor;
+      }
+      sidebarOpen.set(true);
+      lock_highlighted.set(true);
+      if (e.type == "touchend") {
+        var changedTouch = e.changedTouches[0];
+        var elem = document.elementFromPoint(
+          changedTouch.clientX,
+          changedTouch.clientY
+        );
+      } else {
+        var elem = e.target;
+      }
+      elem.style.fill = elem.info.secondaryColor;
+      highlighted_territories.set(elem);
+    }
+  }
+
+  function handleMouseOverAndroid(e) {
     if (e.target.info == undefined) return;
     if (e.type == "mouseover") {
       if ($lock_highlighted) return;
@@ -178,7 +233,7 @@
 
 <Sidebar flavor="odds" {team} passthrough_data={t_data} {finished_load} />
 <div class="map-container">
-  <div class="map-controls {$settings.experiments && lockClick?'red':''}">
+  <div class="map-controls">
     <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
       <FontAwesomeIcon icon={faSearchPlus} />
     </button>
@@ -232,10 +287,6 @@
     transform: translate(-50%, 0%);
     z-index: 2;
     white-space: nowrap;
-  }
-
-  .red, .red button, .red label, .red select{
-    background: red !important;
   }
 
   .map-controls button,

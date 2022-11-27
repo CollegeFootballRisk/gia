@@ -44,6 +44,16 @@
   <hr />
   <label class="toggle">
     <input
+      bind:checked={$settings.dont_check_map_lock}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label">Make the map more sensitive (helpful on Android devices).</span>
+  </label>
+  <hr />
+  <label class="toggle">
+    <input
       bind:checked={$settings.experiments}
       class="toggle-checkbox"
       type="checkbox"
@@ -51,9 +61,6 @@
     <div class="toggle-switch" />
     <span class="toggle-label">Opt-in to temporary experiments (e.g. bug fixes)</span>
   </label>
-  {#if ("WebkitTouchCallout" in document.body.style)}
-    CHROME ON ANDROID.
-  {/if}
   <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
 </div>

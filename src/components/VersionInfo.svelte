@@ -10,5 +10,5 @@
   Gia (Frontend) Version: {pkg.version}<br />
   Rust-Risk (Backend) Version: UNKNOWN<br />
   Browser Version: {navigator.userAgent} from {navigator.vendor} <br/>
-  Android: {(typeof window.Android === "undefined")?'false':'true'}
+  Chrome on Android: {(navigator.userAgent.indexOf('Android') != -1 && navigator.userAgent.indexOf('Chrome') != -1)?'false':'true'}
 </p>

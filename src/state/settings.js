@@ -2,6 +2,7 @@ export const settings = writable("settings", {
   lightmode: false,
   images: false,
   prompt_move: true,
+  dont_check_map_lock: false,
   experiments: false,
 });
 import { writable } from "svelte-local-storage-store";
