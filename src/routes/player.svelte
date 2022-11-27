@@ -196,7 +196,7 @@
 {/await}
 
 <style>
-  :global(.table){
+  :global(.table) {
     color: var(--main-foreground-color) !important;
   }
   .lrow {

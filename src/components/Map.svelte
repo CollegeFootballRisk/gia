@@ -42,9 +42,13 @@
   var zooming = false;
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    if($settings.dont_check_map_lock || (navigator.userAgent.indexOf('Android') != -1 && navigator.userAgent.indexOf('Chrome') != -1)){
+    if (
+      $settings.dont_check_map_lock ||
+      (navigator.userAgent.indexOf("Android") != -1 &&
+        navigator.userAgent.indexOf("Chrome") != -1)
+    ) {
       window.maphandle.on("panstart", function () {
-      lockClick = true;
+        lockClick = true;
       });
       let territoryHooks = document
         .querySelector("#map")

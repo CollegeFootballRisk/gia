@@ -46,8 +46,7 @@
         s.findIndex((t) => t.name == y.name) === i
     );
     attackable_territories = attackable_territories.filter(
-      (y, i, s) =>
-        s.findIndex((t) => t.name == y.name) === i
+      (y, i, s) => s.findIndex((t) => t.name == y.name) === i
     );
     return {
       attackable: attackable_territories,

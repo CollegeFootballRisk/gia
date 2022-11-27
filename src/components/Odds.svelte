@@ -51,21 +51,25 @@
   const showLeaderboard = () => modal.set(bind(Leaderboard));
   onMount(() => {
     window.maphandle = Panzoom(document.getElementById("map"));
-    if($settings.dont_check_map_lock || (navigator.userAgent.indexOf('Android') != -1 && navigator.userAgent.indexOf('Chrome') != -1)){
+    if (
+      $settings.dont_check_map_lock ||
+      (navigator.userAgent.indexOf("Android") != -1 &&
+        navigator.userAgent.indexOf("Chrome") != -1)
+    ) {
       window.maphandle.on("panstart", function () {
-      lockClick = true;
+        lockClick = true;
       });
       let territoryHooks = document
-      .querySelector("#map")
-      .querySelector("#Territories")
-      .querySelectorAll("path");
-    territoryHooks.forEach((el) => {
-      el.addEventListener("mouseover", handleMouseOverAndroid, false);
-      el.addEventListener("mouseout", handleMouseOverAndroid, false);
-      el.addEventListener("click", handleMouseOverAndroid, false);
-      el.addEventListener("touchstart", handleMouseOverPrevention, false);
-      el.addEventListener("touchend", handleMouseOverAndroid, false);
-    });
+        .querySelector("#map")
+        .querySelector("#Territories")
+        .querySelectorAll("path");
+      territoryHooks.forEach((el) => {
+        el.addEventListener("mouseover", handleMouseOverAndroid, false);
+        el.addEventListener("mouseout", handleMouseOverAndroid, false);
+        el.addEventListener("click", handleMouseOverAndroid, false);
+        el.addEventListener("touchstart", handleMouseOverPrevention, false);
+        el.addEventListener("touchend", handleMouseOverAndroid, false);
+      });
     } else {
       let map = document.querySelector("#map");
       map.addEventListener("click", handleMouseOver, false);

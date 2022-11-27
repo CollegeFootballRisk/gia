@@ -49,7 +49,9 @@
       type="checkbox"
     />
     <div class="toggle-switch" />
-    <span class="toggle-label">Make the map more sensitive (helpful on Android devices).</span>
+    <span class="toggle-label"
+      >Make the map more sensitive (helpful on Android devices).</span
+    >
   </label>
   <hr />
   <label class="toggle">
@@ -59,7 +61,9 @@
       type="checkbox"
     />
     <div class="toggle-switch" />
-    <span class="toggle-label">Opt-in to temporary experiments (e.g. bug fixes)</span>
+    <span class="toggle-label"
+      >Opt-in to temporary experiments (e.g. bug fixes)</span
+    >
   </label>
   <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
