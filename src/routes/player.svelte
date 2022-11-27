@@ -182,7 +182,7 @@
       <br />
       <div class="player">
         <SvelteTable
-          columns={cols.sort((a,b) => a.id > b.id)}
+          columns={cols.sort((a,b) => (a.season > b.season) && (a.day > a.day))}
           rows={player.turns}
           bind:sortBy
           bind:sortOrder
