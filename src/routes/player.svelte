@@ -20,7 +20,7 @@
   console.log(currentRoute);
   var playerLoad = getPlayer(currentRoute.namedParams.player);
   let sortBy = "season";
-  let sortOrder = 1;
+  let sortOrder = 0;
   let selectedCols = ["season", "day", "stars", "territory", "team", "mvp"];
   const COLUMNS = {
     season: {
@@ -182,7 +182,7 @@
       <br />
       <div class="player">
         <SvelteTable
-          columns={cols.sort((a,b) => (a.season > b.season) && (a.day > a.day))}
+          columns={cols}
           rows={player.turns}
           bind:sortBy
           bind:sortOrder
