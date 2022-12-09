@@ -5,7 +5,16 @@
   import { runAction } from "../utils/actions";
   export let territoryInfo;
   async function getMove() {
-    return await fetch("/auth/my_move").then((response) => {
+    return await fetch("/auth/my_move",
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: null
+    }
+    ).then((response) => {
       if (response.ok) return response.text();
       return "";
     });

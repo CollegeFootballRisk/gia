@@ -36,9 +36,21 @@ export async function runAction(move_to) {
     );
   }
   let promised = await fetch(
-    `/auth/move?target=${terr_id}&aon=${aon_choice}&timestamp=${new Date().valueOf()}`
+    `/auth/move`,
+    {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({target: parseInt(terr_id), aon: aon_choice, timestamp: new Date().valueOf()})
+    }
   );
   if (promised.ok) {
+    var summativeHistory = localStorage.getItem('moveHistory');
+    let num = await promised.text();
+    if(summativeHistory === null){summativeHistory = "//"};
+    localStorage.setItem('moveHistory',  summativeHistory +  "\n@"+Date.now() +"-" + terr_name + ":" + num);
     prompt_move.set(false);
     modal.set(
       bind(Popup, {
@@ -48,6 +60,10 @@ export async function runAction(move_to) {
       })
     );
   } else {
+    var summativeHistory = localStorage.getItem('moveHistory');
+    let num = await promised.status;
+    if(summativeHistory === null){summativeHistory = "//"};
+    localStorage.setItem('moveHistory',  summativeHistory + "\n@"+Date.now() +"ERR" + terr_name + " CODE :" + num);
     modal.set(
       bind(Popup, {
         title: `Move Failed to Submit`,

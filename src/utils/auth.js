@@ -23,7 +23,15 @@ export async function isLoggedIn(userv) {
 
 // Returns user's move
 export async function getMove() {
-  let get = await fetch(`${base_url}/auth/my_move`);
+  let get = await fetch(`${base_url}/auth/my_move`,
+  {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: null
+  });
   let text = await get.text();
   if (get.ok) {
     if (text == "") {
