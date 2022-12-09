@@ -2,9 +2,9 @@
   import Select from "svelte-select";
   import SvelteTable from "svelte-table";
   import { Line } from "svelte-chartjs";
-  import { getTeam } from "../utils/loads";
   import Loader from "../components/Loader.svelte";
-  import { normalizeTeamName } from "../utils/normalization";
+  import { getTeam } from "../utils/loads";
+  import { getTurnInfo, normalizeTeamName } from "../utils/normalization";
   import PlayerTime from "../components/PlayerTime.svelte";
   import PlayerChart from "../components/PlayerChart.svelte";
   import { teams } from "../state/state";
@@ -69,6 +69,8 @@
   }
 
   $: cols2 = selectedCols2.map((key) => COLUMNS2[key]);
+
+  let get_latest = getTurnInfo(null);
 </script>
 
 {#await teamLoad}
@@ -117,18 +119,22 @@
         </div>
       </div>
       <br />
+      {#await get_latest}
+      <Loader/>
+      {:then latest}
       <div class="lrow">
         <div class="lcol2">
           <h3>Player Stars:</h3>
           <br />
-          <PlayerTime season="2" extern_data={team.teamData} />
+          <PlayerTime season={latest.season} extern_data={team.teamData} />
         </div>
         <div class="lcol2">
           <h3>Star Power:</h3>
           <br />
-          <PlayerChart season="2" extern_data={team.teamData} />
+          <PlayerChart season={latest.season} extern_data={team.teamData} />
         </div>
       </div>
+      {/await}
       <br /><br />
       <div class="lrow">
         <div class="lcol2">
