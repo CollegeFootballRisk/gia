@@ -41,7 +41,6 @@
   var lockClick = false;
   var zooming = false;
   onMount(() => {
-    window.maphandle = Panzoom(document.getElementById("map"));
     if (
       $settings.dont_check_map_lock ||
       (navigator.userAgent.indexOf("Android") != -1 &&
@@ -59,7 +58,7 @@
         el.addEventListener("mouseout", handleMouseOverAndroid, false);
         el.addEventListener("click", handleMouseOverAndroid, false);
         el.addEventListener("touchstart", handleMouseOverPrevention, false);
-        el.addEventListener("touchend", handleMouseOverAndroid, false);
+        el.addEventListener("touchend touchcancel", handleMouseOverAndroid, false);
       });
     } else {
       let map = document.querySelector("#map");
@@ -68,13 +67,14 @@
       map.addEventListener("mouseout", handleMouseOver, false);
       map.addEventListener("click", handleMouseOver, false);
       map.addEventListener("touchstart", handleMouseOverPrevention, false);
-      map.addEventListener("touchend", handleMouseOver, false);
+      map.addEventListener("touchend touchcancel", handleMouseOver, false);
     }
 
     window.maphandle.on("panend", function () {
       lockClick = false;
     });
     document.addEventListener("keydown", handleWindowKeyDown);
+    window.maphandle = Panzoom(document.getElementById("map"));
   });
 
   function handleWindowKeyDown(event) {
