@@ -59,7 +59,7 @@
         el.addEventListener("mouseout", handleMouseOverAndroid, false);
         el.addEventListener("click", handleMouseOverAndroid, false);
         el.addEventListener("touchstart", handleMouseOverPrevention, false);
-        el.addEventListener("touchend touchcancel", handleMouseOverAndroid, false);
+        el.addEventListener("touchend", handleMouseOverAndroid, false);
       });
     } else {
       let map = document.querySelector("#map");
@@ -68,7 +68,7 @@
       map.addEventListener("mouseout", handleMouseOver, false);
       map.addEventListener("click", handleMouseOver, false);
       map.addEventListener("touchstart", handleMouseOverPrevention, false);
-      map.addEventListener("touchend touchcancel", handleMouseOver, false);
+      map.addEventListener("touchend", handleMouseOver, false);
     }
 
     window.maphandle.on("panend", function () {
