@@ -41,6 +41,7 @@
   var lockClick = false;
   var zooming = false;
   onMount(() => {
+    window.maphandle = Panzoom(document.getElementById("map"));
     if (
       $settings.dont_check_map_lock ||
       (navigator.userAgent.indexOf("Android") != -1 &&
@@ -74,7 +75,6 @@
       lockClick = false;
     });
     document.addEventListener("keydown", handleWindowKeyDown);
-    window.maphandle = Panzoom(document.getElementById("map"));
   });
 
   function handleWindowKeyDown(event) {
