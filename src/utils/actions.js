@@ -35,22 +35,28 @@ export async function runAction(move_to) {
       "Press Ok to wager All or Nothing, or Cancel to submit a regular move."
     );
   }
-  let promised = await fetch(
-    `/auth/move`,
-    {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({target: parseInt(terr_id), aon: aon_choice, timestamp: new Date().valueOf()})
-    }
-  );
+  let promised = await fetch(`/auth/move`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      target: parseInt(terr_id),
+      aon: aon_choice,
+      timestamp: new Date().valueOf(),
+    }),
+  });
   if (promised.ok) {
-    var summativeHistory = localStorage.getItem('moveHistory');
+    var summativeHistory = localStorage.getItem("moveHistory");
     let num = await promised.text();
-    if(summativeHistory === null){summativeHistory = "//"};
-    localStorage.setItem('moveHistory',  summativeHistory +  "\n@"+Date.now() +"-" + terr_name + ":" + num);
+    if (summativeHistory === null) {
+      summativeHistory = "//";
+    }
+    localStorage.setItem(
+      "moveHistory",
+      summativeHistory + "\n@" + Date.now() + "-" + terr_name + ":" + num
+    );
     prompt_move.set(false);
     modal.set(
       bind(Popup, {
@@ -60,10 +66,21 @@ export async function runAction(move_to) {
       })
     );
   } else {
-    var summativeHistory = localStorage.getItem('moveHistory');
+    var summativeHistory = localStorage.getItem("moveHistory");
     let num = await promised.status;
-    if(summativeHistory === null){summativeHistory = "//"};
-    localStorage.setItem('moveHistory',  summativeHistory + "\n@"+Date.now() +"ERR" + terr_name + " CODE :" + num);
+    if (summativeHistory === null) {
+      summativeHistory = "//";
+    }
+    localStorage.setItem(
+      "moveHistory",
+      summativeHistory +
+        "\n@" +
+        Date.now() +
+        "ERR" +
+        terr_name +
+        " CODE :" +
+        num
+    );
     modal.set(
       bind(Popup, {
         title: `Move Failed to Submit`,

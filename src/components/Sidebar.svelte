@@ -166,18 +166,20 @@
         href="/player/{encodeURIComponent($highlighted_territories.info.mvp)}"
         >{$highlighted_territories.info.mvp}</a
       ><br />
-      <b>✯: </b>{$highlighted_territories.info.starBreakdown.ones}<br />
-      <b>✯✯: </b>{$highlighted_territories.info.starBreakdown.twos}<br />
-      <b>✯✯✯: </b>{$highlighted_territories.info.starBreakdown.threes}<br />
-      <b>✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fours}<br />
-      <b>✯✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fives}<br />
-      <b>Team Power: </b>{$highlighted_territories.info.teamPower}<br />
-      <b>Territory Power: </b>{$highlighted_territories.info.territoryPower}<br
-      />
-      <b>Chance: </b>{(100 * $highlighted_territories.info.chance).toFixed(
-        2
-      )}%<br />
-      <hr />
+      {#if $highlighted_territories.info.starBreakdown != null}
+        <b>✯: </b>{$highlighted_territories.info.starBreakdown.ones}<br />
+        <b>✯✯: </b>{$highlighted_territories.info.starBreakdown.twos}<br />
+        <b>✯✯✯: </b>{$highlighted_territories.info.starBreakdown.threes}<br />
+        <b>✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fours}<br />
+        <b>✯✯✯✯✯: </b>{$highlighted_territories.info.starBreakdown.fives}<br />
+        <b>Team Power: </b>{$highlighted_territories.info.teamPower}<br />
+        <b>Territory Power: </b>{$highlighted_territories.info
+          .territoryPower}<br />
+        <b>Chance: </b>{(100 * $highlighted_territories.info.chance).toFixed(
+          2
+        )}%<br />
+        <hr />
+      {/if}
     {/if}
   {/if}
 </div>

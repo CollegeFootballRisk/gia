@@ -120,20 +120,20 @@
       </div>
       <br />
       {#await get_latest}
-      <Loader/>
+        <Loader />
       {:then latest}
-      <div class="lrow">
-        <div class="lcol2">
-          <h3>Player Stars:</h3>
-          <br />
-          <PlayerTime season={latest.season} extern_data={team.teamData} />
+        <div class="lrow">
+          <div class="lcol2">
+            <h3>Player Stars:</h3>
+            <br />
+            <PlayerTime season={latest.season} extern_data={team.teamData} />
+          </div>
+          <div class="lcol2">
+            <h3>Star Power:</h3>
+            <br />
+            <PlayerChart season={latest.season} extern_data={team.teamData} />
+          </div>
         </div>
-        <div class="lcol2">
-          <h3>Star Power:</h3>
-          <br />
-          <PlayerChart season={latest.season} extern_data={team.teamData} />
-        </div>
-      </div>
       {/await}
       <br /><br />
       <div class="lrow">

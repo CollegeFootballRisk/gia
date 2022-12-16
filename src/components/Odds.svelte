@@ -1,13 +1,10 @@
 <script>
-  import { dataset_dev, onDestroy, onMount } from "svelte/internal";
+  import { onDestroy, onMount } from "svelte/internal";
   import Sidebar from "./Sidebar.svelte";
-  import Panzoom from "panzoom";
   export let season;
   export let day;
   export let team;
-  import { settings } from "../state/settings";
   export var local_map_type;
-  import SvelteTable from "svelte-table";
   import { getTeamOdds } from "../utils/loads";
   import MapBase from "./MapBase.svelte";
   import {
@@ -27,10 +24,12 @@
     modal,
     sidebarOpen,
   } from "../state/state.js";
+  import { setupMapPanZoom } from "../utils/map";
   var lockClick = false;
   var zooming = false;
   var t_data;
   var finished_load = false;
+
   async function doNext(season, day, team) {
     t_data = null;
     finished_load = false;
@@ -48,54 +47,16 @@
   $: waitKey = doNext(season, day, team);
 
   $: recolorMap(t_data, local_map_type);
-  const showLeaderboard = () => modal.set(bind(Leaderboard));
-  onMount(() => {
-    window.maphandle = Panzoom(document.getElementById("map"));
-    if (
-      $settings.dont_check_map_lock ||
-      (navigator.userAgent.indexOf("Android") != -1 &&
-        navigator.userAgent.indexOf("Chrome") != -1)
-    ) {
-      window.maphandle.on("panstart", function () {
-        lockClick = true;
-      });
-      let territoryHooks = document
-        .querySelector("#map")
-        .querySelector("#Territories")
-        .querySelectorAll("path");
-      territoryHooks.forEach((el) => {
-        el.addEventListener("mouseover", handleMouseOverAndroid, false);
-        el.addEventListener("mouseout", handleMouseOverAndroid, false);
-        el.addEventListener("click", handleMouseOverAndroid, false);
-        el.addEventListener("touchstart", handleMouseOverPrevention, false);
-        el.addEventListener("touchend", handleMouseOverAndroid, false);
-      });
-    } else {
-      let map = document.querySelector("#map");
-      map.addEventListener("click", handleMouseOver, false);
-      map.addEventListener("mouseover", handleMouseOver, false);
-      map.addEventListener("mouseout", handleMouseOver, false);
-      map.addEventListener("click", handleMouseOver, false);
-      map.addEventListener("touchstart", handleMouseOverPrevention, false);
-      map.addEventListener("touchend", handleMouseOver, false);
-    }
 
+  onMount(() => {
+    setupMapPanZoom(handleMouseOver, handleWindowKeyDown);
     window.maphandle.on("panend", function () {
       lockClick = false;
     });
-    document.addEventListener("keydown", handleWindowKeyDown);
   });
   onDestroy(() => {
     highlighted_territories.set(null);
   });
-  function handleMouseOverPrevention(e) {
-    if (e.touches.length > 1) {
-      zooming = true;
-    } else {
-      e.preventDefault();
-      zooming = false;
-    }
-  }
 
   function handleWindowKeyDown(event) {
     if (event.key === "Escape") {
@@ -118,40 +79,6 @@
       highlighted_territories.set(null);
       return;
     }
-    if (e.target.info == undefined) return;
-    if (e.type == "mouseover") {
-      if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.secondaryColor;
-      highlighted_territories.set(e.target);
-    } else if (e.type == "mouseout") {
-      if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.primaryColor;
-      highlighted_territories.set(null);
-    } else if (
-      !lockClick &&
-      (e.type == "click" || (e.type == "touchend" && !zooming))
-    ) {
-      if ($highlighted_territories != null) {
-        $highlighted_territories.style.fill =
-          $highlighted_territories.info.primaryColor;
-      }
-      sidebarOpen.set(true);
-      lock_highlighted.set(true);
-      if (e.type == "touchend") {
-        var changedTouch = e.changedTouches[0];
-        var elem = document.elementFromPoint(
-          changedTouch.clientX,
-          changedTouch.clientY
-        );
-      } else {
-        var elem = e.target;
-      }
-      elem.style.fill = elem.info.secondaryColor;
-      highlighted_territories.set(elem);
-    }
-  }
-
-  function handleMouseOverAndroid(e) {
     if (e.target.info == undefined) return;
     if (e.type == "mouseover") {
       if ($lock_highlighted) return;
