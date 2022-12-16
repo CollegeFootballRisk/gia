@@ -1,77 +1,121 @@
-<script>
-  import SvelteTable from "svelte-table";
-  import { getLeaderboard } from "../utils/loads";
+<script lang="ts">
+  //TODO : Add PPP back...
+  //value: (v) => (v.starPower / (v.mercCount + v.playerCount)).toFixed(2),
+  import SimpleTable from "@a-luna/svelte-simple-tables";
+  import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
+  import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
   import Loader from "./Loader.svelte";
   import { turn } from "../state/state.js";
-  let sortBy = "rank";
-  let sortOrder = 1;
-  let selectedCols = [
-    "rank",
-    "name",
-    "territories",
-    "team_players",
-    "mercenaries",
-    "star_power",
-    "efficiency",
-    "ppp",
-  ];
-  const COLUMNS = {
-    rank: { key: "rank", title: "Rank", value: (v) => v.rank, sortable: true },
-    name: { key: "name", title: "Team", value: (v) => v.name, sortable: true },
-    territories: {
-      key: "territories",
-      title: "Territories",
-      value: (v) => v.territoryCount,
-      sortable: true,
-    },
-    team_players: {
-      key: "team_players",
-      title: "Players",
-      value: (v) => v.playerCount,
-      sortable: true,
-    },
-    mercenaries: {
-      key: "mercenaries",
-      title: "Mercenaries",
-      value: (v) => v.mercCount,
-      sortable: true,
-    },
-    star_power: {
-      key: "star_power",
-      title: "Star Power",
-      value: (v) => (v.starPower == null ? 0 : v.starPower),
-      sortable: true,
-    },
-    efficiency: {
-      key: "efficiency",
-      title: "Efficiency",
-      value: (v) => (v.efficiency == null ? "0.00" : v.efficiency.toFixed(2)),
-      sortable: true,
-    },
-    ppp: {
-      key: "ppp",
-      title: "PPP",
-      value: (v) => (v.starPower / (v.mercCount + v.playerCount)).toFixed(2),
-      sortable: true,
-    },
+
+  import { getTurnInfo } from "../utils/normalization.js";
+  import { base_url } from "../utils/loads";
+  import { settings } from "../state/settings";
+
+  // Returns Leaderboard data for turn
+  export async function getLeaderboard(turn): Promise<Lboard[]> {
+    let turnData = await getTurnInfo(turn);
+    let get = await fetch(
+      `${base_url}/api/stats/leaderboard${
+        turn == null ? "" : `?season=${turnData.season}&day=${turnData.day + 1}`
+      }`
+    );
+    let json: Lboard[] = await get.json();
+
+    if (get.ok) {
+      return json;
+    } else {
+      throw new Error("Error fetching leaderboard.");
+    }
+  }
+  const teamLink = (v: Lboard): string =>
+    `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+      v.name
+    )}">${v.name}</a>`;
+
+  const formatPower = (v: Lboard): string =>
+    v.starPower == null ? "0" : v.starPower.toString();
+  const formatEff = (v: Lboard): string =>
+    v.efficiency == null ? "0.00" : v.efficiency.toFixed(2);
+
+  interface Lboard {
+    rank: number;
+    name: string;
+    logo: string;
+    territoryCount: number;
+    playerCount: number;
+    mercCount: number;
+    starPower: number;
+    efficiency: number;
+  }
+
+  const tableSettings: TableSettings<Lboard> = {
+    tableId: "pfx",
+    themeName: $settings.lightmode ? "light" : "dark",
+    showHeader: true,
+    header: "Leaderboard",
+    showSortDescription: true,
+    sortBy: "rank",
+    sortType: "number",
+    sortDir: "asc",
+    tableWrapper: true,
+    clickableRows: false,
+    animateSorting: false,
+    paginated: true,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 15, 20, 25],
+    pageRangeFormat: "compact",
+    pageNavFormat: "compact",
   };
+
+  const columnSettings: ColumnSettings<Lboard>[] = [
+    {
+      propName: "rank",
+      tooltip: "Rank",
+      classList: ["text-left"],
+    },
+    {
+      propName: "name",
+      headerText: "Team",
+      tooltip: "Team Name",
+      classList: ["text-center"],
+      colValue: teamLink,
+    },
+    {
+      propName: "playerCount",
+      headerText: "Player Count",
+      tooltip: "Number of players on team",
+    },
+    {
+      propName: "territoryCount",
+      headerText: "Territories",
+      tooltip: "Number of territories won by team",
+    },
+    {
+      propName: "mercCount",
+      headerText: "Mercenaries",
+      tooltip: "Number of mercenaries on the team",
+    },
+    {
+      propName: "starPower",
+      headerText: "Speed",
+      tooltip: "Team's total star power",
+      colValue: formatPower,
+    },
+    {
+      propName: "efficiency",
+      headerText: "Efficiency",
+      tooltip: "Team Efficiency",
+      colValue: formatEff,
+    },
+  ];
   let data = getLeaderboard($turn);
-  $: cols = selectedCols.map((key) => COLUMNS[key]);
 </script>
 
 <h1>Leaderboard</h1>
 {#await data}
   <Loader />
 {:then data_json}
-  <SvelteTable
-    columns={cols}
-    rows={data_json}
-    bind:sortBy
-    bind:sortOrder
-    classNameTable={["table table-striped"]}
-    classNameThead={["table-primary"]}
-    classNameSelect={["custom-select"]}
-  />
+  <SimpleTable data={data_json} {columnSettings} {tableSettings} />
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}

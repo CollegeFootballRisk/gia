@@ -17,7 +17,7 @@
 
   import { settings } from "../state/settings";
 
-  import Panzoom from "panzoom";
+  import panzoom from "panzoom";
   import MapBase from "./MapBase.svelte";
   import Modal, { bind } from "svelte-simple-modal";
   import Leaderboard from "./Leaderboard.svelte";
@@ -40,9 +40,28 @@
   import Clock from "./Clock.svelte";
   var lockClick = false;
   var zooming = false;
+  let panzoomOptions = {
+    maxZoom: 10,
+    minZoom: 0.5,
+    initialZoom: 1,
+    zoomDoubleClickSpeed: 1,
+    bounds: true,
+    boundsPadding: 0.01,
+    autocenter: true,
+    onClick: handleMouseOver
+    // beforeMouseDown: (e) => {
+    //   return !e.altKey;
+    // },
+  };
+
   onMount(() => {
-    window.maphandle = Panzoom(document.getElementById("map"));
-    if (
+    window.maphandle= panzoom(document.getElementById("map"),panzoomOptions);
+    /*window.maphandle = Panzoom(document.getElementById("map"),
+    {
+      onClick: handleMouseOver,
+    }
+    );*/
+   /* if (
       $settings.dont_check_map_lock ||
       (navigator.userAgent.indexOf("Android") != -1 &&
         navigator.userAgent.indexOf("Chrome") != -1)
@@ -61,15 +80,15 @@
         el.addEventListener("touchstart", handleMouseOverPrevention, false);
         el.addEventListener("touchend", handleMouseOverAndroid, false);
       });
-    } else {
+    } else {*/
       let map = document.querySelector("#map");
       map.addEventListener("click", handleMouseOver, false);
       map.addEventListener("mouseover", handleMouseOver, false);
       map.addEventListener("mouseout", handleMouseOver, false);
       map.addEventListener("click", handleMouseOver, false);
-      map.addEventListener("touchstart", handleMouseOverPrevention, false);
-      map.addEventListener("touchend", handleMouseOver, false);
-    }
+      //map.addEventListener("touchstart", handleMouseOverPrevention, false);
+     // map.addEventListener("touchend", handleMouseOver, false);
+   // }
 
     window.maphandle.on("panend", function () {
       lockClick = false;
@@ -97,7 +116,7 @@
   function handleMouseOver(e) {
     if (
       !lockClick &&
-      (e.type == "click" || (e.type == "touchend" && !zooming)) &&
+      (e.type == "click" ||e.type == "touchend" ||(e.type == "touchend" && !zooming)) &&
       $lock_highlighted &&
       e.target == document.getElementById("map")
     ) {
@@ -118,7 +137,7 @@
       highlighted_territories.set(null);
     } else if (
       !lockClick &&
-      (e.type == "click" || (e.type == "touchend" && !zooming))
+      (e.type == "click" ||e.type=="mousedown" || (e.type == "touchend" && !zooming))
     ) {
       if ($highlighted_territories != null) {
         $highlighted_territories.style.fill =
@@ -284,7 +303,14 @@
       return;
     }
     console.log($prompt_move);
-    let move = await fetch("/auth/my_move").then((response) => {
+    let move = await fetch("/auth/my_move",  {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: null
+  }).then((response) => {
       if (response.ok) return response.text();
       return "";
     });
