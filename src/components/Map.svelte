@@ -61,7 +61,7 @@
     if (
       !lockClick &&
       (e.type == "click" ||
-        e.type == "touchend" ||
+        e.type == "mousedown" ||
         (e.type == "touchend" && !zooming)) &&
       $lock_highlighted &&
       e.target == document.getElementById("map")
