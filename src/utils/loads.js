@@ -1,8 +1,13 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import { fetches, turns, teams, map_type } from "../state/state.js";
 import { get } from "svelte/store";
 import {
   normalizeTerritoryName,
-  getTurnInfo,
   normalizeTeamName,
 } from "../utils/normalization.js";
 import { getColorForPercentage } from "./map.js";
@@ -196,4 +201,30 @@ export async function getTeamOdds(season, day, team) {
   } else {
     throw new Error(json);
   }
+}
+
+// Get turn information for turnID, otherwise will return latest.
+export async function getTurnInfo(turnID) {
+  if (get(turns).length == 0) {
+    await getTurnsandTeams();
+  }
+  let ts = get(turns);
+  if (turnID == null) return ts[0];
+  let t = ts.find((e) => {
+    return e.id == turnID;
+  });
+  if (t == undefined) return ts[0];
+  return t;
+}
+
+// Get the turnID from a season and day pair
+export async function getTurnID(season, day) {
+  if (get(turns).length == 0) {
+    await getTurnsandTeams();
+  }
+  let ts = get(turns);
+  if (season == undefined || day == undefined) return null;
+  let turn = ts.find((turn) => turn.day == day && turn.season == season);
+  if (turn == undefined) return null;
+  return turn.id;
 }

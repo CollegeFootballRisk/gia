@@ -1,40 +1,16 @@
-import { turns } from "../state/state";
-import { get } from "svelte/store";
-import { getTurnsandTeams } from "./loads";
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
 import { getColorForPercentage } from "./map";
 
 export function normalizeTerritoryName(name) {
   return name.normalize("NFD").replace(/[\u0300-\u036f ']/g, "");
 }
 
-// Get turn information for turnID, otherwise will return latest.
-export async function getTurnInfo(turnID) {
-  if (get(turns).length == 0) {
-    await getTurnsandTeams();
-  }
-  let ts = get(turns);
-  if (turnID == null) return ts[0];
-  let t = ts.find((e) => {
-    return e.id == turnID;
-  });
-  if (t == undefined) return ts[0];
-  return t;
-}
-
 export function normalizeTeamName(team) {
   return team.replace(/\W/g, "");
-}
-
-// Get the turnID from a season and day pair
-export async function getTurnID(season, day) {
-  if (get(turns).length == 0) {
-    await getTurnsandTeams();
-  }
-  let ts = get(turns);
-  if (season == undefined || day == undefined) return null;
-  let turn = ts.find((turn) => turn.day == day && turn.season == season);
-  if (turn == undefined) return null;
-  return turn.id;
 }
 
 /**

@@ -1,3 +1,6 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script lang="ts">
   //TODO : Add PPP back...
   //value: (v) => (v.starPower / (v.mercCount + v.playerCount)).toFixed(2),
@@ -7,8 +10,7 @@
   import Loader from "./Loader.svelte";
   import { turn } from "../state/state.js";
 
-  import { getTurnInfo } from "../utils/normalization.js";
-  import { base_url } from "../utils/loads";
+  import { base_url, getTurnInfo } from "../utils/loads";
   import { settings } from "../state/settings";
 
   // Returns Leaderboard data for turn

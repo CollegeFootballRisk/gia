@@ -1,7 +1,10 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import { onMount } from "svelte";
-  import { turn, turns } from "../state/state.js";
-  import { getTurnInfo } from "../utils/normalization";
+  import { turn, turns } from "../state/state";
+  import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";
   var rollTime;
   var getting;

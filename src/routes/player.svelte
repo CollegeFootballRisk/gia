@@ -1,3 +1,6 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import Select from "svelte-select";
   import SvelteTable from "svelte-table";
@@ -16,7 +19,6 @@
   import { FontAwesomeIcon } from "fontawesome-svelte";
 
   export var currentRoute;
-  export var params;
   console.log(currentRoute);
   var playerLoad = getPlayer(currentRoute.namedParams.player);
   let sortBy = "season";

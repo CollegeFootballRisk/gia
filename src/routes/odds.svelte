@@ -1,25 +1,13 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
-  import { get } from "svelte/store";
-  import { getDay, getPlayer } from "../utils/loads";
-  import Loader from "../components/Loader.svelte";
-  import {
-    getTurnID,
-    dynamicSort,
-    normalizeTeamName,
-    getTurnInfo,
-  } from "../utils/normalization";
-  import {
-    team,
-    teams,
-    team_territory_counts,
-    turn,
-    turns,
-  } from "../state/state.js";
-  import { onMount, onDestroy } from "svelte";
+  import { getDay, getTurnID } from "../utils/loads";
+  import { team, turn, turns } from "../state/state.js";
+  import { onMount } from "svelte";
   import Odds from "../components/Odds.svelte";
 
   export var currentRoute;
-  export var params;
   var teams_available = [];
   var local_map_type = "chance";
   // Set the current day to that of the url if needed

@@ -1,14 +1,8 @@
 <!-- Decides whether or not to show action button to user -->
 <script>
   import { onDestroy, onMount } from "svelte";
-  import {
-    highlighted_territories,
-    turn,
-    modal,
-    user,
-    team_territory_counts,
-  } from "../state/state";
-  import { getTurnInfo, normalizeTerritoryName } from "../utils/normalization";
+  import { highlighted_territories, turn, user } from "../state/state";
+  import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";
   import { runAction } from "../utils/actions";
 
@@ -64,6 +58,12 @@
     }
   }
 </script>
+
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+
 
 {#if $user != null && $user.team != null && $user.team.name != null}
   {#if localDay == null && highlighted != null && $user.team.name != null}

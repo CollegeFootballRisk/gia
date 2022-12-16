@@ -1,16 +1,16 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import Select from "svelte-select";
   import SvelteTable from "svelte-table";
-  import { Line } from "svelte-chartjs";
   import Loader from "../components/Loader.svelte";
-  import { getTeam } from "../utils/loads";
-  import { getTurnInfo, normalizeTeamName } from "../utils/normalization";
+  import { getTeam, getTurnInfo } from "../utils/loads";
   import PlayerTime from "../components/PlayerTime.svelte";
   import PlayerChart from "../components/PlayerChart.svelte";
   import { teams } from "../state/state";
 
   export var currentRoute;
-  export var params;
   var teamLoad = getTeam(currentRoute.namedParams.team);
   let sortBy = "player";
   let sortOrder = 1;
@@ -195,7 +195,8 @@
     flex-basis: 50%;
   }
 
-  .lcol {
+  /*
+    .lcol {
     flex: 1;
     flex-basis: 33%;
   }
@@ -218,6 +219,12 @@
     margin-top: 0px;
     margin-bottom: 0px;
   }
+  
+    h4 {
+    text-align: center;
+  }
+
+  */
 
   h3 {
     text-align: center;
@@ -227,10 +234,6 @@
     margin-bottom: 0px;
     padding-top: 0px;
     margin-bottom: 0px;
-  }
-
-  h4 {
-    text-align: center;
   }
 
   .selectContainer {

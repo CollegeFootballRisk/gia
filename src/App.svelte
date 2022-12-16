@@ -1,3 +1,6 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import { Router } from "svelte-router-spa";
   import { routes } from "./routes";
@@ -157,7 +160,7 @@
     margin-top: 10px;
   }
 
-  .spin {
+  :global(.spin) {
     -webkit-animation: spin 4s linear infinite;
     -moz-animation: spin 4s linear infinite;
     animation: spin 4s linear infinite;

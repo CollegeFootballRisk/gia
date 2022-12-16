@@ -1,3 +1,6 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import { onDestroy, onMount } from "svelte/internal";
   import Sidebar from "./Sidebar.svelte";
@@ -186,28 +189,8 @@
 </div>
 
 <style>
-  .notices {
-    color: white;
-    position: absolute;
-    top: calc(var(--navbar-height));
-    right: 0%;
-    margin: 5px;
-    z-index: 2;
-    white-space: nowrap;
-  }
   .map-wrap {
     overflow: hidden;
-  }
-  .top-control {
-    position: absolute;
-    top: calc(var(--navbar-height));
-    margin-left: auto;
-    margin-right: auto;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    z-index: 2;
-    white-space: nowrap;
-    bottom: unset !important;
   }
 
   .map-controls {
@@ -221,9 +204,7 @@
     white-space: nowrap;
   }
 
-  .map-controls button,
-  .map-controls label,
-  .map-controls select {
+  .map-controls button {
     color: var(--accent-fg);
     background: var(--accent-2);
     height: 2em;
@@ -233,43 +214,14 @@
     line-height: 1em;
   }
 
-  .map-controls button,
-  .map-controls label {
+  .map-controls button {
     width: 2em;
     border-radius: 10%;
     cursor: pointer;
   }
 
-  .map-controls button:hover,
-  .map-controls label:hover {
+  .map-controls button:hover {
     background: var(--accent-1);
-  }
-
-  .map-controls input[type="radio"] {
-    display: none;
-  }
-
-  .map-controls select {
-    float: left;
-  }
-
-  .map-controls label {
-    cursor: pointer;
-    float: left;
-    padding: 0.3em;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-  }
-
-  .map-controls label:first-of-type {
-    border-top-right-radius: 0%;
-    border-bottom-right-radius: 0%;
-  }
-
-  .map-controls label:last-of-type {
-    border-top-left-radius: 0%;
-    border-bottom-left-radius: 0%;
   }
 
   :global(#map #Territories path) {
