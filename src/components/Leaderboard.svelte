@@ -84,7 +84,7 @@
     },
     {
       propName: "playerCount",
-      headerText: "Player Count",
+      headerText: "Players",
       tooltip: "Number of players on team",
     },
     {
@@ -94,12 +94,12 @@
     },
     {
       propName: "mercCount",
-      headerText: "Mercenaries",
+      headerText: "Mercs",
       tooltip: "Number of mercenaries on the team",
     },
     {
       propName: "starPower",
-      headerText: "Speed",
+      headerText: "Stars",
       tooltip: "Team's total star power",
       colValue: formatPower,
     },
