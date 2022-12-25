@@ -67,7 +67,6 @@
     pageSizeOptions: [5, 10, 15, 20, 25],
     pageRangeFormat: "compact",
     pageNavFormat: "compact",
-    expandToContainerWidth: true,
   };
 
   const columnSettings: ColumnSettings<Lboard>[] = [
@@ -78,9 +77,9 @@
     },
     {
       propName: "name",
-      headerText: "Team",
+      headerText: "------------Team------------",
       tooltip: "Team Name",
-      classList: ["text-center"],
+      classList: ["text-center", "const-width"],
       colValue: teamLink,
     },
     {
@@ -129,8 +128,16 @@
     text-align: center;
   }
 
+  :global(.const-width){
+    width: 146px;
+  }
+
   :global(.table) {
     color: var(--main-foreground-color);
     background: var(--main-background);
+  }
+
+  :global(.sst-resp-table-wrapper) {
+    width: 100%;
   }
 </style>
