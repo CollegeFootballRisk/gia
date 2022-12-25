@@ -216,7 +216,6 @@
       $prompt_move = false;
       return;
     }
-    console.log($prompt_move);
     let move = await fetch("/auth/my_move", {
       method: "POST",
       headers: {

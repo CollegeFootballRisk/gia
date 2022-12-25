@@ -73,7 +73,8 @@
     if (
       !lockClick &&
       (e.type == "mousedown" ||
-      e.type == "click" || (e.type == "touchend" && !zooming)) &&
+        e.type == "click" ||
+        (e.type == "touchend" && !zooming)) &&
       $lock_highlighted &&
       e.target == document.getElementById("map")
     ) {
@@ -94,7 +95,9 @@
       highlighted_territories.set(null);
     } else if (
       !lockClick &&
-      (e.type == "click" || e.type == "mousedown" || (e.type == "touchend" && !zooming))
+      (e.type == "click" ||
+        e.type == "mousedown" ||
+        (e.type == "touchend" && !zooming))
     ) {
       if ($highlighted_territories != null) {
         $highlighted_territories.style.fill =
