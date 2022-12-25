@@ -67,6 +67,7 @@
     pageSizeOptions: [5, 10, 15, 20, 25],
     pageRangeFormat: "compact",
     pageNavFormat: "compact",
+    expandToContainerWidth: true,
   };
 
   const columnSettings: ColumnSettings<Lboard>[] = [
