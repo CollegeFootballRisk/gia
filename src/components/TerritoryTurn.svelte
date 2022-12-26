@@ -18,7 +18,7 @@
   import { settings } from "../state/settings";
 
   const win: Window = window;
-  const close = getContext("simple-modal");
+  const {close} = getContext("simple-modal");
   win.closeModal = () => close();
 
   interface TerrTurn {
