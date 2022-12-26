@@ -40,6 +40,7 @@
     pageSizeOptions: [5, 10, 15, 20, 25],
     pageRangeFormat: "compact",
     pageNavFormat: "compact",
+    expandToContainerWidth: true,
   };
 
   function formatPlayers(x: any): Player[] {
@@ -97,6 +98,7 @@
     pageSizeOptions: [5, 10, 15, 20, 25],
     pageRangeFormat: "compact",
     pageNavFormat: "compact",
+    expandToContainerWidth: true,
   };
 
   function formatMercs(x: any): Merc[] {
@@ -278,5 +280,10 @@
 
   .selectContainer :global(::placeholder) {
     color: var(--main-foreground-color) !important;
+  }
+
+  :global(#mercs-wrapper) {
+    overflow: scroll;
+    max-width: 90vw;
   }
 </style>

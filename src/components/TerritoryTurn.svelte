@@ -6,7 +6,7 @@
   export let season;
   export let day;
   export {};
-  
+
   import SimpleTable from "@a-luna/svelte-simple-tables";
   import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
   import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
@@ -17,9 +17,18 @@
   import { getContext } from "svelte";
   import { settings } from "../state/settings";
 
+  interface Close {
+    close: any;
+  }
+
+  function gC(): Close {
+    return getContext("simple-modal");
+  }
+
   const win: Window = window;
-  const {close} = getContext("simple-modal");
-  win.closeModal = () => close();
+  const { close } = gC();
+  console.log(close);
+  win.closeModal = close;
 
   interface TerrTurn {
     team: string;
@@ -58,7 +67,7 @@
       v.team
     )}">${v.team}</a>`;
 
-    const playerLink = (v: TerrTurn): string =>
+  const playerLink = (v: TerrTurn): string =>
     `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
       v.player
     )}">${v.player}</a>`;
@@ -125,7 +134,6 @@
   let c_options = {
     responsive: true,
   };
-
 </script>
 
 <h1>{territory}</h1>
@@ -134,13 +142,22 @@
   <Loader />
 {:then data_json}
   <h3>Players</h3>
-  <SimpleTable
-  data={formatData(data_json.players)}
-  {columnSettings}
-  {tableSettings}
-/>
+  {console.log(data_json.players)}
+  {#if data_json.players.length > 0}
+    <SimpleTable
+      data={formatData(data_json.players)}
+      {columnSettings}
+      {tableSettings}
+    />
+  {:else}
+    <center><b>None this turn...</b></center>
+  {/if}
   <h3>Power</h3>
-  <Doughnut data={c_data(data_json.teams)} options={c_options} />
+  {#if data_json.teams.length > 0}
+    <Doughnut data={c_data(data_json.teams)} options={c_options} />
+  {:else}
+    No teams made a move on this territory this turn...
+  {/if}
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}

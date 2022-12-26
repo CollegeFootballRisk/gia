@@ -2,6 +2,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script lang="ts">
+  export var turnToUse: boolean = false;
   import SimpleTable from "@a-luna/svelte-simple-tables";
   import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
   import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
@@ -116,10 +117,14 @@
       colValue: formatPPP,
     },
   ];
-  let data = getLeaderboard($turn);
+
+  $: if (turnToUse == false) {
+    turnToUse = $turn;
+  }
+  $: data = getLeaderboard(turnToUse);
 </script>
 
-<h1>Leaderboard</h1>
+<h1>Leaderboard{turnToUse == null ? " (current)" : ""}</h1>
 {#await data}
   <Loader />
 {:then data_json}
