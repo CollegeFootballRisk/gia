@@ -1,76 +1,105 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
-<script>
+<script lang="ts">
   export let territory;
   export let season;
   export let day;
-  import SvelteTable from "svelte-table";
+  export {};
+  
+  import SimpleTable from "@a-luna/svelte-simple-tables";
+  import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
+  import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
   import { getTerritoryTurn } from "../utils/loads";
   import Loader from "./Loader.svelte";
   import { Doughnut } from "svelte-chartjs/src";
   import { normalizeTeamName } from "../utils/normalization";
   import { getContext } from "svelte";
+  import { settings } from "../state/settings";
 
-  const { close } = getContext("simple-modal");
-  window.closeModal = () => close();
+  const win: Window = window;
+  const close = getContext("simple-modal");
+  win.closeModal = () => close();
 
-  let sortBy = "team";
-  let sortOrder = 1;
-  let selectedCols = [
-    "team",
-    "player",
-    "stars",
-    "weight",
-    "multiplier",
-    "power",
-  ];
-  const COLUMNS = {
-    team: {
-      key: "team",
-      title: "Team",
-      value: (v) =>
-        `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
-          v.team
-        )}">${v.team}</a>`,
-      sortable: true,
-    },
-    player: {
-      key: "player",
-      title: "Player",
-      value: (v) =>
-        `${
-          v.mvp == true ? String.fromCharCode(0x272f) : ""
-        }<a onclick="window.closeModal()" href="/player/${v.player}">${
-          v.player
-        }</a>`,
-      sortable: true,
-    },
-    stars: {
-      key: "stars",
-      title: "Stars",
-      value: (v) => v.stars,
-      sortable: true,
-    },
-    weight: {
-      key: "weight",
-      title: "Weight",
-      value: (v) => v.weight,
-      sortable: true,
-    },
-    multiplier: {
-      key: "multiplier",
-      title: "Multiplier",
-      value: (v) => v.multiplier.toFixed(1),
-      sortable: true,
-    },
-    power: {
-      key: "power",
-      title: "Power",
-      value: (v) => v.power.toFixed(1),
-      sortable: true,
-    },
+  interface TerrTurn {
+    team: string;
+    player: string;
+    stars: number;
+    weight: number;
+    multiplier: number;
+    power: number;
+  }
+
+  const tableSettings: TableSettings<TerrTurn> = {
+    tableId: "territory_turns",
+    themeName: $settings.lightmode ? "light" : "dark",
+    showHeader: true,
+    header: "Territory Turns",
+    showSortDescription: true,
+    sortBy: "team",
+    sortType: "string",
+    sortDir: "asc",
+    tableWrapper: true,
+    clickableRows: false,
+    animateSorting: false,
+    paginated: true,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 15, 20, 25],
+    pageRangeFormat: "compact",
+    pageNavFormat: "compact",
   };
+
+  function formatData(x: any): TerrTurn[] {
+    return x;
+  }
+
+  const teamLink = (v: TerrTurn): string =>
+    `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+      v.team
+    )}">${v.team}</a>`;
+
+    const playerLink = (v: TerrTurn): string =>
+    `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+      v.player
+    )}">${v.player}</a>`;
+
+  const columnSettings: ColumnSettings<TerrTurn>[] = [
+    {
+      propName: "team",
+      headerText: "------------Team------------",
+      tooltip: "Team played for",
+      classList: ["text-center", "const-width"],
+      colValue: teamLink,
+    },
+    {
+      propName: "player",
+      headerText: "---------Player--------",
+      tooltip: "Territory name",
+      classList: ["text-center", "const-width"],
+      colValue: playerLink,
+    },
+    {
+      propName: "stars",
+      headerText: "Stars",
+      tooltip: "Number of stars at time",
+    },
+    {
+      propName: "weight",
+      headerText: "Weight",
+      tooltip: "Power determined by stars",
+    },
+    {
+      propName: "multiplier",
+      headerText: "Mult",
+      tooltip: "Total multiplier",
+    },
+    {
+      propName: "power",
+      headerText: "Power",
+      tooltip: "Power = multiplier * weight",
+    },
+  ];
+
   let data = getTerritoryTurn(territory, season, day);
   function c_data(teams) {
     return {
@@ -97,7 +126,6 @@
     responsive: true,
   };
 
-  $: cols = selectedCols.map((key) => COLUMNS[key]);
 </script>
 
 <h1>{territory}</h1>
@@ -106,15 +134,11 @@
   <Loader />
 {:then data_json}
   <h3>Players</h3>
-  <SvelteTable
-    columns={cols}
-    rows={data_json.players}
-    bind:sortBy
-    bind:sortOrder
-    classNameTable={["table table-striped"]}
-    classNameThead={["table-primary"]}
-    classNameSelect={["custom-select"]}
-  />
+  <SimpleTable
+  data={formatData(data_json.players)}
+  {columnSettings}
+  {tableSettings}
+/>
   <h3>Power</h3>
   <Doughnut data={c_data(data_json.teams)} options={c_options} />
 {:catch error}
