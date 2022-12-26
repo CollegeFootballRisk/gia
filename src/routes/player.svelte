@@ -10,7 +10,6 @@
   import {
     fa1,
     fa2,
-    fa3,
     faAward,
     faJedi,
     faShield,

@@ -18,13 +18,11 @@
     faHistory,
     faSearchMinus,
     faSearchPlus,
-    faTable,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import {
     highlighted_territories,
     lock_highlighted,
-    modal,
     sidebarOpen,
   } from "../state/state.js";
   import { setupMapPanZoom } from "../utils/map";
@@ -64,8 +62,12 @@
   function handleWindowKeyDown(event) {
     if (event.key === "Escape") {
       lock_highlighted.set(false);
-      $highlighted_territories.style.fill =
-        $highlighted_territories.info.primaryColor;
+      try {
+        $highlighted_territories.style.fill =
+          $highlighted_territories.info.primaryColor;
+      } catch {
+        // Page not ready yet
+      }
     }
   }
 
@@ -78,33 +80,47 @@
       $lock_highlighted &&
       e.target == document.getElementById("map")
     ) {
-      lock_highlighted.set(false);
-      $highlighted_territories.style.fill =
-        $highlighted_territories.info.primaryColor;
-      highlighted_territories.set(null);
+      try {
+        $highlighted_territories.style.fill =
+          $highlighted_territories.info.primaryColor;
+        lock_highlighted.set(false);
+        highlighted_territories.set(null);
+      } catch {
+        // Page not ready
+      }
       return;
     }
     if (e.target.info == undefined) return;
     if (e.type == "mouseover") {
       if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.secondaryColor;
-      highlighted_territories.set(e.target);
+      try {
+        e.target.style.fill = e.target.info.secondaryColor;
+        highlighted_territories.set(e.target);
+      } catch {
+        // Page not ready
+      }
     } else if (e.type == "mouseout") {
       if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.primaryColor;
-      highlighted_territories.set(null);
+      try {
+        e.target.style.fill = e.target.info.primaryColor;
+        highlighted_territories.set(null);
+      } catch {
+        // Page not ready
+      }
     } else if (
       !lockClick &&
       (e.type == "click" ||
         e.type == "mousedown" ||
         (e.type == "touchend" && !zooming))
     ) {
-      if ($highlighted_territories != null) {
+      try {
         $highlighted_territories.style.fill =
           $highlighted_territories.info.primaryColor;
+        sidebarOpen.set(true);
+        lock_highlighted.set(true);
+      } catch {
+        // Page not ready
       }
-      sidebarOpen.set(true);
-      lock_highlighted.set(true);
       if (e.type == "touchend") {
         var changedTouch = e.changedTouches[0];
         var elem = document.elementFromPoint(
@@ -114,8 +130,12 @@
       } else {
         var elem = e.target;
       }
-      elem.style.fill = elem.info.secondaryColor;
-      highlighted_territories.set(elem);
+      try {
+        elem.style.fill = elem.info.secondaryColor;
+        highlighted_territories.set(elem);
+      } catch {
+        // Page not ready
+      }
     }
   }
 
@@ -185,9 +205,6 @@
     >
       <FontAwesomeIcon icon={faHistory} />
     </button>
-    <!--<button on:click={showLeaderboard} title="leaderboard">
-      <FontAwesomeIcon icon={faTable} />
-    </button>-->
   </div>
   <div class="map-wrap"><MapBase /></div>
 </div>

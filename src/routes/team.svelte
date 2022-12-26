@@ -164,15 +164,6 @@
           />
         </div>
       </div>
-      <!--<SvelteTable
-  columns={cols}
-  rows={player.turns}
-  bind:sortBy
-  bind:sortOrder
-  classNameTable={["table table-striped"]}
-  classNameThead={["table-primary"]}
-  classNameSelect={["custom-select"]}
-/>-->
     </center>
   </div>
 {/await}

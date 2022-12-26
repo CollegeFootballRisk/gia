@@ -19,7 +19,7 @@
   import { settings } from "../state/settings";
 
   import MapBase from "./MapBase.svelte";
-  import Modal, { bind } from "svelte-simple-modal";
+  import { bind } from "svelte-simple-modal";
   import Leaderboard from "./Leaderboard.svelte";
   import {
     faHistory,
@@ -67,29 +67,43 @@
       e.target == document.getElementById("map")
     ) {
       lock_highlighted.set(false);
-      $highlighted_territories.style.fill =
-        $highlighted_territories.info.primaryColor;
-      highlighted_territories.set(null);
+      try {
+        $highlighted_territories.style.fill =
+          $highlighted_territories.info.primaryColor;
+        highlighted_territories.set(null);
+      } catch {
+        // We know that this failed, but don't throw an error.
+      }
       return;
     }
     if (e.target.info == undefined) return;
     if (e.type == "mouseover") {
       if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.secondaryColor;
-      highlighted_territories.set(e.target);
+      try {
+        e.target.style.fill = e.target.info.secondaryColor;
+        highlighted_territories.set(e.target);
+      } catch {
+        // We know that this failed, but don't throw an error.
+      }
     } else if (e.type == "mouseout") {
       if ($lock_highlighted) return;
-      e.target.style.fill = e.target.info.primaryColor;
-      highlighted_territories.set(null);
+      try {
+        e.target.style.fill = e.target.info.primaryColor;
+        highlighted_territories.set(null);
+      } catch {
+        // We know that this failed, but don't throw an error.
+      }
     } else if (
       !lockClick &&
       (e.type == "click" ||
         e.type == "mousedown" ||
         (e.type == "touchend" && !zooming))
     ) {
-      if ($highlighted_territories != null) {
+      try {
         $highlighted_territories.style.fill =
           $highlighted_territories.info.primaryColor;
+      } catch {
+        // This is an issue :(
       }
       sidebarOpen.set(true);
       lock_highlighted.set(true);
@@ -102,8 +116,12 @@
       } else {
         var elem = e.target;
       }
-      elem.style.fill = elem.info.secondaryColor;
-      highlighted_territories.set(elem);
+      try {
+        elem.style.fill = elem.info.secondaryColor;
+        highlighted_territories.set(elem);
+      } catch {
+        // Page not ready yet
+      }
     }
   }
 
@@ -136,9 +154,14 @@
         document.querySelectorAll("[chaos=true]").forEach(function (node) {
           node.parentNode.removeChild(node);
         });
-        terr.attributeInformation.neighbors.filter(function (obj) {
-          return drawChaosLine(normalizeTerritoryName(obj.name));
-        });
+        try {
+          terr.attributeInformation.neighbors.filter(function (obj) {
+            return drawChaosLine(normalizeTerritoryName(obj.name));
+          });
+        } catch {
+          // Bermuda doesn't have any neighbors...
+          console.log("Bermuda does not have any neighbors");
+        }
       }
       try {
         document
@@ -152,11 +175,13 @@
         console.log(`Couldn't find territory ${terr.normalizedName}`);
       }
     });
-    if ($highlighted_territories != null) {
+    try {
       $highlighted_territories.style.fill =
         $highlighted_territories.info.secondaryColor;
+      team_territory_counts.set(owners);
+    } catch {
+      // Page not ready yet
     }
-    team_territory_counts.set(owners);
   }
 
   function toggleRegions() {

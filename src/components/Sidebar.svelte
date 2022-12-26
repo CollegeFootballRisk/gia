@@ -6,11 +6,7 @@
   export let passthrough_data;
   export let team;
   export let finished_load;
-  import {
-    FontAwesomeIcon,
-    FontAwesomeLayers,
-    FontAwesomeLayersText,
-  } from "fontawesome-svelte";
+  import { FontAwesomeIcon } from "fontawesome-svelte";
   import {
     highlighted_territories,
     lock_highlighted,
@@ -25,7 +21,6 @@
   import { onDestroy, onMount } from "svelte";
   import OwnershipHistory from "./OwnershipHistory.svelte";
   import ActionButton from "./ActionButton.svelte";
-  import { loop_guard } from "svelte/internal";
   function isNullTerr() {
     return $highlighted_territories == null;
   }

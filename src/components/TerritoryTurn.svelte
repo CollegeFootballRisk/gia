@@ -12,7 +12,7 @@
   import { normalizeTeamName } from "../utils/normalization";
   import { getContext } from "svelte";
 
-  const { open, close } = getContext("simple-modal");
+  const { close } = getContext("simple-modal");
   window.closeModal = () => close();
 
   let sortBy = "team";

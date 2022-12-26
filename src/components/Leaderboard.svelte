@@ -2,8 +2,6 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script lang="ts">
-  //TODO : Add PPP back...
-  //value: (v) => (v.starPower / (v.mercCount + v.playerCount)).toFixed(2),
   import SimpleTable from "@a-luna/svelte-simple-tables";
   import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
   import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
@@ -38,7 +36,8 @@
     v.starPower == null ? "0" : v.starPower.toString();
   const formatEff = (v: Lboard): string =>
     v.efficiency == null ? "0.00" : v.efficiency.toFixed(2);
-
+  const formatPPP = (v: Lboard): string =>
+    (v.starPower / (v.mercCount + v.playerCount)).toFixed(2);
   interface Lboard {
     rank: number;
     name: string;
@@ -48,6 +47,7 @@
     mercCount: number;
     starPower: number;
     efficiency: number;
+    ppp: number;
   }
 
   const tableSettings: TableSettings<Lboard> = {
@@ -109,6 +109,12 @@
       tooltip: "Team Efficiency",
       colValue: formatEff,
     },
+    {
+      propName: "ppp",
+      headerText: "PPP",
+      tooltip: "Power per Player",
+      colValue: formatPPP,
+    },
   ];
   let data = getLeaderboard($turn);
 </script>
@@ -128,7 +134,7 @@
     text-align: center;
   }
 
-  :global(.const-width){
+  :global(.const-width) {
     width: 146px;
   }
 

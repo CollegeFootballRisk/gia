@@ -2,13 +2,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
-  import { library } from "@fortawesome/fontawesome-svg-core";
   import { faRefresh } from "@fortawesome/free-solid-svg-icons";
-  import {
-    FontAwesomeIcon,
-    FontAwesomeLayers,
-    FontAwesomeLayersText,
-  } from "fontawesome-svelte";
+  import { FontAwesomeIcon } from "fontawesome-svelte";
 </script>
 
 <div class="sidebar-content">
