@@ -123,12 +123,12 @@
         <Loader />
       {:then latest}
         <div class="lrow">
-          <div class="lcol2">
+          <div class="lcol2" style="max-width:90vw;">
             <h3>Player Stars:</h3>
             <br />
             <PlayerTime season={latest.season} extern_data={team.teamData} />
           </div>
-          <div class="lcol2">
+          <div class="lcol2" style="max-width:90vw;">
             <h3>Star Power:</h3>
             <br />
             <PlayerChart season={latest.season} extern_data={team.teamData} />
@@ -149,9 +149,10 @@
             classNameThead={["table-primary"]}
             classNameSelect={["custom-select"]}
           />
+          <hr />
         </div>
         <div class="lcol2">
-          <h3>Mercs:</h3>
+          <h3>Mercenaries:</h3>
           <br />
           <SvelteTable
             columns={cols2}
@@ -162,6 +163,7 @@
             classNameThead={["table-primary"]}
             classNameSelect={["custom-select"]}
           />
+          <hr />
         </div>
       </div>
     </center>
@@ -179,43 +181,14 @@
   .lrow {
     display: flex;
     justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
+    gap: 75px;
   }
 
   .lcol2 {
     flex: 2;
-    flex-basis: 50%;
   }
-
-  /*
-    .lcol {
-    flex: 1;
-    flex-basis: 33%;
-  }
-  h1 {
-    padding-top: 10px;
-    font-size: 2em;
-    text-align: center;
-    color: var(--main-foreground-color);
-    margin: 0px;
-    padding-bottom: 0px;
-    line-height: 2em;
-    margin-bottom: 0px;
-  }
-
-  h2 {
-    text-align: center;
-    font-size: 3em;
-    line-height: 0.5em;
-    padding-top: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-  
-    h4 {
-    text-align: center;
-  }
-
-  */
 
   h3 {
     text-align: center;

@@ -19,7 +19,7 @@
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: "miter",
-        pointBorderColor: "rgb(205, 130,1 58)",
+        pointBorderColor: "rgb(205, 130, 158)",
         pointBackgroundColor: "rgb(255, 255, 255)",
         pointBorderWidth: 10,
         pointHoverRadius: 5,

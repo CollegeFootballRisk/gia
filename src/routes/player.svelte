@@ -1,9 +1,11 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
-<script>
+<script lang="ts">
   import Select from "svelte-select";
-  import SvelteTable from "svelte-table";
+  import SimpleTable from "@a-luna/svelte-simple-tables";
+  import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
+  import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
   import { getPlayer } from "../utils/loads";
   import Loader from "../components/Loader.svelte";
   import { normalizeTeamName } from "../utils/normalization";
@@ -16,43 +18,97 @@
     faStroopwafel,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
+  import { settings } from "../state/settings";
 
   export var currentRoute;
-  console.log(currentRoute);
+  const win: Window = window;
   var playerLoad = getPlayer(currentRoute.namedParams.player);
-  let sortBy = "season";
-  let sortOrder = 0;
-  let selectedCols = ["season", "day", "stars", "territory", "team", "mvp"];
-  const COLUMNS = {
-    season: {
-      key: "season",
-      title: "Season",
-      value: (v) => v.season,
-      sortable: true,
-    },
-    day: { key: "day", title: "Day", value: (v) => v.day, sortable: true },
-    stars: {
-      key: "stars",
-      title: "Stars",
-      value: (v) => v.stars,
-      sortable: true,
-    },
-    territory: {
-      key: "territory",
-      title: "Territory",
-      value: (v) => v.territory,
-      sortable: true,
-    },
-    team: { key: "team", title: "Team", value: (v) => v.team, sortable: true },
-    mvp: {
-      key: "mvp",
-      title: "MVP",
-      value: (v) => (v.mvp ? String.fromCharCode(0x272f) : ""),
-      sortable: true,
-    },
+
+  const teamLink = (v: PlayerTurn): string =>
+    `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+      v.team
+    )}">${v.team}</a>`;
+
+  const territoryLink = (v: PlayerTurn): string =>
+    `<a onclick="window.closeModal()" href="/territory/${encodeURIComponent(
+      v.territory
+    )}">${v.territory}</a>`;
+
+  const formatMVP = (v: PlayerTurn): string =>
+    v.mvp ? String.fromCharCode(0x272f) : "N";
+
+  interface PlayerTurn {
+    season: number;
+    day: number;
+    seasonDay: string;
+    seasonDaySort: number;
+    stars: number;
+    territory: string;
+    team: string;
+    mvp: boolean;
+  }
+
+  const tableSettings: TableSettings<PlayerTurn> = {
+    tableId: "player_turns",
+    themeName: $settings.lightmode ? "light" : "dark",
+    showHeader: true,
+    header: "Turns",
+    showSortDescription: true,
+    sortBy: "seasonDaySort",
+    sortType: "number",
+    sortDir: "desc",
+    tableWrapper: true,
+    clickableRows: false,
+    animateSorting: false,
+    paginated: true,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 15, 20, 25],
+    pageRangeFormat: "compact",
+    pageNavFormat: "compact",
   };
 
-  $: cols = selectedCols.map((key) => COLUMNS[key]);
+  function formatData(x: any): PlayerTurn[] {
+    for (var i = 0; i < x.length; i++) {
+      x[i]["seasonDay"] = `${x[i]["season"]}/${x[i]["day"]}`;
+      x[i]["seasonDaySort"] = x[i]["season"] + x[i]["day"] / 100;
+    }
+    return x;
+  }
+
+  const columnSettings: ColumnSettings<PlayerTurn>[] = [
+    {
+      propName: "seasonDaySort",
+      tooltip: "Turn",
+      classList: ["text-left"],
+      colValue: (x) => x.seasonDay,
+    },
+    {
+      propName: "team",
+      headerText: "------------Team------------",
+      tooltip: "Team played for",
+      classList: ["text-center", "const-width"],
+      colValue: teamLink,
+    },
+    {
+      propName: "territory",
+      headerText: "----------Territory----------",
+      tooltip: "Territory name",
+      classList: ["text-center", "const-width"],
+      colValue: territoryLink,
+    },
+    {
+      propName: "stars",
+      headerText: "Stars",
+      tooltip: "Number of stars at time",
+    },
+    {
+      propName: "mvp",
+      headerText: "MVP",
+      tooltip: "Was MVP?",
+      colValue: formatMVP,
+    },
+  ];
+
   async function loadOptions(sString) {
     var players = await (
       await fetch(`/api/players/search?s=%${sString}%`)
@@ -63,7 +119,7 @@
   const getOptionLabel = (option) => option.value;
 
   function handleSelect(event) {
-    window.location = `/player/${event.detail.value}`;
+    win.location = `/player/${event.detail.value}`;
   }
 </script>
 
@@ -182,7 +238,12 @@
       </div>
       <br />
       <div class="player">
-        <SvelteTable
+        <SimpleTable
+          data={formatData(player.turns)}
+          {columnSettings}
+          {tableSettings}
+        />
+        <!--<SvelteTable
           columns={cols}
           rows={player.turns}
           bind:sortBy
@@ -190,7 +251,9 @@
           classNameTable={["table table-striped"]}
           classNameThead={["table-primary"]}
           classNameSelect={["custom-select"]}
-        />
+        />-->
+
+        <hr />
       </div>
     </center>
   </div>
@@ -203,6 +266,8 @@
   .lrow {
     display: flex;
     justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
   }
 
   .lcol2 {
@@ -212,7 +277,6 @@
 
   .lcol {
     flex: 1;
-    flex-basis: 33%;
   }
   /*.lrowthin {
     width: 50%;
