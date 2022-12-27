@@ -1,6 +1,6 @@
 <!-- Decides whether or not to show action button to user -->
 <script>
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy } from "svelte";
   import { highlighted_territories, turn, user } from "../state/state";
   import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";

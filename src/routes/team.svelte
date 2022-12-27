@@ -218,21 +218,29 @@
         <div class="lcol2">
           <h3>Players:</h3>
           <br />
-          <SimpleTable
-            data={formatPlayers(team.players)}
-            columnSettings={columnSettingsPlayers}
-            tableSettings={tableSettingsPlayers}
-          />
+          {#if team.players.length > 0}
+            <SimpleTable
+              data={formatPlayers(team.players)}
+              columnSettings={columnSettingsPlayers}
+              tableSettings={tableSettingsPlayers}
+            />
+          {:else}
+            No players yet.
+          {/if}
           <hr />
         </div>
         <div class="lcol2">
           <h3>Mercenaries:</h3>
           <br />
-          <SimpleTable
-            data={formatMercs(team.mercs)}
-            columnSettings={columnSettingsMercs}
-            tableSettings={tableSettingsMercs}
-          />
+          {#if team.mercs.length > 0}
+            <SimpleTable
+              data={formatMercs(team.mercs)}
+              columnSettings={columnSettingsMercs}
+              tableSettings={tableSettingsMercs}
+            />
+          {:else}
+            No mercenaries yet.
+          {/if}
           <hr />
         </div>
       </div>

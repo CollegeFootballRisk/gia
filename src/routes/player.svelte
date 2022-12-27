@@ -238,11 +238,15 @@
       </div>
       <br />
       <div class="player">
-        <SimpleTable
-          data={formatData(player.turns)}
-          {columnSettings}
-          {tableSettings}
-        />
+        {#if player.turns.length > 0}
+          <SimpleTable
+            data={formatData(player.turns)}
+            {columnSettings}
+            {tableSettings}
+          />
+        {:else}
+          No turns yet
+        {/if}
         <hr />
       </div>
     </center>

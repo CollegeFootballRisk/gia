@@ -128,7 +128,11 @@
 {#await data}
   <Loader />
 {:then data_json}
+  {#if data_json.length > 0}
   <SimpleTable data={data_json} {columnSettings} {tableSettings} />
+  {:else}
+  Leaderboard not yet available
+  {/if}
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
