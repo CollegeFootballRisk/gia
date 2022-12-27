@@ -2,9 +2,9 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script lang="ts">
-  export let territory;
-  export let season;
-  export let day;
+  export let territory: string;
+  export let season: number;
+  export let day: number;
   export {};
 
   import SimpleTable from "@a-luna/svelte-simple-tables";
@@ -27,7 +27,6 @@
 
   const win: Window = window;
   const { close } = gC();
-  console.log(close);
   win.closeModal = close;
 
   interface TerrTurn {
