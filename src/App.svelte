@@ -114,6 +114,7 @@
   :root {
     --accent-1: #4060a8;
     --accent-2: #4ea8ff;
+    --accent-3: #4eff4e;
     --accent-fg: #ffffff;
     --accent-bg: #ccc;
     --main-foreground-color: #ffffff;
@@ -126,17 +127,17 @@
     --itemHoverBG: #4060a8;
     --inputColor: #ffffff;
     --background: #4ea8ff;
-    --sst-table-wrapper-bg-color: hsl(226, 27%, 10%);
+    --sst-table-wrapper-bg-color: var(--main-background-color);
 --sst-table-wrapper-border-color: var(--accent-1);
---sst-text-color: hsl(0, 0%, 5%);
---sst-link-text-color: var(--accent-2);
+--sst-text-color: var(--main-foreground-color);
+--sst-link-text-color: var(--accent-3);
 --sst-link-hover-text-color: var(--accent-1);
 --sst-table-outer-border-color: var(--accent-1);
---sst-table-header-text-color: hsl(0, 0%, 95%);
+--sst-table-header-text-color: var(--main-foreground-color);
 --sst-sort-description-text-color: var(--accent-2);
 --sst-page-range-description-text-color: var(--accent-2);
---sst-col-header-bg-color: var(--accent-1);
---sst-col-header-text-color: hsl(0, 0%, 95%);
+--sst-col-header-bg-color: var(--listBackground);
+--sst-col-header-text-color: var(--itemColor);
 --sst-col-header-vert-border-color: var(--accent-1);
 --sst-col-header-horiz-border-color: var(--accent-1);
 --sst-col-header-highlight-sort-bg-color: var(--accent-1);
@@ -173,43 +174,6 @@
     --main-foreground-color: #000;
     --main-background: #f9f9fb;
     --main-background-color: #f9f9fb;
-    --sst-table-wrapper-bg-color: hsl(226, 27%, 10%);
---sst-table-wrapper-border-color: hsl(251, 74%, 30%);
---sst-text-color: hsl(0, 0%, 5%);
---sst-link-text-color: var(--accent-2);
---sst-link-hover-text-color: var(--accent-1);
---sst-table-outer-border-color: hsl(251, 74%, 30%);
---sst-table-header-text-color: hsl(0, 0%, 95%);
---sst-sort-description-text-color: hsl(165, 100%, 45%);
---sst-page-range-description-text-color: hsl(165, 100%, 45%);
---sst-col-header-bg-color: hsl(251, 74%, 30%);
---sst-col-header-text-color: hsl(0, 0%, 95%);
---sst-col-header-vert-border-color: hsl(251, 74%, 30%);
---sst-col-header-horiz-border-color: hsl(251, 74%, 30%);
---sst-col-header-highlight-sort-bg-color: hsl(251, 74%, 30%);
---sst-col-header-highlight-sort-text-color: hsl(0, 0%, 95%);
---sst-col-header-highlight-sort-vert-border-color: hsl(251, 74%, 30%);
---sst-col-header-highlight-sort-horiz-border-color: hsl(251, 74%, 30%);
---sst-body-even-row-bg-color: hsl(0, 0%, 50%);
---sst-body-odd-row-bg-color: hsl(0, 0%, 45%);
---sst-body-inner-vert-border-color: hsl(0, 0%, 30%);
---sst-body-inner-horiz-border-color: hsl(0, 0%, 35%);
---sst-body-highlight-sort-bg-color: hsl(165, 100%, 55%);
---sst-body-highlight-sort-text-color: hsl(0, 0%, 5%);
---sst-body-highlight-sort-border-color: hsl(0, 0%, 35%);
---sst-button-text-color: hsl(0, 0%, 10%);
---sst-button-bg-color: hsl(165, 100%, 45%);
---sst-button-border-color: hsl(165, 100%, 45%);
---sst-button-hover-text-color: hsl(0, 0%, 0%);
---sst-button-hover-bg-color: hsl(165, 100%, 35%);
---sst-button-hover-border-color: transparent;
---sst-button-active-text-color: hsl(0, 0%, 0%);
---sst-button-active-bg-color: hsl(165, 100%, 75%);
---sst-button-active-border-color: transparent;
---sst-button-disabled-text-color: hsl(0, 0%, 30%);
---sst-button-disabled-bg-color: hsl(0, 0%, 50%);
---sst-button-disabled-border-color: transparent;
---sst-button-focus-border-color: transparent;
   }
 
   :global([data-image="true"]) {
