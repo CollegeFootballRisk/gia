@@ -14,20 +14,7 @@
   import Loader from "./Loader.svelte";
   import { Doughnut } from "svelte-chartjs/src";
   import { normalizeTeamName } from "../utils/normalization";
-  import { getContext } from "svelte";
   import { settings } from "../state/settings";
-
-  interface Close {
-    close: any;
-  }
-
-  function gC(): Close {
-    return getContext("simple-modal");
-  }
-
-  const win: Window = window;
-  const { close } = gC();
-  win.closeModal = close;
 
   interface TerrTurn {
     team: string;

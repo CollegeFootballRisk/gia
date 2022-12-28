@@ -27,6 +27,9 @@
     ) {
       modal.set(bind(JoinTeam, { reason: "eliminated" }));
     }
+    window.closeModal = function () {
+      modal.set(null);
+    };
     document.addEventListener(
       "touchmove",
       function (event) {
