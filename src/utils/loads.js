@@ -15,7 +15,7 @@ import { getColorForPercentage } from "./map.js";
 export const base_url = "http://localhost:8000";
 
 export async function getTurnsandTeams(override) {
-  if (get(fetches).TurnsandTeams == undefined || override == true) {
+  if ( get(fetches).TurnsandTeams == undefined || override == true) {
     // Since we call this multiple times in multiple places, only run once unless
     // forcefully refreshing :'(
     if (override != true && get(turns).length != 0) return;
@@ -193,6 +193,20 @@ export async function getTeam(team) {
 export async function getTeamOdds(season, day, team) {
   let get = await fetch(
     `${base_url}/api/team/odds?team=${team}&day=${day}&season=${season}`
+  );
+  let json = await get.json();
+
+  if (get.ok) {
+    return json;
+  } else {
+    throw new Error(json);
+  }
+}
+
+// Get visited
+export async function getVisited(season, team) {
+  let get = await fetch(
+    `${base_url}/api/team/territories_visited?team=${team}&season=${season}`
   );
   let json = await get.json();
 

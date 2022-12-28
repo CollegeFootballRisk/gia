@@ -10,7 +10,7 @@
   import { getTeam, getTurnInfo } from "../utils/loads";
   import PlayerTime from "../components/PlayerTime.svelte";
   import PlayerChart from "../components/PlayerChart.svelte";
-  import { teams } from "../state/state";
+  import { highlighted_territories, teams } from "../state/state";
   import { settings } from "../state/settings";
 
   export var currentRoute;
@@ -247,10 +247,24 @@
     </center>
   </div>
 {/await}
+<br /><br />
+<center>
+  {#await get_latest}
+    <a href="/visited/{currentRoute.namedParams.team}/1/">
+      View {decodeURIComponent(currentRoute.namedParams.team)}'s visited
+      territories.</a
+    >
+  {:then latest}
+    <a href="/visited/{currentRoute.namedParams.team}/{latest.season}/">
+      View {decodeURIComponent(currentRoute.namedParams.team)}'s visited
+      territories for season {latest.season}.</a
+    >
+  {/await}
+</center>
+<br /><br /><br /><br />
 
 <style>
   .team-overflow {
-    height: 100%;
     overflow: auto;
     width: 90%;
     margin-left: auto;

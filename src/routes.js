@@ -11,6 +11,7 @@ import Odds from "./routes/odds.svelte";
 import Settings from "./routes/settings.svelte";
 import E404 from "./routes/404.svelte";
 import Team from "./routes/team.svelte";
+import Visited from "./routes/visited.svelte";
 
 const routes = [
   {
@@ -33,6 +34,10 @@ const routes = [
   {
     name: "odds/:season/:day/:team",
     component: Odds,
+  },
+    {
+    name: "visited/:team/:season",
+    component: Visited,
   },
   {
     name: "settings",
