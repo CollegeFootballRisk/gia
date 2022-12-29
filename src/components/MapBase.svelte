@@ -2007,9 +2007,9 @@
     />
     <path
       style="display:block;fill:none;fill-rule:evenodd;stroke: var(--main-foreground-color);stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-      d="m 408.292,1303.3294 c 25.59424,-43.6485 51.18865,-87.2973 83.62525,-118.1129 32.4366,-30.8155 71.71318,-48.7966 110.99011,-66.7779"
-      id="HAtoPA"
-      inkscape:original-d="m 408.292,1303.3294 c 25.59542,-43.6478 51.18983,-87.2966 76.78325,-130.9464 39.27916,-17.9808 78.55574,-35.9619 117.83211,-53.9444"
+      d="m 408.292,1303.3294 c 64.81847,-63.0692 133.29777,-92.6877 212.92364,-129.5862"
+      id="HAtoRW"
+      inkscape:original-d="m 408.292,1303.3294 c 64.81847,-63.0692 133.29777,-92.6877 212.92364,-129.5862"
     />
     <path
       style="display:block;fill:none;fill-rule:evenodd;stroke: var(--main-foreground-color);stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 2;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Arrow2Lstart);marker-end:url(#Arrow2Lend)"
