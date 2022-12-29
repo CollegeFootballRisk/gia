@@ -13,9 +13,11 @@
   import JoinTeam from "./components/JoinTeam.svelte";
   import { settings } from "./state/settings";
   import Leaderboard from "./components/Leaderboard.svelte";
+  import Loader from "./components/Loader.svelte";
+  let fetch_tt = getTurnsandTeams();
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
-    await getTurnsandTeams();
+    await fetch_tt;
     let loggedIn = await isLoggedIn($user);
     if (!loggedIn) modal.set(bind(Login));
     if ($user != null && ($user.team == null || $user.team.name == null)) {
@@ -91,7 +93,8 @@
       <li><a href="/" on:click={hideNav}>Map</a></li>
       <li><a href="/odds" on:click={hideNav}>Odds</a></li>
       <li><a href="/about" on:click={hideNav}>About</a></li>
-      <li><a href="/docs/" on:click={goDocs}>API</a></li>
+      <!-- svelte-ignore a11y-invalid-attribute -->
+      <li><a href="javascript:void(0)" on:click={goDocs}>API</a></li>
       <li>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform"
@@ -102,7 +105,11 @@
     </ul>
   </section>
   <div class="main-container">
-    <Router {routes} />
+    {#await fetch_tt}
+      <Loader />
+    {:then _}
+      <Router {routes} />
+    {/await}
   </div>
   <Modal classWindow="modalWindow rainbowBorder" show={$modal} />
 </main>

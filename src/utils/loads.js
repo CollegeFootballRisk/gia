@@ -220,7 +220,7 @@ export async function getVisited(season, team) {
 // Get turn information for turnID, otherwise will return latest.
 export async function getTurnInfo(turnID) {
   if (get(turns).length == 0) {
-    await getTurnsandTeams();
+    throw 'Turns not yet loaded';
   }
   let ts = get(turns);
   if (turnID == null) return ts[0];
