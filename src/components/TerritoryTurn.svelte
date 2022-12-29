@@ -23,6 +23,7 @@
     weight: number;
     multiplier: number;
     power: number;
+    mvp: boolean;
   }
 
   const tableSettings: TableSettings<TerrTurn> = {
@@ -93,6 +94,12 @@
       headerText: "Power",
       tooltip: "Power = multiplier * weight",
     },
+    {
+      propName: "mvp",
+      headerText: "MVP",
+      tooltip: "Most Valuable Player",
+      colValue: (v) => (v.mvp ? "✯" : ""),
+    },
   ];
 
   let data = getTerritoryTurn(territory, season, day);
@@ -128,7 +135,6 @@
   <Loader />
 {:then data_json}
   <h3>Players</h3>
-  {console.log(data_json.players)}
   {#if data_json.players.length > 0}
     <SimpleTable
       data={formatData(data_json.players)}
