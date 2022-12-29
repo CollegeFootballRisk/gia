@@ -14,7 +14,7 @@
 
   // Returns Leaderboard data for turn
   export async function getLeaderboard(turn): Promise<Lboard[]> {
-    let turnData = await getTurnInfo(turn + 1);
+    let turnData = await getTurnInfo(turn - 1);
     let get = await fetch(
       `${base_url}/api/stats/leaderboard${
         turn == null ? "" : `?season=${turnData.season}&day=${turnData.day + 1}`
