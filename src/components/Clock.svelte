@@ -62,6 +62,6 @@
       {/if}
     {/await}
   {/key}
-  <br /><br />
-  <b style="color:red;font-size:1.25em;">THIS IS A TEST GAME</b>
+  <!--<br /><br />
+  <b style="color:red;font-size:1.25em;"></b>-->
 </div>
