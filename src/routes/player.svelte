@@ -153,14 +153,7 @@
     </h2>
     <h4>
       {#if player.team.name != null}
-        <a
-          href="/team/{player.team.name == player.active_team.name
-            ? encodeURIComponent(player.team.name)
-            : `${player.team.name}, playing for ${
-                player.active_team.name == null
-                  ? 'Undecided'
-                  : encodeURIComponent(player.active_team.name)
-              }`}"
+        <a href="/team/{player.team.name}"
           >{player.team.name == player.active_team.name
             ? player.team.name
             : `${player.team.name}, playing for ${
