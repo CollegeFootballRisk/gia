@@ -15,7 +15,7 @@ import { getColorForPercentage } from "./map.js";
 export const base_url = "http://localhost:8000";
 
 export async function getTurnsandTeams(override) {
-  if ( get(fetches).TurnsandTeams == undefined || override == true) {
+  if (get(fetches).TurnsandTeams == undefined || override == true) {
     // Since we call this multiple times in multiple places, only run once unless
     // forcefully refreshing :'(
     if (override != true && get(turns).length != 0) return;
@@ -220,7 +220,7 @@ export async function getVisited(season, team) {
 // Get turn information for turnID, otherwise will return latest.
 export async function getTurnInfo(turnID) {
   if (get(turns).length == 0) {
-    throw 'Turns not yet loaded';
+    throw "Turns not yet loaded";
   }
   let ts = get(turns);
   if (turnID == null) return ts[0];

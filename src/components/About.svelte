@@ -83,8 +83,8 @@
     ability to strike back and to allow for time to strategize or recruit.
   </p>
   <p>
-    Finally, because this game does not have a chaos team, all players on a dead
-    team are prompted to join a new team.
+    Finally, all players on a dead team are prompted to join a new team. They
+    may choose to join chaos as well.
   </p>
   <h3>How do I get stars / move up in rank?</h3>
   <p id="points">

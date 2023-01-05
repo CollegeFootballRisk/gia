@@ -35,7 +35,7 @@ const routes = [
     name: "odds/:season/:day/:team",
     component: Odds,
   },
-    {
+  {
     name: "visited/:team/:season",
     component: Visited,
   },
