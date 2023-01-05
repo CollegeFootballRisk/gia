@@ -41,7 +41,7 @@
   </select>
   {#key $teams}
     <select bind:value={$team} title="select team">
-      {#each $teams.sort((a, b) => a.name > b.name) as tea}
+      {#each $teams.sort((a, b) => (a.name < b.name)?-1:(a.name > b.name)?1:0) as tea}
         <option value={encodeURIComponent(tea.name)}>{tea.name}</option>
       {/each}
     </select>
