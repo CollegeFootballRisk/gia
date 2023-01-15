@@ -5,7 +5,7 @@
 </script>
 
 <div class="overflow">
-  <h1>About</h1>
+  <h1>Information</h1>
   <center>
     <h2>Playing College Football Risk</h2>
     <br />
@@ -56,25 +56,82 @@
   </p>
   <h3>How is this different from older versions of College Football Risk?</h3>
   <p>
-    This game is quite similar to older versions of CFBR. However, this version
-    of the game is predominately open-source. Anyone can go look at its <a
-      rel="noreferrer"
-      href="https://github.com/mautamu/Risk">code</a
-    >, and submit pull requests to change the game.
-    <br /> This version of the game is written in the programming language
-    <a
-      rel="noreferrer"
-      href="https://www.rust-lang.org/"
-      style="background-color:#B9420F;">Rust</a
-    >. A list of ways it deviates from CFBR 2.0 can be found on the
-    <u
-      ><a
-        rel="noreferrer"
-        href="https://github.com/mautamu/Risk/blob/stable/documentation/DEVIATIONS.md"
-        >GitHub</a
-      ></u
-    >.
+    This game is quite similar to older versions of CFBR. However, it differs in
+    the following ways:
   </p>
+  <ul>
+    <li>
+      <b>Significantly larger map</b> &#8211; Canada, Mexico, and the Caribbean were
+      added, 51 territories in all.
+    </li>
+
+    <li><b>Colonizable Territory</b> &#8211; Grab free land while its hot!</li>
+
+    <li>
+      <b>3-Turn Head Start for most teams</b> &#8211; Some teams start in a harder
+      spot than others. Use this head start to gobble up a region quickly, or just
+      to get the heck out of there! (Note: this means that surviving teams from the
+      last game can only defend for the first 3 turns, and Stanford for the 1st Turn,
+      in an effort to give smaller teams a chance to survive the first few turns).
+    </li>
+
+    <li>
+      <b>Region Bonuses</b> &#8211; Like Continent bonuses in real Risk, in this
+      case your whole team gets a power multiplier for holding a region of territories
+    </li>
+
+    <li>
+      <b>Permanent mercenaries (Transfer portal)</b> &#8211; You can now choose to
+      permanently join another team if yours is eliminated. So be nice to teams with
+      their back against the wall, maybe their players will join you! And be careful
+      what team you kill…they may make your enemies stronger.
+    </li>
+
+    <li>
+      <b>New Chaos mechanics (for extra chaos)</b> &#8211; Chaos, based in Bermuda,
+      can now attack a completely random set of territories every turn. Nowhere is
+      safe!
+    </li>
+
+    <li><b>Sunday Breaks</b> - Can still place your move for 48 hours</li>
+
+    <li>
+      <b>3x Or Nothing Bonus if facing elimination</b> &#8211; Do you only have one
+      territory left? Gamble it all with a 50% chance to either multiply your star
+      power by 3, or by zero!
+    </li>
+
+    <li>
+      <b>Roll reveal/recap Twitch stream</b> &#8211; Roll reveal stream and discussion
+      most nights starting around 10pm on DodgerofZion's twitch channel
+    </li>
+
+    <li>
+      <b>More map bridges/ferries</b> &#8211; move around the map quicker than ever
+      and limit “safe corners”
+    </li>
+
+    <li>
+      <b> Star power tweaks</b> &#8211; The 'power' gap between 5-star players and
+      1-star players has been reduced
+    </li>
+
+    <li>
+      <b>New User Interface</b> &#8211; Even has customizable backgrounds!
+    </li>
+    <li>
+      This version of the game is entirely open-source. Anyone can go look at
+      its <a rel="noreferrer" href="https://github.com/mautamu/Risk">code</a>,
+      and submit pull requests to change the game.
+      <br /> The backend version of the game is written in the programming
+      language
+      <a rel="noreferrer" target="blank" href="https://www.rust-lang.org/"
+        >Rust</a
+      >
+      while the frontend is written in
+      <a rel="noreferrer" target="blank" href="https://svelte.dev/">Svelte</a>.
+    </li>
+  </ul>
   <h3 id="gameplay">Gameplay</h3>
   <p>
     For each turn, if a team controls only one territory each player is granted
@@ -142,11 +199,11 @@
     <a href="/player/The_Ghost_of_TxAg70">TxAg70</a> has put together a
     wonderful guide for how teams can dominate in CFBR. CFBR is grateful to him
     for putting it together. You can view it below or
-    <a target="_blank" href="/images/CFBRisk_Guide_1_5.pdf">here.</a>
+    <a target="_blank" href="/images/CFBRisk_Guide_1_6.pdf">here.</a>
   </p>
   <center>
     <iframe
-      src="/images/CFBRisk_Guide_1_5.pdf"
+      src="/images/CFBRisk_Guide_1_6.pdf"
       title="Survival Guide"
       width="80%"
       height="900px"

@@ -92,7 +92,8 @@
       </li>
       <li><a href="/" on:click={hideNav}>Map</a></li>
       <li><a href="/odds" on:click={hideNav}>Odds</a></li>
-      <li><a href="/about" on:click={hideNav}>About</a></li>
+      <li><a href="/info" on:click={hideNav}>Info</a></li>
+      <li><a href="/help" on:click={hideNav}>How to Play</a></li>
       <!-- svelte-ignore a11y-invalid-attribute -->
       <li><a href="javascript:void(0)" on:click={goDocs}>API</a></li>
       <li>
