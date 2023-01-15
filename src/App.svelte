@@ -47,9 +47,6 @@
   const showLeaderboard = () =>
     modal.set(bind(Leaderboard, { turnToUse: null }));
   const showMe = () => modal.set(bind(Me));
-  const goDocs = () => {
-    location = "/docs";
-  };
   const goBugs = () =>
     (location =
       "https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform");
@@ -95,7 +92,7 @@
       <li><a href="/info" on:click={hideNav}>Info</a></li>
       <li><a href="/help" on:click={hideNav}>How to Play</a></li>
       <!-- svelte-ignore a11y-invalid-attribute -->
-      <li><a href="javascript:void(0)" on:click={goDocs}>API</a></li>
+      <li><a href="/docs/" target="_blank">API</a></li>
       <li>
         <a
           href="https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform"

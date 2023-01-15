@@ -120,9 +120,10 @@
       <b>New User Interface</b> &#8211; Even has customizable backgrounds!
     </li>
     <li>
-      This version of the game is entirely open-source. Anyone can go look at
-      its <a rel="noreferrer" href="https://github.com/mautamu/Risk">code</a>,
-      and submit pull requests to change the game.
+      <b>Open Source</b> &#8211; This version of the game is entirely
+      open-source. Anyone can go look at its
+      <a rel="noreferrer" href="https://github.com/mautamu/Risk">code</a>, and
+      submit pull requests to change the game.
       <br /> The backend version of the game is written in the programming
       language
       <a rel="noreferrer" target="blank" href="https://www.rust-lang.org/"
