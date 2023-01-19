@@ -47,6 +47,7 @@
   const showLeaderboard = () =>
     modal.set(bind(Leaderboard, { turnToUse: null }));
   const showMe = () => modal.set(bind(Me));
+  const goLogin = () => (location = "/login/reddit");
   const goBugs = () =>
     (location =
       "https://docs.google.com/forms/d/e/1FAIpQLSf6o60hXZOuCXDIB-YphQtceNcs92k6zlGwJe3iigA7qnvIlA/viewform");
@@ -82,6 +83,8 @@
           <li>
             <a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a>
           </li>
+        {:else}
+          <a href="/login/reddit" on:click={goLogin}>Login</a>
         {/if}
       {/key}
       <li>
