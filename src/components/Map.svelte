@@ -265,7 +265,11 @@
       if (response.ok) return response.text();
       return "";
     });
-    if ($settings.pulse_territories && $turn == null) {
+    if (
+      $settings.pulse_territories &&
+      $turn == null &&
+      JSON.parse(move) != ""
+    ) {
       pulseTerritory(move);
     }
     if (JSON.parse(move) == "" && $settings.prompt_move == true) {
