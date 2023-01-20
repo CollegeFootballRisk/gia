@@ -48,7 +48,7 @@ const routes = [
     name: "info",
     component: Info,
   },
-    {
+  {
     name: "about",
     component: Info,
   },

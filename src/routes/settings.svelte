@@ -45,13 +45,15 @@
   <hr />
   <label class="toggle">
     <input
-      bind:checked={$settings.dont_check_map_lock}
+      bind:checked={$settings.pulse_territories}
       class="toggle-checkbox"
       type="checkbox"
     />
     <div class="toggle-switch" />
     <span class="toggle-label"
-      >Make the map more sensitive (helpful on Android devices).</span
+      >Pulse the territory that you have selected once your move has been made
+      (causes a territory to fade in and out if you have selected it as your
+      move).</span
     >
   </label>
   <hr />

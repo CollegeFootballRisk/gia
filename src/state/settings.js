@@ -8,8 +8,10 @@ export const settings = writable("settings", {
   lightmode: false,
   images: false,
   prompt_move: true,
+  // Deprecated
   dont_check_map_lock: false,
   experiments: false,
+  pulse_territories: false,
 });
 import { writable } from "svelte-local-storage-store";
 

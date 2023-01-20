@@ -199,6 +199,19 @@
     modal.set(bind(MyMove, { territoryInfo: territoryInfo }));
   }
 
+  function pulseTerritory(territory) {
+    let pulsing = document
+      .querySelector("#map")
+      .getElementsByClassName("map-animated-highlight");
+    for (var i = 0; i < pulsing.length; i++) {
+      pulsing[i].classList.remove("map-animated-highlight");
+    }
+    document
+      .querySelector("#map")
+      .getElementById(normalizeTerritoryName(territory.replace(/['"]+/g, "")))
+      .classList.add("map-animated-highlight");
+  }
+
   async function drawChaosLine(territory_name) {
     var end = document
       .getElementById("map")
@@ -234,7 +247,10 @@
   }
 
   async function promptMoveCheck(user) {
-    if ($settings.prompt_move == false) {
+    if (
+      $settings.prompt_move == false &&
+      $settings.pulse_territories == false
+    ) {
       $prompt_move = false;
       return;
     }
@@ -249,7 +265,10 @@
       if (response.ok) return response.text();
       return "";
     });
-    if (JSON.parse(move) == "") {
+    if ($settings.pulse_territories && $turn == null) {
+      pulseTerritory(move);
+    }
+    if (JSON.parse(move) == "" && $settings.prompt_move == true) {
       $prompt_move = true;
     } else {
       $prompt_move = false;
@@ -451,6 +470,22 @@
     }
     100% {
       background-color: teal;
+    }
+  }
+
+  :global(.map-animated-highlight) {
+    animation: fading 4s infinite;
+  }
+
+  @keyframes fading {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.2;
     }
   }
 </style>
