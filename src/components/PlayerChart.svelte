@@ -5,6 +5,8 @@
   export let extern_data;
   export let season;
 
+  extern_data.sort((a, b) => a.season * 100 + a.day > b.season * 100 + b.day);
+
   import { Line } from "svelte-chartjs";
   var data = {
     labels: [],
