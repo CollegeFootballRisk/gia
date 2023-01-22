@@ -64,7 +64,8 @@
   {/key}
   <br /><br />
   <b style="color:red;font-size:1.25em;"
-    ><a href="https://www.twitch.tv/dodgerofzion" target="_blank">Live Stream</a
+    ><a href="ttps://www.twitch.tv/beerbatteredag" target="_blank"
+      >Live Stream</a
     ></b
   >
 </div>
