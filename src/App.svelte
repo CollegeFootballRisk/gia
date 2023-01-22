@@ -81,10 +81,14 @@
       {#key $user}
         {#if $user != null}
           <li>
-            <a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a>
+            <a on:click={hideNav} href="/player/{$user.name}" on:click={showMe}
+              >{$user.name}</a
+            >
           </li>
         {:else}
-          <li><a href="/login/reddit" target="_blank">Login</a></li>
+          <li>
+            <a on:click={hideNav} href="/login/reddit" target="_blank">Login</a>
+          </li>
         {/if}
       {/key}
       <li>
