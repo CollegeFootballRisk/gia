@@ -84,7 +84,7 @@
             <a href="/player/{$user.name}" on:click={showMe}>{$user.name}</a>
           </li>
         {:else}
-          <a href="/login/reddit" target="_blank">Login</a>
+          <li><a href="/login/reddit" target="_blank">Login</a></li>
         {/if}
       {/key}
       <li>
