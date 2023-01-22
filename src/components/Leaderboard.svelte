@@ -37,8 +37,19 @@
     v.starPower == null ? "0" : v.starPower.toString();
   const formatEff = (v: Lboard): string =>
     v.efficiency == null ? "0.00" : v.efficiency.toFixed(2);
-  const formatPPP = (v: Lboard): string =>
-    (v.starPower / (v.mercCount + v.playerCount)).toFixed(2);
+
+  function doPPP(v: Lboard[]) {
+    for (var i = 0; i < v.length; i++) {
+      if (v[i].mercCount + v[i].playerCount == 0) {
+        v[i].ppp = "0.00";
+      } else {
+        v[i].ppp = Number(
+          v[i].starPower / (v[i].mercCount + v[i].playerCount)
+        ).toFixed(2);
+      }
+    }
+    return v;
+  }
   interface Lboard {
     rank: number;
     name: string;
@@ -48,7 +59,7 @@
     mercCount: number;
     starPower: number;
     efficiency: number;
-    ppp: number;
+    ppp: string;
   }
 
   const tableSettings: TableSettings<Lboard> = {
@@ -114,7 +125,6 @@
       propName: "ppp",
       headerText: "PPP",
       tooltip: "Power per Player",
-      colValue: formatPPP,
     },
   ];
 
@@ -129,7 +139,7 @@
   <Loader />
 {:then data_json}
   {#if data_json.length > 0}
-    <SimpleTable data={data_json} {columnSettings} {tableSettings} />
+    <SimpleTable data={doPPP(data_json)} {columnSettings} {tableSettings} />
   {:else}
     Leaderboard not yet available
   {/if}
