@@ -107,7 +107,7 @@
     {
       propName: "efficiency",
       headerText: "Efficiency",
-      tooltip: "Team Efficiency",
+      tooltip: "Team Efficiency (Stars/Territories)",
       colValue: formatEff,
     },
     {
