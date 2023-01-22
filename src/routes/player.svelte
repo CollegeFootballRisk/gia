@@ -136,7 +136,11 @@
         placeholder="Search ..."
       />
     </div>
-    <h1>{player.name}</h1>
+    <h1>
+      <a target="_blank" href="https://reddit.com/user/{player.name}"
+        >{player.platform == "reddit" ? "u/" : ""}{player.name}</a
+      >
+    </h1>
     <h2
       style:text-shadow={`0px 0px 5px var(--${
         player.team.name == null
@@ -153,7 +157,7 @@
     </h2>
     <h4>
       {#if player.team.name != null}
-        <a href="/team/{player.team.name}"
+        <a href="/team/{encodeURIComponent(player.team.name)}"
           >{player.team.name == player.active_team.name
             ? player.team.name
             : `${player.team.name}, playing for ${
