@@ -55,7 +55,7 @@
     )}">${v.team}</a>`;
 
   const playerLink = (v: TerrTurn): string =>
-    `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(
+    `<a onclick="window.closeModal()" href="/player/${encodeURIComponent(
       v.player
     )}">${v.player}</a>`;
 
