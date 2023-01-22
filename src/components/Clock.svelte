@@ -64,7 +64,7 @@
   {/key}
   <br /><br />
   <b style="color:red;font-size:1.25em;"
-    ><a href="ttps://www.twitch.tv/beerbatteredag" target="_blank"
+    ><a href="https://www.twitch.tv/beerbatteredag" target="_blank"
       >Live Stream</a
     ></b
   >
