@@ -195,7 +195,6 @@
           <i>Territories:</i><br />
           {team.teamStats.territories}
         </div>
-        Michigan
       </div>
       <br />
       {#await get_latest}
@@ -205,18 +204,12 @@
           <div class="lcol2" style="max-width:90vw;">
             <h3>Player Stars:</h3>
             <br />
-            <PlayerTime
-              season={latest.season}
-              extern_data={team.teamData.reverse()}
-            />
+            <PlayerTime season={latest.season} extern_data={team.teamData} />
           </div>
           <div class="lcol2" style="max-width:90vw;">
             <h3>Star Power:</h3>
             <br />
-            <PlayerChart
-              season={latest.season}
-              extern_data={team.teamData.reverse()}
-            />
+            <PlayerChart season={latest.season} extern_data={team.teamData} />
           </div>
         </div>
       {/await}
