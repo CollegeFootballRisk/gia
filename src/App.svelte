@@ -14,6 +14,7 @@
   import { settings } from "./state/settings";
   import Leaderboard from "./components/Leaderboard.svelte";
   import Loader from "./components/Loader.svelte";
+  import AltPrompt from "./components/AltPrompt.svelte";
   let fetch_tt = getTurnsandTeams();
   onMount(async () => {
     // Fetch teams and turns, as these are required for everything:
@@ -29,6 +30,11 @@
     ) {
       modal.set(bind(JoinTeam, { reason: "eliminated" }));
     }
+
+    if ($user.is_alt == true) {
+      modal.set(bind(AltPrompt));
+    }
+
     window.closeModal = function () {
       modal.set(null);
     };

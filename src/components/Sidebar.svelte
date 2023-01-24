@@ -16,11 +16,13 @@
   import {
     faChevronLeft,
     faChevronRight,
+    faPerson,
   } from "@fortawesome/free-solid-svg-icons";
   import Loader from "./Loader.svelte";
   import { onDestroy, onMount } from "svelte";
   import OwnershipHistory from "./OwnershipHistory.svelte";
   import ActionButton from "./ActionButton.svelte";
+  import SocialIcons from "@rodneylab/svelte-social-icons";
   function isNullTerr() {
     return $highlighted_territories == null;
   }
@@ -180,6 +182,49 @@
       {/if}
     {/if}
   {/if}
+  <hr />
+  <div class="flex-int">
+    <a href="https://twitter.com/CFBRisk/">
+      <SocialIcons
+        network="twitter"
+        style="color: var(--accent-fg); height: 26px;width: 26px;"
+        alt="Twitter"
+        fgColor="var(--accent-fg)"
+        bgColor="var(--accent-1)"
+        title="CFBR Twitter"
+      /></a
+    >
+    <a href="https://reddit.com/r/collegefootballrisk/">
+      <SocialIcons
+        network="reddit"
+        style="color: var(--accent-fg); height: 26px;width: 26px;"
+        alt="Reddit"
+        fgColor="var(--accent-fg)"
+        bgColor="var(--accent-1)"
+        title="CFBR Subreddit"
+      />
+    </a>
+    <a href="http://discord.gg/KG2sKHg">
+      <SocialIcons
+        network="discord"
+        style="color: var(--accent-fg); height: 26px;width: 26px;"
+        alt="Discord"
+        fgColor="var(--accent-fg)"
+        bgColor="var(--accent-1)"
+        title="CFBR Discord"
+      /></a
+    >
+    <a href="http://github.com/collegefootballrisk">
+      <SocialIcons
+        network="github"
+        style="color: var(--accent-fg); height: 26px;width: 26px;"
+        alt="GitHub"
+        fgColor="var(--accent-fg)"
+        bgColor="var(--accent-1)"
+        title="CFBR GitHub"
+      /></a
+    >
+  </div>
 </div>
 
 <style>
@@ -190,6 +235,13 @@
 
   hr {
     color: var(--accent-fg);
+  }
+
+  .flex-int {
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
   }
 
   /** Sidebar **/
