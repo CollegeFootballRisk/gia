@@ -10,7 +10,7 @@
   import { getTeam, getTurnInfo } from "../utils/loads";
   import PlayerTime from "../components/PlayerTime.svelte";
   import PlayerChart from "../components/PlayerChart.svelte";
-  import { highlighted_territories, teams } from "../state/state";
+  import { teams } from "../state/state";
   import { settings } from "../state/settings";
 
   export var currentRoute;
