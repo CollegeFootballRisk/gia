@@ -55,9 +55,10 @@
     territoryLocal == undefined ? null : territoryLocal.info.name;
 </script>
 
-<div class="sidebar" class:is-closed={!$sidebarOpen} title="Sidebar Toggle">
+<div class="sidebar" class:is-closed={!$sidebarOpen}>
   <button
     class="sidebar-toggle"
+    title="Sidebar Toggle"
     on:click={() => sidebarOpen.set(!$sidebarOpen)}
   >
     <FontAwesomeIcon
