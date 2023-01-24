@@ -57,6 +57,7 @@
   });
   onDestroy(() => {
     highlighted_territories.set(null);
+    turn.set(null);
   });
 
   function handleWindowKeyDown(event) {
