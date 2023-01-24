@@ -63,9 +63,9 @@
     {/await}
   {/key}
   <br /><br />
-  <!--<b style="color:red;font-size:1.25em;"
+  <b style="color:red;font-size:1.25em;"
     ><a href="https://www.twitch.tv/helv28" target="_blank"
       >Live Stream</a
     ></b
-  >-->
+  >
 </div>
