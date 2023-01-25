@@ -24,6 +24,7 @@
     highlighted_territories,
     lock_highlighted,
     sidebarOpen,
+    turn,
   } from "../state/state.js";
   import { setupMapPanZoom } from "../utils/map";
   var lockClick = false;
@@ -57,7 +58,7 @@
   });
   onDestroy(() => {
     highlighted_territories.set(null);
-    turn.set(null);
+    $turn = null;
   });
 
   function handleWindowKeyDown(event) {
