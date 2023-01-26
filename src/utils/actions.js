@@ -29,9 +29,9 @@ export async function runAction(move_to) {
   // TODO: Need to determine if we need to prompt for AON
   let curr_turn = await getTurnInfo(null);
   console.log(
-    team_territory_counts,
+    get(team_territory_counts),
     get(user),
-    get(user).active_team,
+    get(user).active_team.name,
     get(team_territory_counts)[get(user).active_team.name],
     curr_turn.allOrNothingEnabled
   );
