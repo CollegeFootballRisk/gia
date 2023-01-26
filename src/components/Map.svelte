@@ -14,6 +14,7 @@
     team_territory_counts,
     user,
     prompt_move,
+    team,
   } from "../state/state.js";
 
   import { settings } from "../state/settings";
@@ -172,10 +173,11 @@
         console.log(`Couldn't find territory ${terr.normalizedName}`);
       }
     });
+    team_territory_counts.set(owners);
+    console.log(owners);
     try {
       $highlighted_territories.style.fill =
         $highlighted_territories.info.secondaryColor;
-      team_territory_counts.set(owners);
     } catch {
       // Page not ready yet
     }
