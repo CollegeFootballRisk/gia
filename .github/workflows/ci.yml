@@ -28,14 +28,14 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: Build and push to GHCR
-        if: github.event_name == 'pull_request'
+        if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v3.3.0
         with:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Build Image on PR
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: docker/build-push-action@v3.3.0
         with:
           push: false
