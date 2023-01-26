@@ -31,7 +31,6 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v3.3.0
         with:
-          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -39,7 +38,6 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/build-push-action@v3.3.0
         with:
-          context: .
           push: false
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
