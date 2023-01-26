@@ -39,6 +39,30 @@
     is drawn and the team who's player that number corresponds to is labeled
     <a href="#mvp">MVP</a> and wins the territory for that team.
   </p>
+  <h3>What multipliers are there?</h3>
+  <p id="mults">The multipliers are as follows:</p>
+  <ul>
+    <li>
+      <b>Region Multiplier:</b> A team can receive a multiplier of 1.0 + 0.5* the
+      number of territories owned. For example, if a team holds all of the territories
+      in two regions, they get a 2.0 multiplier.
+    </li>
+    <li>
+      <b>Defense:</b> A player can receive a multiplier of 1.5 for defending a territory
+      their team already owns.
+    </li>
+    <li>
+      <b>Triple-or-Nothing:</b> A player on a team with just one territory gets to
+      gamble between having a multiplier of 1, 3, or 0 (the later two determined
+      by RNG, the former guaranteed). If the player chooses not to participate, the
+      multiplier does not come into effect for that user.
+    </li>
+  </ul>
+  <p>
+    Multipliers are multiplicative, so a defender with a single regional
+    multiplier would have (1.5)&#x2715;(1.0 + 0.5) = 2.25 multiplier. This is
+    then multiplied by their star number to determine their overall power.
+  </p>
   <h3>
     How can I participate in the community and/or find my team's central
     command?
