@@ -5,7 +5,7 @@
   export var extern_data;
   export var season;
 
-  extern_data.sort((a, b) => a.season * 100 + a.day - b.season * 100 + b.day);
+  extern_data.sort((a, b) => a.sequence - b.sequence);
 
   import { Line } from "svelte-chartjs";
   var data = {
