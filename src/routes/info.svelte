@@ -44,7 +44,7 @@
   <ul>
     <li>
       <b>Region Multiplier:</b> A team can receive a multiplier of 1.0 + 0.5* the
-      number of territories owned. For example, if a team holds all of the territories
+      number of regions owned. For example, if a team holds all of the territories
       in two regions, they get a 2.0 multiplier.
     </li>
     <li>
