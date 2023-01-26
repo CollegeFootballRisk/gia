@@ -174,7 +174,6 @@
       }
     });
     team_territory_counts.set(owners);
-    console.log(owners);
     try {
       $highlighted_territories.style.fill =
         $highlighted_territories.info.secondaryColor;
