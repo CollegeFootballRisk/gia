@@ -6,7 +6,11 @@
   import { team, turn, turns } from "../state/state.js";
   import { onMount } from "svelte";
   import Odds from "../components/Odds.svelte";
-
+  import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+  import FontAwesomeIcon from "fontawesome-svelte/src/FontAwesomeIcon.svelte";
+  import { modal } from "../state/state.js";
+  import { bind } from "svelte-simple-modal";
+  import OddsDescription from "../components/OddsDescription.svelte";
   export var currentRoute;
   var teams_available = [];
   var local_map_type = "chance";
@@ -31,6 +35,8 @@
     if ($team == null) $team = teams_available.sort()[0];
     if ($turn == null) $turn = $turns.length - 1;
   }
+
+  const showOddsInfoPrompt = () => modal.set(bind(OddsDescription));
 
   function changeUrl(turn, team) {
     if (turn == null || team == null) {
@@ -62,7 +68,7 @@
       {/each}
     </select>
   {/key}
-  <select bind:value={local_map_type} title="select display">
+  <select name="maptype" bind:value={local_map_type} title="select display">
     <option value="chance">Chance</option>
     <option value="players">Players</option>
     <option value="wins">Wins</option>
@@ -74,6 +80,9 @@
     <option value="teamPower">Team Power</option>
     <option value="territoryPower">Territory Power</option>
   </select>
+  <label for="maptype" on:click={showOddsInfoPrompt}
+    ><FontAwesomeIcon icon={faQuestionCircle} /></label
+  >
 </div>
 {#if $turns != null && $turn != null && $team != null}
   <Odds
@@ -115,8 +124,16 @@
   .map-controls select {
     float: left;
   }
+
+  .top-control select {
+    flex: 1;
+  }
+
   .top-control {
     position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     top: calc(var(--navbar-height));
     margin-left: auto;
     margin-right: auto;
@@ -125,5 +142,19 @@
     z-index: 2;
     white-space: nowrap;
     bottom: unset !important;
+  }
+
+  .top-control label {
+    height: 2em;
+    color: var(--accent-fg);
+    position: relative;
+    padding-top: 0.4em;
+    font-size: 1.3em;
+    padding-left: 0.4em;
+  }
+
+  .map-controls select:hover,
+  .map-controls label:hover {
+    color: var(--itemHoverBG);
   }
 </style>
