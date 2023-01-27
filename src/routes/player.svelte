@@ -29,10 +29,11 @@
       v.team
     )}">${v.team}</a>`;
 
-  const territoryLink = (v: PlayerTurn): string =>
-    `<a onclick="window.closeModal()" href="/territory/${encodeURIComponent(
+  const territoryLink = (v: PlayerTurn): string => v.territory;
+  /*`<a onclick="window.closeModal()" href="/territory/${encodeURIComponent(
       v.territory
-    )}">${v.territory}</a>`;
+    )}">${v.territory}</a>`;*/
+  // Disabled for now until we get /territory/:territory endpoint working
 
   const formatMVP = (v: PlayerTurn): string =>
     v.mvp ? String.fromCharCode(0x272f) : "N";
