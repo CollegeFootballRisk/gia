@@ -79,6 +79,7 @@
     {
       propName: "seasonDaySort",
       tooltip: "Turn",
+      headerText: "Turn",
       classList: ["text-left"],
       colValue: (x) => x.seasonDay,
     },

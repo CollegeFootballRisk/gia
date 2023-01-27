@@ -146,7 +146,7 @@
 
   .top-control label {
     height: 2em;
-    color: var(--accent-fg);
+    color: var(--accent-2);
     position: relative;
     padding-top: 0.4em;
     font-size: 1.3em;

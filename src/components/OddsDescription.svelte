@@ -24,30 +24,30 @@
     territories the team lost are shown in red.
   </li>
   <li value="ones">
-    <b>✯:</b>The number of players that a team submitted to each territory who
-    had one star at the time of the roll.
+    <b>✯:</b> The number of players that a team submitted to each territory who had
+    one star at the time of the roll.
   </li>
   <li value="twos">
-    <b>✯✯:</b>The number of players that a team submitted to each territory who
+    <b>✯✯:</b> The number of players that a team submitted to each territory who
     had two stars at the time of the roll.
   </li>
   <li value="threes">
-    <b>✯✯✯:</b>The number of players that a team submitted to each territory who
+    <b>✯✯✯:</b> The number of players that a team submitted to each territory who
     had three stars at the time of the roll.
   </li>
   <li value="fours">
-    <b>✯✯✯✯:</b>The number of players that a team submitted to each territory
-    who had four stars at the time of the roll.
+    <b>✯✯✯✯:</b> The number of players that a team submitted to each territory who
+    had four stars at the time of the roll.
   </li>
   <li value="fives">
-    <b>✯✯✯✯✯:</b>The number of players that a team submitted to each territory
-    who had five stars at the time of the roll.
+    <b>✯✯✯✯✯:</b> The number of players that a team submitted to each territory who
+    had five stars at the time of the roll.
   </li>
   <li value="teamPower">
-    <b>Team Power:</b>Where the team deployed the most power that turn.
+    <b>Team Power:</b> Where the team deployed the most power that turn.
   </li>
   <li value="territoryPower">
-    <b>Territory Power:</b>Where all teams deployed the most power that turn.
+    <b>Territory Power:</b> Where all teams deployed the most power that turn.
   </li>
 </ul>
 <p>

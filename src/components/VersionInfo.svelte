@@ -17,5 +17,5 @@
   {:then rrv_val}
     Rust-Risk (Backend) Version: {rrv_val.version}<br />
   {/await}
-  Browser Version: {navigator.userAgent} from {navigator.vendor} <br />
+  Browser Version: {navigator.userAgent}<br />
 </p>
