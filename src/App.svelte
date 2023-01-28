@@ -31,7 +31,7 @@
       modal.set(bind(JoinTeam, { reason: "eliminated" }));
     }
 
-    if ($user.is_alt == true) {
+    if (!$user == null && $user.is_alt == true) {
       modal.set(bind(AltPrompt));
     }
 

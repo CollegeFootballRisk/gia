@@ -14,7 +14,7 @@ export async function isLoggedIn(userv) {
 
   try {
     let json = await get.json();
-    if (get.ok) {
+    if (get.ok && json.code != 4000) {
       if (typeof json.name != undefined) {
         user.set(json);
         return true;
