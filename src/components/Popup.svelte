@@ -13,7 +13,7 @@
   export let loading = false;
   export let error = false;
   export let good = false;
-  var color = "var(--accent-fg)";
+  var color = "var(--main-foreground-color)";
   if (error) {
     color = "red";
   }
