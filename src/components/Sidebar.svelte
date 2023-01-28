@@ -6,6 +6,7 @@
   export let passthrough_data;
   export let team;
   export let finished_load;
+  export var territoryInfo;
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import {
     highlighted_territories,
@@ -72,7 +73,7 @@
         {isNullTerr() ? "North America" : $highlighted_territories.info.name}
       </h2></center
     >
-    <ActionButton />
+    <ActionButton {territoryInfo} />
     <hr />
     {#if $highlighted_territories != null && $highlighted_territories.info != null && typeof $highlighted_territories.info.attributeInformation != "undefined" && $highlighted_territories.info.attributeInformation.power != null}
       <center

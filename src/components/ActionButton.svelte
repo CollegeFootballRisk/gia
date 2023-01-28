@@ -1,10 +1,13 @@
 <!-- Decides whether or not to show action button to user -->
 <script>
+  export var territoryInfo;
   import { onDestroy } from "svelte";
   import { highlighted_territories, turn, user } from "../state/state";
   import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";
   import { runAction } from "../utils/actions";
+  import { normalizeTerritoryName } from "../utils/normalization";
+  import { getActionableTerritories } from "../utils/map";
 
   var action = null; // Territory ownership
   var highlighted = null; // Highlighted territories [Territory]
@@ -23,12 +26,30 @@
   // If a territory is not owned by user.active_team.name, AND at least one neighboring territory is,
   // then that territory is attackable.
 
-  async function isActionable(neighbors, owner, team, name) {
+  async function isActionable(name) {
     if (name == "Bermuda") return;
     let day = await getTurnInfo(null);
     if (day.active == false) return;
+    var territoryCapture = getActionableTerritories(territoryInfo, $user);
+    if (
+      territoryCapture["defendable"].filter(
+        (a) => normalizeTerritoryName(a.name) == normalizeTerritoryName(name)
+      ).length == 1
+    ) {
+      action = "Defend";
+      return true;
+    } else if (
+      territoryCapture["attackable"].filter(
+        (a) => normalizeTerritoryName(a.name) == normalizeTerritoryName(name)
+      ).length == 1
+    ) {
+      action = "Attack";
+      return true;
+    } else {
+      return false;
+    }
     // Special case for 3.0 start where no neighbors are defined
-    if (neighbors === null && team == owner) {
+    /*if (neighbors === null && team == owner) {
       action = "Defend";
       return true;
     }
@@ -55,7 +76,7 @@
     if (owner != team && acb) {
       action = "Attack";
       return true;
-    }
+    }*/
   }
 </script>
 
@@ -65,7 +86,7 @@
 
 {#if $user != null && $user.team != null && $user.team.name != null}
   {#if localDay == null && highlighted != null && $user.team.name != null}
-    {#await isActionable(highlighted.info.attributeInformation.neighbors, highlighted.info.attributeInformation.owner, $user.active_team.name, highlighted.info.attributeInformation.name)}
+    {#await isActionable(highlighted.info.attributeInformation.name)}
       <Loader />
     {:then is_actionable_unwrapped}
       {#if is_actionable_unwrapped}

@@ -284,7 +284,7 @@
   $: recolorMap($turn, $map_type);
 </script>
 
-<Sidebar />
+<Sidebar {territoryInfo} />
 <div class="map-container">
   <div class="map-controls">
     {#if $prompt_move}
