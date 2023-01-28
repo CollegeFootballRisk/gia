@@ -69,6 +69,7 @@ export async function runAction(move_to) {
         title: `Move Submitted`,
         message: `Your move on ${terr_name} has been successfully made.`,
         loading: false,
+        good: true,
       })
     );
   } else {
