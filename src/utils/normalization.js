@@ -38,7 +38,7 @@ export function dynamicSort(property) {
   };
 }
 
-async function getPercentage(min, max, val) {
+function getPercentage(min, max, val) {
   let l_min = (Math.log(min) < 0) ? 0 : Math.log(min);
   let l_max = (Math.log(max) < 0) ? 1 : Math.log(max);
   let l_val = (Math.log(val) < 0) ? 0 : Math.log(val);
@@ -64,6 +64,7 @@ export async function normalizeOdds(oddsArray, team) {
           (oddsArray[odd].players - min["players"]) /
             (max["players"] - min["players"]) || 0
         );
+        console.log(getPercentage(min["players"], max["players"], oddsArray[odd].players), oddsArray[odd].colorPlayer);
     oddsArray[odd].colorHeat = getColorForPercentage(
       (oddsArray[odd].chance - min["chance"]) /
         (max["chance"] - min["chance"]) || 0
