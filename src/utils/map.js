@@ -53,45 +53,45 @@ export function setupMapPanZoom(handleMouseOver, handleWindowKeyDown) {
   document.addEventListener("keydown", handleWindowKeyDown);
 }
 
-  export function getActionableTerritories(tInfo ,user) {
-    var attackable_territories = [];
-    var defendable_territories = [];
-    var owned_territories = tInfo.filter(
-      (x) => x.attributeInformation.owner == user.active_team.name
-    );
+export function getActionableTerritories(tInfo, user) {
+  var attackable_territories = [];
+  var defendable_territories = [];
+  var owned_territories = tInfo.filter(
+    (x) => x.attributeInformation.owner == user.active_team.name
+  );
 
-    // Attackable:
-    // Iterate over all the owned territories's neighors and push if the owner of the territory is not me
-    attackable_territories = owned_territories
-      .map((a) => {
-        return a.attributeInformation.neighbors == null
-          ? []
-          : a.attributeInformation.neighbors.filter(
-              (x) => x.owner != user.active_team.name
-            );
-      })
-      .flat();
+  // Attackable:
+  // Iterate over all the owned territories's neighors and push if the owner of the territory is not me
+  attackable_territories = owned_territories
+    .map((a) => {
+      return a.attributeInformation.neighbors == null
+        ? []
+        : a.attributeInformation.neighbors.filter(
+            (x) => x.owner != user.active_team.name
+          );
+    })
+    .flat();
 
-    // Defendable:
-    // Iterate over territories not owned by us, find those with neighbors with owner = our team.
-    defendable_territories = tInfo
-      .filter((x) => x.attributeInformation.owner != user.active_team.name)
-      .map((x) =>
-        x.attributeInformation.neighbors == null
-          ? []
-          : x.attributeInformation.neighbors
-      )
-      .flat();
-    defendable_territories = defendable_territories.filter(
-      (y, i, s) =>
-        y.owner == user.active_team.name &&
-        s.findIndex((t) => t.name == y.name) === i
-    );
-    attackable_territories = attackable_territories.filter(
-      (y, i, s) => s.findIndex((t) => t.name == y.name) === i
-    );
-    return {
-      attackable: attackable_territories,
-      defendable: defendable_territories,
-    };
-  }
+  // Defendable:
+  // Iterate over territories not owned by us, find those with neighbors with owner = our team.
+  defendable_territories = tInfo
+    .filter((x) => x.attributeInformation.owner != user.active_team.name)
+    .map((x) =>
+      x.attributeInformation.neighbors == null
+        ? []
+        : x.attributeInformation.neighbors
+    )
+    .flat();
+  defendable_territories = defendable_territories.filter(
+    (y, i, s) =>
+      y.owner == user.active_team.name &&
+      s.findIndex((t) => t.name == y.name) === i
+  );
+  attackable_territories = attackable_territories.filter(
+    (y, i, s) => s.findIndex((t) => t.name == y.name) === i
+  );
+  return {
+    attackable: attackable_territories,
+    defendable: defendable_territories,
+  };
+}

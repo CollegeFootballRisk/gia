@@ -4,6 +4,8 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 import { getColorForPercentage } from "./map";
+import { get } from "svelte/store";
+import { settings } from "../state/settings";
 
 export function normalizeTerritoryName(name) {
   return name.normalize("NFD").replace(/[\u0300-\u036f ']/g, "");
@@ -36,6 +38,13 @@ export function dynamicSort(property) {
   };
 }
 
+function getPercentage(min, max, val) {
+  l_min = Math.log(min) < 0 ? 0 : Math.log(min);
+  l_max = Math.log(max) < 0 ? 1 : Math.log(max);
+  l_val = Math.log(val) < 0 ? 0 : Math.log(val);
+  return (l_val - l_min) / (l_max - l_min);
+}
+
 export async function normalizeOdds(oddsArray, team) {
   var max, min;
   [max, min] = getMaxMin(oddsArray);
@@ -46,10 +55,15 @@ export async function normalizeOdds(oddsArray, team) {
     territoryCount += oddsArray[odd].winner == decodeURIComponent(team) ? 1 : 0;
     territoryExpectedCount += oddsArray[odd].chance;
     oddsElim *= 1 - oddsArray[odd].chance;
-    oddsArray[odd].colorPlayer = getColorForPercentage(
-      (oddsArray[odd].players - min["players"]) /
-        (max["players"] - min["players"]) || 0
-    );
+    const newMethod = get(settings).experiments;
+    oddsArray[odd].colorPlayer = newMethod
+      ? getColorForPercentage(
+          getPercentage(min["players"], max["players"], oddsArray[odd].players)
+        )
+      : getColorForPercentage(
+          (oddsArray[odd].players - min["players"]) /
+            (max["players"] - min["players"]) || 0
+        );
     oddsArray[odd].colorHeat = getColorForPercentage(
       (oddsArray[odd].chance - min["chance"]) /
         (max["chance"] - min["chance"]) || 0
@@ -57,34 +71,90 @@ export async function normalizeOdds(oddsArray, team) {
     oddsArray[odd].colorWin = getColorForPercentage(
       1 - (oddsArray[odd].winner == decodeURIComponent(team)) ? 1 : 0
     );
-    oddsArray[odd].colorOnes = getColorForPercentage(
-      (oddsArray[odd]["starBreakdown"].ones - min["ones"]) /
-        (max["ones"] - min["ones"]) || 0
-    );
-    oddsArray[odd].colorTwos = getColorForPercentage(
-      (oddsArray[odd]["starBreakdown"].twos - min["twos"]) /
-        (max["twos"] - min["twos"]) || 0
-    );
-    oddsArray[odd].colorThrees = getColorForPercentage(
-      (oddsArray[odd]["starBreakdown"].threes - min["threes"]) /
-        (max["threes"] - min["threes"]) || 0
-    );
-    oddsArray[odd].colorFours = getColorForPercentage(
-      (oddsArray[odd]["starBreakdown"].fours - min["fours"]) /
-        (max["fours"] - min["fours"]) || 0
-    );
-    oddsArray[odd].colorFives = getColorForPercentage(
-      (oddsArray[odd]["starBreakdown"].fives - min["fives"]) /
-        (max["fives"] - min["fives"]) || 0
-    );
-    oddsArray[odd].colorTeamPower = getColorForPercentage(
-      (oddsArray[odd].teamPower - min["teamPower"]) /
-        (max["teamPower"] - min["teamPower"]) || 0
-    );
-    oddsArray[odd].colorTerritoryPower = getColorForPercentage(
-      (oddsArray[odd].territoryPower - min["territoryPower"]) /
-        (max["territoryPower"] - min["territoryPower"]) || 0
-    );
+    oddsArray[odd].colorOnes = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["ones"],
+            max["ones"],
+            oddsArray[odd]["starBreakdown"].ones
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd]["starBreakdown"].ones - min["ones"]) /
+            (max["ones"] - min["ones"]) || 0
+        );
+    oddsArray[odd].colorTwos = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["twos"],
+            max["twos"],
+            oddsArray[odd]["starBreakdown"].twos
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd]["starBreakdown"].twos - min["twos"]) /
+            (max["twos"] - min["twos"]) || 0
+        );
+    oddsArray[odd].colorThrees = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["threes"],
+            max["threes"],
+            oddsArray[odd]["starBreakdown"].threes
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd]["starBreakdown"].threes - min["threes"]) /
+            (max["threes"] - min["threes"]) || 0
+        );
+    oddsArray[odd].colorFours = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["fours"],
+            max["fours"],
+            oddsArray[odd]["starBreakdown"].fours
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd]["starBreakdown"].fours - min["fours"]) /
+            (max["fours"] - min["fours"]) || 0
+        );
+    oddsArray[odd].colorFives = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["fives"],
+            max["fives"],
+            oddsArray[odd]["starBreakdown"].fives
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd]["starBreakdown"].fives - min["fives"]) /
+            (max["fives"] - min["fives"]) || 0
+        );
+    oddsArray[odd].colorTeamPower = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["teamPower"],
+            max["teamPower"],
+            oddsArray[odd].teamPower
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd].teamPower - min["teamPower"]) /
+            (max["teamPower"] - min["teamPower"]) || 0
+        );
+    oddsArray[odd].colorTerritoryPower = newMethod
+      ? getColorForPercentage(
+          getPercentage(
+            min["territoryPower"],
+            max["territoryPower"],
+            oddsArray[odd].territoryPower
+          )
+        )
+      : getColorForPercentage(
+          (oddsArray[odd].territoryPower - min["territoryPower"]) /
+            (max["territoryPower"] - min["territoryPower"]) || 0
+        );
   }
   let oddsSurvival = Math.floor(100 * (1 - oddsElim)) + "%";
   // Need to return:
