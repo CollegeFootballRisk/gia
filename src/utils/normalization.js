@@ -64,11 +64,7 @@ export async function normalizeOdds(oddsArray, team) {
           (oddsArray[odd].players - min["players"]) /
             (max["players"] - min["players"]) || 0
         );
-    oddsArray[odd].colorHeat = newMethod
-      ? getColorForPercentage(
-          getPercentage(min["chance"], max["chance"], oddsArray[odd].chance)
-        )
-      :getColorForPercentage(
+    oddsArray[odd].colorHeat = getColorForPercentage(
       (oddsArray[odd].chance - min["chance"]) /
         (max["chance"] - min["chance"]) || 0
     );
