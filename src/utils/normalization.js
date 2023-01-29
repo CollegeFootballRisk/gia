@@ -38,10 +38,10 @@ export function dynamicSort(property) {
   };
 }
 
-function getPercentage(min, max, val) {
-  l_min = Math.log(min) < 0 ? 0 : Math.log(min);
-  l_max = Math.log(max) < 0 ? 1 : Math.log(max);
-  l_val = Math.log(val) < 0 ? 0 : Math.log(val);
+async function getPercentage(min, max, val) {
+  let l_min = (Math.log(min) < 0) ? 0 : Math.log(min);
+  let l_max = (Math.log(max) < 0) ? 1 : Math.log(max);
+  let l_val = (Math.log(val) < 0) ? 0 : Math.log(val);
   return (l_val - l_min) / (l_max - l_min);
 }
 
