@@ -22,7 +22,7 @@
 
   export var currentRoute;
   const win: Window = window;
-  var playerLoad = getPlayer(currentRoute.namedParams.player);
+  $: playerLoad = getPlayer(currentRoute.namedParams.player);
 
   const teamLink = (v: PlayerTurn): string =>
     `<a onclick="window.closeModal()" href="/team/${encodeURIComponent(

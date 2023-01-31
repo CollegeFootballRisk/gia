@@ -15,7 +15,7 @@
 
   export var currentRoute;
   const win: Window = window;
-  var teamLoad = getTeam(currentRoute.namedParams.team);
+  $: teamLoad = getTeam(currentRoute.namedParams.team);
 
   interface Player {
     player: string;
