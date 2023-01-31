@@ -60,6 +60,7 @@
     starPower: number;
     efficiency: number;
     ppp: string;
+    regions: number;
   }
 
   const tableSettings: TableSettings<Lboard> = {
@@ -125,6 +126,11 @@
       propName: "ppp",
       headerText: "PPP",
       tooltip: "Power per Player",
+    },
+    {
+      propName: "regions",
+      headerText: "Regions",
+      tooltip: "Regions held by team",
     },
   ];
 
