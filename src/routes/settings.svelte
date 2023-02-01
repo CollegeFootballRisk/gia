@@ -69,6 +69,20 @@
     >
   </label>
   <hr />
+  <label class="toggle">
+    <select bind:value={$settings.default_page_size} class="select">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+    <span class="toggle-label">How many rows to show on tables by default.</span
+    >
+  </label>
+  <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
 </div>
 
@@ -86,6 +100,14 @@
   .toggle {
     cursor: pointer;
     display: inline-block;
+  }
+
+  .select {
+    display: inline-block;
+    background: #ccc;
+    border-radius: 16px;
+    width: 58px;
+    height: 32px;
   }
 
   .toggle-switch {

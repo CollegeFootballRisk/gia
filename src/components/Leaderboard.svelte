@@ -63,6 +63,7 @@
     regions: number;
   }
 
+  console.log($settings.default_page_size);
   const tableSettings: TableSettings<Lboard> = {
     tableId: "pfx",
     themeName: $settings.lightmode ? "light" : "dark",
@@ -76,8 +77,8 @@
     clickableRows: false,
     animateSorting: false,
     paginated: true,
-    pageSize: 10,
-    pageSizeOptions: [5, 10, 15, 20, 25],
+    pageSize: $settings.default_page_size,
+    pageSizeOptions: [5, 10, 15, 20, 25, 50, 100],
     pageRangeFormat: "compact",
     pageNavFormat: "compact",
   };

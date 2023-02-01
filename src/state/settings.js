@@ -12,6 +12,7 @@ export const settings = writable("settings", {
   dont_check_map_lock: false,
   experiments: false,
   pulse_territories: false,
+  default_page_size: 10
 });
 import { writable } from "svelte-local-storage-store";
 
