@@ -431,9 +431,9 @@
     background: var(--main-background-color) !important;
     color: var(--main-foreground-color) !important;
     position: relative;
-    width: 40rem;
-    max-width: 100%;
-    max-height: 100%;
+    width: 50rem !important;
+    max-width: 95% !important;
+    max-height: 95% !important;
     margin: 2rem auto;
     border-radius: 0.5rem;
     --borderWidth: 3px;

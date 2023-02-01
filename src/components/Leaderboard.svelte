@@ -63,7 +63,6 @@
     regions: number;
   }
 
-  console.log($settings.default_page_size);
   const tableSettings: TableSettings<Lboard> = {
     tableId: "pfx",
     themeName: $settings.lightmode ? "light" : "dark",
