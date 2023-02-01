@@ -60,6 +60,9 @@
   const hideNav = () => {
     navShownMobile = false;
   };
+  if ($settings.default_page_size === undefined) {
+    $settings.default_page_size = 10;
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"
