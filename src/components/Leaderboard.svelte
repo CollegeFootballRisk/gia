@@ -50,6 +50,12 @@
     }
     return v;
   }
+
+  function adjStars(v: Lboard): string {
+    v.adjustedStars = (1 + 0.5 * v.regions) * v.starPower;
+    return v.adjustedStars.toFixed(1);
+  }
+
   interface Lboard {
     rank: number;
     name: string;
@@ -61,6 +67,7 @@
     efficiency: number;
     ppp: string;
     regions: number;
+    adjustedStars?: number;
   }
 
   const tableSettings: TableSettings<Lboard> = {
@@ -131,6 +138,13 @@
       propName: "regions",
       headerText: "Regions",
       tooltip: "Regions held by team",
+    },
+    {
+      propName: "adjustedStars",
+      headerText: "Adj. Stars",
+      tooltip:
+        "The amount of star power available to a team, accounting for regions.",
+      colValue: adjStars,
     },
   ];
 
