@@ -8,5 +8,7 @@
     target="_blank"
   >
     a message to the game mods</a
-  > immediately.
+  >
+  immediately. <br /> You will still be able to submit moves and build up stars,
+  but your moves will not affect the game.
 </center>
