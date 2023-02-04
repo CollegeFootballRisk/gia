@@ -9,6 +9,6 @@
   >
     a message to the game mods</a
   >
-  immediately. <br /> You will still be able to submit moves and build up stars,
+  immediately. <br /><br /> You will still be able to submit moves and build up stars,
   but your moves will not affect the game.
 </center>
