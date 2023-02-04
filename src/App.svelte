@@ -17,6 +17,9 @@
   import AltPrompt from "./components/AltPrompt.svelte";
   let fetch_tt = getTurnsandTeams();
   onMount(async () => {
+    window.closeModal = function () {
+      modal.set(null);
+    };
     // Fetch teams and turns, as these are required for everything:
     await fetch_tt;
     let loggedIn = await isLoggedIn($user);
@@ -31,13 +34,10 @@
       modal.set(bind(JoinTeam, { reason: "eliminated" }));
     }
 
-    if (!$user == null && $user.is_alt == true) {
+    if (!($user == null) && $user.is_alt == true) {
       modal.set(bind(AltPrompt));
     }
 
-    window.closeModal = function () {
-      modal.set(null);
-    };
     document.addEventListener(
       "touchmove",
       function (event) {
