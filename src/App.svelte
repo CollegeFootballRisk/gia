@@ -63,6 +63,12 @@
   if ($settings.default_page_size === undefined) {
     $settings.default_page_size = 10;
   }
+  if ($settings.regions_default === undefined) {
+    $settings.regions_default = false;
+  }
+  if ($settings.bridges_default === undefined) {
+    $settings.bridges_default = false;
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"
@@ -75,7 +81,7 @@
     <div>
       <a href="/">
         <img
-          src="https://collegefootballrisk.com/images/logo-white.svg?v=2"
+          src="https://collegefootballrisk.com/images/logo-white.svg?v=3"
           class="logo"
           title="CFBR Logo"
           alt="CFBR Logo"
@@ -431,7 +437,7 @@
     background: var(--main-background-color) !important;
     color: var(--main-foreground-color) !important;
     position: relative;
-    width: 50rem !important;
+    width: 60rem !important;
     max-width: 95% !important;
     max-height: 95% !important;
     margin: 2rem auto;

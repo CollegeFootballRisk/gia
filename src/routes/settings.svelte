@@ -59,6 +59,26 @@
   <hr />
   <label class="toggle">
     <input
+      bind:checked={$settings.bridges_default}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label">Show bridges when the map first loads</span>
+  </label>
+  <hr />
+  <label class="toggle">
+    <input
+      bind:checked={$settings.regions_default}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label">Show regions when the map first loads</span>
+  </label>
+  <hr />
+  <label class="toggle">
+    <input
       bind:checked={$settings.experiments}
       class="toggle-checkbox"
       type="checkbox"

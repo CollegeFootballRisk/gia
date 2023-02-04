@@ -35,7 +35,7 @@
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import { onDestroy, onMount } from "svelte";
-  import { getDay } from "../utils/loads.js";
+  import { getDay, getTurnInfo } from "../utils/loads.js";
   import { normalizeTerritoryName } from "../utils/normalization.js";
   import MyMove from "./MyMove.svelte";
   import Clock from "./Clock.svelte";
@@ -48,6 +48,14 @@
     window.maphandle.on("panend", function () {
       lockClick = false;
     });
+    // Set up regions at start according to the default settings
+    document.getElementById("Regions").style.display = $settings.regions_default
+      ? "flex"
+      : "none";
+    // Set up bridges at start according to the default settings
+    document.getElementById("Bridges").style.display = $settings.bridges_default
+      ? "flex"
+      : "none";
   });
 
   function handleWindowKeyDown(event) {
@@ -132,13 +140,33 @@
     highlighted_territories.set(null);
   });
   var territoryInfo;
-  async function recolorMap() {
-    // Clear the map visually
-    document.querySelectorAll("#map #Territories path").forEach((e) => {
-      e.info = null;
-      e.style.fill = "rgba(128, 128, 128, 0)";
-    });
-    territoryInfo = await getDay($turn);
+
+  var preloadedMaps = {};
+  async function preloadMaps() {
+    let season = getTurnInfo(null).season;
+    for (var i = 0; i < $turns.length; i++) {
+      if ($turns[i].season === season) {
+        preloadedMaps[i] = await getDay($turns[i]);
+      }
+    }
+  }
+
+  async function loadMap() {
+    try {
+      // Clear the map visually
+      document.querySelectorAll("#map #Territories path").forEach((e) => {
+        e.info = null;
+        e.style.fill = "rgba(128, 128, 128, 0)";
+      });
+      // Fetch territory ownership
+      territoryInfo = await getDay($turn);
+      recolorMap(territoryInfo);
+    } catch (e) {
+      console.log(`Map failed, reason: ${e}`);
+    }
+  }
+
+  async function recolorMap(territoryInfo) {
     var owners = {};
     territoryInfo.forEach((terr) => {
       if ($map_type == "owners") {
@@ -183,6 +211,7 @@
   }
 
   function toggleRegions() {
+    preloadMaps();
     document.getElementById("Regions").style.display =
       document.getElementById("Regions").style.display == "none"
         ? "flex"
@@ -281,7 +310,7 @@
   }
 
   $: promptMoveCheck($user);
-  $: recolorMap($turn, $map_type);
+  $: loadMap($turn, $map_type);
 </script>
 
 <Sidebar {territoryInfo} />

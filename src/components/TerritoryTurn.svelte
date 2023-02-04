@@ -146,7 +146,9 @@
   {/if}
   <h3>Power</h3>
   {#if data_json.teams.length > 0}
-    <Doughnut data={c_data(data_json.teams)} options={c_options} />
+    <div class="chartContainer">
+      <Doughnut data={c_data(data_json.teams)} options={c_options} />
+    </div>
   {:else}
     No teams made a move on this territory this turn...
   {/if}
@@ -173,5 +175,11 @@
   :global(.table) {
     color: var(--main-foreground-color);
     background: var(--main-background);
+  }
+
+  .chartContainer {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

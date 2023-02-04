@@ -4,6 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+// TODO: Implement a getter/setter
 export const settings = writable("settings", {
   lightmode: false,
   images: false,
@@ -12,7 +13,9 @@ export const settings = writable("settings", {
   dont_check_map_lock: false,
   experiments: false,
   pulse_territories: false,
-  default_page_size: 10
+  default_page_size: 10,
+  bridges_default: false,
+  regions_default: false,
 });
 import { writable } from "svelte-local-storage-store";
 
