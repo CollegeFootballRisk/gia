@@ -17,13 +17,13 @@
   import {
     faChevronLeft,
     faChevronRight,
-    faPerson,
   } from "@fortawesome/free-solid-svg-icons";
   import Loader from "./Loader.svelte";
   import { onDestroy, onMount } from "svelte";
   import OwnershipHistory from "./OwnershipHistory.svelte";
   import ActionButton from "./ActionButton.svelte";
   import SocialIcons from "@rodneylab/svelte-social-icons";
+  import { normalizeTerritoryName } from "../utils/normalization.js";
   function isNullTerr() {
     return $highlighted_territories == null;
   }
@@ -53,7 +53,11 @@
     unsub_turn();
   });
   $: territoryName =
-    territoryLocal == undefined ? null : territoryLocal.info.name;
+    territoryLocal == undefined
+      ? null
+      : territoryLocal.info.name == undefined
+      ? territoryLocal.info.territory
+      : territoryLocal.info.name;
 </script>
 
 <div class="sidebar" class:is-closed={!$sidebarOpen}>
@@ -180,6 +184,12 @@
         <b>Chance: </b>{(100 * $highlighted_territories.info.chance).toFixed(
           2
         )}%<br />
+        <hr />
+      {/if}
+      {#if $lock_highlighted}
+        {#key territoryName}
+          <OwnershipHistory turn={turnLocal} territory={territoryName} />
+        {/key}
         <hr />
       {/if}
     {/if}
