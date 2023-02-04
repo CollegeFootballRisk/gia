@@ -38,7 +38,7 @@ export async function runAction(move_to) {
     curr_turn.allOrNothingEnabled
   ) {
     aon_choice = confirm(
-      "Press Ok to wager All or Nothing, or Cancel to submit a regular move."
+      "Press Ok to wager Triple or Nothing, or Cancel to submit a regular move."
     );
   }
   let promised = await fetch(`/auth/move`, {
