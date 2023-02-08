@@ -6,6 +6,7 @@
 
 import { bind } from "svelte-simple-modal";
 import Popup from "../components/Popup.svelte";
+import Captcha from "../components/Captcha.svelte";
 import { getTurnInfo } from "../utils/loads";
 import {
   modal,
@@ -15,7 +16,7 @@ import {
 } from "../state/state";
 import { get } from "svelte/store";
 
-export async function runAction(move_to) {
+export async function runAction(move_to, captcha_title, captcha_content) {
   move_to.preventDefault();
   var terr_name = move_to.target.getAttribute("terr_name");
   var terr_id = move_to.target.getAttribute("terr_id");
@@ -51,11 +52,14 @@ export async function runAction(move_to) {
       target: parseInt(terr_id),
       aon: aon_choice,
       timestamp: new Date().valueOf(),
+      captcha_content: captcha_content,
+      captcha_title: captcha_title,
     }),
   });
-  if (promised.ok) {
+  let json = await promised.json();
+  if (promised.ok && json.code == "2001") {
     var summativeHistory = localStorage.getItem("moveHistory");
-    let num = await promised.text();
+    let num = JSON.stringify(json);
     if (summativeHistory === null) {
       summativeHistory = "//";
     }
@@ -72,6 +76,9 @@ export async function runAction(move_to) {
         good: true,
       })
     );
+  } else if (promised.ok && json.code == 4003 || json.code == 4004) {
+    // User must perform Captcha step 
+    modal.set(bind(Captcha, {target: move_to, error: (json.code == 4004)? json.message: undefined}));
   } else {
     var summativeHistory = localStorage.getItem("moveHistory");
     let num = await promised.status;

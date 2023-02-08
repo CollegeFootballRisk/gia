@@ -14,7 +14,6 @@
     team_territory_counts,
     user,
     prompt_move,
-    team,
   } from "../state/state.js";
 
   import { settings } from "../state/settings";
@@ -143,10 +142,13 @@
 
   var preloadedMaps = {};
   async function preloadMaps() {
-    let season = getTurnInfo(null).season;
-    for (var i = 0; i < $turns.length; i++) {
+    let turn = await getTurnInfo(null);
+    let season = turn.season;
+    let totalTurns = $turns.filter((a) => a.season === season);
+    for (var i = 0; i < totalTurns.length; i++) {
+      console.log(`Fetching turn ${i + 1} of ${totalTurns.length}`);
       if ($turns[i].season === season) {
-        preloadedMaps[i] = await getDay($turns[i]);
+        preloadedMaps[i] = await getDay($turns[i].id);
       }
     }
   }
@@ -211,7 +213,6 @@
   }
 
   function toggleRegions() {
-    preloadMaps();
     document.getElementById("Regions").style.display =
       document.getElementById("Regions").style.display == "none"
         ? "flex"

@@ -12,7 +12,7 @@ import {
 } from "../utils/normalization.js";
 import { getColorForPercentage } from "./map.js";
 
-export const base_url = "https://collegefootballrisk.com/";
+export const base_url = "http://localhost:8000";
 
 export async function getTurnsandTeams(override) {
   if (get(fetches).TurnsandTeams == undefined || override == true) {
@@ -241,4 +241,18 @@ export async function getTurnID(season, day) {
   let turn = ts.find((turn) => turn.day == day && turn.season == season);
   if (turn == undefined) return null;
   return turn.id;
+}
+
+// Fetches captcha
+export async function getNewCaptcha() {
+  let get = await fetch(
+    `${base_url}/auth/captcha`
+  );
+  let json = await get.json();
+
+  if (get.ok) {
+    return json;
+  } else {
+    throw new Error(json);
+  }
 }
