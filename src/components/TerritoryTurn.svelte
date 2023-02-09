@@ -156,7 +156,7 @@
   <p style="color: red">{error.message}</p>
 {/await}
 {#if $settings.extra_space_bottom_prompt}
-  <div class="exta-long" />
+  <div class="extra-long" />
 {/if}
 
 <style>
