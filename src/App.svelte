@@ -69,6 +69,9 @@
   if ($settings.bridges_default === undefined) {
     $settings.bridges_default = false;
   }
+  if ($settings.extra_space_bottom_prompt === undefined) {
+    $settings.extra_space_bottom_prompt = false;
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"

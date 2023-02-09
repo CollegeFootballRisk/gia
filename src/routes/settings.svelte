@@ -90,6 +90,18 @@
   </label>
   <hr />
   <label class="toggle">
+    <input
+      bind:checked={$settings.extra_space_bottom_prompt}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label"
+      >Add extra space to the bottom of some prompts (for scrolling purpose)</span
+    >
+  </label>
+  <hr />
+  <label class="toggle">
     <select bind:value={$settings.default_page_size} class="select">
       <option value="5">5</option>
       <option value="10">10</option>

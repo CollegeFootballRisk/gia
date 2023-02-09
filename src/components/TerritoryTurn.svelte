@@ -155,6 +155,9 @@
 {:catch error}
   <p style="color: red">{error.message}</p>
 {/await}
+{#if $settings.extra_space_bottom_prompt}
+  <div class="exta-long" />
+{/if}
 
 <style>
   h1 {
@@ -181,5 +184,10 @@
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  :global(.extra-long) {
+    width: 100%;
+    height: 45vh;
   }
 </style>
