@@ -442,7 +442,7 @@
     position: relative;
     width: 60rem !important;
     max-width: 95% !important;
-    max-height: 95% !important;
+    max-height: calc(100% + var(--borderWidth) * 2) !important;
     margin: 2rem auto;
     border-radius: 0.5rem;
     --borderWidth: 3px;

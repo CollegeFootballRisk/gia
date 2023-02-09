@@ -97,7 +97,7 @@
     />
     <div class="toggle-switch" />
     <span class="toggle-label"
-      >Add extra space to the bottom of some prompts (for scrolling purpose)</span
+      >Add extra space to the bottom of some prompts (for scrolling)</span
     >
   </label>
   <hr />
