@@ -6,6 +6,7 @@
   import { user } from "../state/state";
   import { getActionableTerritories } from "../utils/map";
   import { runAction } from "../utils/actions";
+  import { settings } from "../state/settings";
   export let territoryInfo;
   async function getMove() {
     return await fetch("/auth/my_move", {
@@ -72,6 +73,9 @@
     {/each}
   {/if}
 </div>
+{#if $settings.extra_space_bottom_prompt}
+  <div class="exta-long" />
+{/if}
 
 <style>
   input[type="button"] {
@@ -105,5 +109,10 @@
     font-size: 2rem;
     text-align: center;
     color: var(--accent-2);
+  }
+
+  :global(.extra-long) {
+    width: 100%;
+    height: 45vh;
   }
 </style>
