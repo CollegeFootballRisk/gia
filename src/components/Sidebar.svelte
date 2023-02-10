@@ -196,7 +196,7 @@
   {/if}
   <hr />
   <div class="flex-int">
-    <a href="https://twitter.com/CFBRisk/">
+    <a href="https://twitter.com/CFBRisk/" alt="Twitter" title="Twitter">
       <SocialIcons
         network="twitter"
         style="color: var(--accent-fg); height: 26px;width: 26px;"
@@ -206,7 +206,11 @@
         title="CFBR Twitter"
       /></a
     >
-    <a href="https://reddit.com/r/collegefootballrisk/">
+    <a
+      href="https://reddit.com/r/collegefootballrisk/"
+      alt="Reddit"
+      title="Reddit"
+    >
       <SocialIcons
         network="reddit"
         style="color: var(--accent-fg); height: 26px;width: 26px;"
@@ -216,7 +220,7 @@
         title="CFBR Subreddit"
       />
     </a>
-    <a href="http://discord.gg/KG2sKHg">
+    <a href="http://discord.gg/KG2sKHg" alt="Discord" title="Discord">
       <SocialIcons
         network="discord"
         style="color: var(--accent-fg); height: 26px;width: 26px;"
@@ -226,7 +230,7 @@
         title="CFBR Discord"
       /></a
     >
-    <a href="http://github.com/collegefootballrisk">
+    <a href="http://github.com/collegefootballrisk" alt="GitHub" title="GitHub">
       <SocialIcons
         network="github"
         style="color: var(--accent-fg); height: 26px;width: 26px;"
