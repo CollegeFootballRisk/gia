@@ -72,6 +72,9 @@
   if ($settings.extra_space_bottom_prompt === undefined) {
     $settings.extra_space_bottom_prompt = false;
   }
+  if ($settings.branding_mode === undefined) {
+    $settings.branding_mode = "normal";
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"
@@ -84,7 +87,12 @@
     <div>
       <a href="/">
         <img
-          src="https://collegefootballrisk.com/images/logo-white.svg?v=5"
+          src="https://collegefootballrisk.com/images/{$settings.branding_mode ==
+          'goose'
+            ? 'logo-goose-white.svg'
+            : $settings.branding_mode == 'pizza'
+            ? 'logo-pizza-white.svg'
+            : 'logo-white.svg?v=6'}"
           class="logo"
           title="CFBR Logo"
           alt="CFBR Logo"

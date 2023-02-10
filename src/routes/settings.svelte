@@ -111,8 +111,16 @@
       <option value="50">50</option>
       <option value="100">100</option>
     </select>
-    <span class="toggle-label">How many rows to show on tables by default.</span
-    >
+    <span class="toggle-label">How many rows to show on tables by default</span>
+  </label>
+  <hr />
+  <label class="toggle">
+    <select bind:value={$settings.branding_mode} class="select">
+      <option value="normal">Normal</option>
+      <option value="goose">Goose</option>
+      <option value="pizza">Pizza</option>
+    </select>
+    <span class="toggle-label">Which branding to use</span>
   </label>
   <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
@@ -138,7 +146,6 @@
     display: inline-block;
     background: #ccc;
     border-radius: 16px;
-    width: 58px;
     height: 32px;
   }
 
