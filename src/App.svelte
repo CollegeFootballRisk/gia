@@ -84,7 +84,7 @@
     <div>
       <a href="/">
         <img
-          src="https://collegefootballrisk.com/images/logo-white.svg?v=3"
+          src="https://collegefootballrisk.com/images/logo-white.svg?v=4"
           class="logo"
           title="CFBR Logo"
           alt="CFBR Logo"
