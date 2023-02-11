@@ -92,6 +92,8 @@
             ? 'logo-goose-white.svg'
             : $settings.branding_mode == 'pizza'
             ? 'logo-pizza-white.svg'
+            : $settings.branding_mode == 'classic'
+            ? 'logo-classic.png'
             : 'logo-white.svg?v=6'}"
           class="logo"
           title="CFBR Logo"

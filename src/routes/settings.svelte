@@ -119,6 +119,7 @@
       <option value="normal">Normal</option>
       <option value="goose">Goose</option>
       <option value="pizza">Pizza</option>
+      <option value="classic">Classic</option>
     </select>
     <span class="toggle-label">Which branding to use</span>
   </label>
