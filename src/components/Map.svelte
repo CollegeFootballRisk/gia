@@ -410,7 +410,7 @@
     margin-right: auto;
     left: 50%;
     transform: translate(-50%, 0%);
-    z-index: 2;
+    z-index: 3;
     white-space: nowrap;
     bottom: unset !important;
   }
@@ -422,7 +422,7 @@
     margin-right: auto;
     left: 50%;
     transform: translate(-50%, 0%);
-    z-index: 2;
+    z-index: 3;
     white-space: nowrap;
   }
 
