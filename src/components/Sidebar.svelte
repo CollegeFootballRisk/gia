@@ -278,7 +278,7 @@
   }
 
   .sidebar {
-    z-index: 3;
+    z-index: 4;
     position: absolute;
     width: 15em;
     height: calc(100vh - var(--navbar-height));
