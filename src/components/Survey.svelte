@@ -7,8 +7,9 @@
     e[i].style.display = "none !important";
   }
 
+  window.localStorage.seen = true;
+
   function hidePrompt() {
-    window.localStorage.seen = true;
     window.closeModal();
   }
 </script>
@@ -42,11 +43,6 @@
     class="Out Ack"
     value="Acknowledged"
   /><br />
-  <b
-    ><i
-      >This prompt will appear on fresh page load until you click "Acknowledged"</i
-    ></b
-  >
 </center>
 
 <style>
