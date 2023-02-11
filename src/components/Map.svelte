@@ -31,6 +31,7 @@
     faThermometerHalf,
     faRankingStar,
     faBullseye,
+    faChevronUp,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import { onDestroy, onMount } from "svelte";
@@ -132,8 +133,8 @@
       }
     }
   }
-
   const showLeaderboard = () => modal.set(bind(Leaderboard));
+
   onDestroy(() => {
     map_type.set("owners");
     highlighted_territories.set(null);
@@ -222,6 +223,13 @@
   function toggleBridges() {
     document.getElementById("Bridges").style.display =
       document.getElementById("Bridges").style.display == "none"
+        ? "flex"
+        : "none";
+  }
+
+  function toggleBottomMenuMobile() {
+    document.getElementById("map-controls-bottom").style.display =
+      document.getElementById("map-controls-bottom").style.display == "none"
         ? "flex"
         : "none";
   }
@@ -317,46 +325,56 @@
 <Sidebar {territoryInfo} />
 <div class="map-container">
   <div class="map-controls">
-    {#if $prompt_move}
-      <center class="note"
-        >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
-        <b style="font-size:0.5em">&#10549;</b></center
-      >
-    {/if}
-    <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
-      <FontAwesomeIcon icon={faSearchPlus} />
-    </button>
-    <button onclick="window.maphandle.zoomTo(500, 500, 0.75);" title="zoom out">
-      <FontAwesomeIcon icon={faSearchMinus} />
-    </button>
-    <button
-      onclick="window.maphandle.moveTo(0,0); window.maphandle.zoomTo(0, 0, 1/window.maphandle.getTransform()['scale']);"
-      title="reset map"
-    >
-      <FontAwesomeIcon icon={faHistory} />
-    </button>
-    <button on:click={toggleRegions} title="regions">
-      <FontAwesomeIcon icon={faFlag} />
-    </button>
-    {#key $user}
-      {#if $user != null}
-        <button
-          on:click={toggleMove}
-          title="your move"
-          style:animation={$prompt_move
-            ? "5000ms ease-in-out infinite color-change"
-            : ""}
+    <div id="map-controls-bottom" class="map-controls map-controls-bottom">
+      {#if $prompt_move}
+        <center class="note"
+          >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
+          <b style="font-size:0.5em">&#10549;</b></center
         >
-          <FontAwesomeIcon icon={faBullseye} />
-        </button>
       {/if}
-    {/key}
-    <button on:click={toggleBridges} title="bridges">
-      <FontAwesomeIcon icon={faShip} />
-    </button>
-    <button on:click={showLeaderboard} title="leaderboard">
-      <FontAwesomeIcon icon={faRankingStar} />
-    </button>
+      <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
+        <FontAwesomeIcon icon={faSearchPlus} /> Zoom In
+      </button>
+      <button
+        onclick="window.maphandle.zoomTo(500, 500, 0.75);"
+        title="zoom out"
+      >
+        <FontAwesomeIcon icon={faSearchMinus} /> Zoom Out
+      </button>
+      <button
+        onclick="window.maphandle.moveTo(0,0); window.maphandle.zoomTo(0, 0, 1/window.maphandle.getTransform()['scale']);"
+        title="reset map"
+      >
+        <FontAwesomeIcon icon={faHistory} /> Reset Map
+      </button>
+      <button on:click={toggleRegions} title="regions">
+        <FontAwesomeIcon icon={faFlag} /> Regions
+      </button>
+      {#key $user}
+        {#if $user != null}
+          <button
+            on:click={toggleMove}
+            title="your move"
+            style:animation={$prompt_move
+              ? "5000ms ease-in-out infinite color-change"
+              : ""}
+          >
+            <FontAwesomeIcon icon={faBullseye} /> Your Move
+          </button>
+        {/if}
+      {/key}
+      <button on:click={toggleBridges} title="bridges">
+        <FontAwesomeIcon icon={faShip} /> Bridges
+      </button>
+      <button on:click={showLeaderboard} title="leaderboard">
+        <FontAwesomeIcon icon={faRankingStar} /> Leaderboard
+      </button>
+    </div>
+    <div class="map-controls map-controls-mobile-bottom showOnMobile">
+      <button on:click={toggleBottomMenuMobile} title="Expand Controls Menu">
+        <FontAwesomeIcon icon={faChevronUp} /> Menu
+      </button>
+    </div>
   </div>
   <div class="map-controls top-control">
     <label
@@ -366,7 +384,9 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"owners"} />
-      <FontAwesomeIcon icon={faEarthAmericas} />
+      <FontAwesomeIcon icon={faEarthAmericas} /><b class="hideOnMobile"
+        >&nbsp;Owners</b
+      >
     </label>
     <select bind:value={$turn} title="select day">
       <option value={null}
@@ -383,7 +403,9 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"heat"} />
-      <FontAwesomeIcon icon={faThermometerHalf} />
+      <b class="hideOnMobile">Heatmap&nbsp;</b><FontAwesomeIcon
+        icon={faThermometerHalf}
+      />
     </label>
   </div>
   <div class="notices"><Clock /></div>
@@ -431,6 +453,7 @@
   .map-controls select {
     color: var(--accent-fg);
     background: var(--accent-2);
+    font-weight: bold;
     height: 2em;
     border: none;
     padding: 0.3em;
@@ -440,13 +463,15 @@
 
   .map-controls button,
   .map-controls label {
-    width: 2em;
-    border-radius: 10%;
+    /*width: 2em;*/
+    border-radius: 0.3em;
     cursor: pointer;
   }
 
   .map-controls button:hover,
-  .map-controls label:hover {
+  .map-controls label:hover,
+  .map-controls button:focus,
+  .map-controls label:focus {
     background: var(--accent-1);
   }
 
@@ -521,6 +546,27 @@
     }
     100% {
       opacity: 0.2;
+    }
+  }
+  .showOnMobile {
+    display: none;
+  }
+  @media only screen and (max-width: 700px) {
+    .hideOnMobile {
+      display: none;
+    }
+    .showOnMobile {
+      display: flex;
+    }
+    .map-controls-bottom {
+      display: none;
+      flex-direction: column;
+      position: relative;
+      bottom: 3.3em;
+    }
+    .map-controls-bottom button {
+      padding: 1em;
+      height: 3em !important;
     }
   }
 </style>
