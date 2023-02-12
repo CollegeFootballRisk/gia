@@ -27,7 +27,7 @@
     faSearchMinus,
     faSearchPlus,
     faFlag,
-    faEarthAmericas,
+    faMap,
     faThermometerHalf,
     faRankingStar,
     faBullseye,
@@ -384,9 +384,7 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"owners"} />
-      &#128506;<b class="hideOnMobile"
-        >&nbsp;Owners</b
-      >
+      <FontAwesomeIcon icon={faMap} /><b class="hideOnMobile">&nbsp;Owners</b>
     </label>
     <select bind:value={$turn} title="select day">
       <option value={null}
@@ -463,7 +461,7 @@
 
   .map-controls button,
   .map-controls label {
-    /*width: 2em;*/
+    min-width: 2em;
     border-radius: 0.3em;
     cursor: pointer;
   }
@@ -565,8 +563,8 @@
       bottom: 3.3em;
     }
     .map-controls-bottom button {
-      padding: 1em;
-      height: 3em !important;
+      padding: 0.75em;
+      height: 2em !important;
     }
   }
 </style>
