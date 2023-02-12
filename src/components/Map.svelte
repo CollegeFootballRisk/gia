@@ -549,7 +549,7 @@
   .showOnMobile {
     display: none;
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 1000px) {
     .hideOnMobile {
       display: none;
     }
