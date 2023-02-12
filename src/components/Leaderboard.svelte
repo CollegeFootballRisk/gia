@@ -11,6 +11,11 @@
 
   import { base_url, getTurnInfo } from "../utils/loads";
   import { settings } from "../state/settings";
+  import { onDestroy } from "svelte";
+
+  onDestroy(() => {
+    history.replaceState(null, null, " ");
+  });
 
   // Returns Leaderboard data for turn
   export async function getLeaderboard(turn): Promise<Lboard[]> {

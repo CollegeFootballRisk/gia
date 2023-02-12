@@ -15,6 +15,11 @@
   import { Doughnut } from "svelte-chartjs/src";
   import { normalizeTeamName } from "../utils/normalization";
   import { settings } from "../state/settings";
+  import { onDestroy } from "svelte";
+
+  onDestroy(() => {
+    history.replaceState(null, null, " ");
+  });
 
   interface TerrTurn {
     team: string;
