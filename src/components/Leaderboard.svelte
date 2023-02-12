@@ -2,12 +2,12 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script lang="ts">
-  export var turnToUse: boolean = false;
+  export var turnToUse: number = null;
   import SimpleTable from "@a-luna/svelte-simple-tables";
   import type { ColumnSettings } from "@a-luna/svelte-simple-tables/types";
   import type { TableSettings } from "@a-luna/svelte-simple-tables/types";
   import Loader from "./Loader.svelte";
-  import { turn } from "../state/state.js";
+  import { turn, turns } from "../state/state.js";
 
   import { base_url, getTurnInfo } from "../utils/loads";
   import { settings } from "../state/settings";
@@ -148,13 +148,21 @@
     },
   ];
 
-  $: if (turnToUse == false) {
+  $: if (turnToUse == -1) {
     turnToUse = $turn;
   }
   $: data = getLeaderboard(turnToUse);
 </script>
 
 <h1>Leaderboard{turnToUse == null ? " (current)" : ""}</h1>
+<center>
+  <select bind:value={turnToUse} title="select day">
+    <option value={null}>Latest</option>
+    {#each $turns.slice(1, $turns.length) as day}
+      <option value={day.id}>{day.season}/{day.day}</option>
+    {/each}
+  </select>
+</center>
 {#await data}
   <Loader />
 {:then data_json}
@@ -184,5 +192,16 @@
 
   :global(.sst-resp-table-wrapper) {
     width: 100%;
+  }
+
+  select {
+    color: var(--accent-fg);
+    background: var(--accent-2);
+    font-weight: bold;
+    height: 2em;
+    border: none;
+    padding: 0.3em;
+    font-size: 1.3em;
+    line-height: 1em;
   }
 </style>

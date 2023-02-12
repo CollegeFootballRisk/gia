@@ -2,6 +2,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
+  export let currentRoute;
+  export let params;
   import Sidebar from "./Sidebar.svelte";
   import {
     highlighted_territories,
@@ -41,11 +43,33 @@
   import MyMove from "./MyMove.svelte";
   import Clock from "./Clock.svelte";
   import { setupMapPanZoom } from "../utils/map";
+  import TerritoryTurn from "./TerritoryTurn.svelte";
   var lockClick = false;
   var zooming = false;
   var bottomMenu = faChevronUp;
 
   onMount(() => {
+    if (currentRoute.hash.indexOf("#leaderboard") != -1) {
+      showLeaderboard(params);
+    }
+    if (currentRoute.hash.indexOf("#history_") != -1) {
+      //try {
+      console.log(currentRoute.hash);
+      let matches = decodeURIComponent(currentRoute.hash).match(
+        /#history_([A-z 0-9%]*)_([0-9]*)_([0-9]*)/
+      );
+      console.log(matches);
+      modal.set(
+        bind(TerritoryTurn, {
+          territory: matches[1],
+          season: matches[2],
+          day: matches[3],
+        })
+      );
+      /*} catch {
+        console.log("Attempted to paint History, but failed");
+      }*/
+    }
     setupMapPanZoom(handleMouseOver, handleWindowKeyDown);
     window.maphandle.on("panend", function () {
       lockClick = false;
@@ -135,7 +159,8 @@
       }
     }
   }
-  const showLeaderboard = () => modal.set(bind(Leaderboard));
+  const showLeaderboard = () =>
+    modal.set(bind(Leaderboard, { turnToUse: $turn }));
 
   onDestroy(() => {
     map_type.set("owners");

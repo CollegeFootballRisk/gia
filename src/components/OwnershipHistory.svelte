@@ -23,7 +23,9 @@
       {#each turns.slice(1, turns.length) as turnDisplay}
         <li>
           <a
-            href={null}
+            href="#history_{encodeURIComponent(
+              territory
+            )}_{turnDisplay.season}_{turnDisplay.day}"
             on:click={modal.set(
               bind(TerritoryTurn, {
                 territory: territory,
