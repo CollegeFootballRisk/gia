@@ -71,6 +71,9 @@
   if ($settings.regions_default === undefined) {
     $settings.regions_default = false;
   }
+  if ($settings.show_labels === undefined) {
+    $settings.show_labels = true;
+  }
   if ($settings.bridges_default === undefined) {
     $settings.bridges_default = false;
   }
