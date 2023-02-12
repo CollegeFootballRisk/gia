@@ -563,7 +563,7 @@
       bottom: 3.3em;
     }
     .map-controls-bottom button {
-      padding: 0.75em;
+      padding: 0.5em;
       height: 2em !important;
     }
   }
