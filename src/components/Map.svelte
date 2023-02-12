@@ -32,6 +32,7 @@
     faRankingStar,
     faBullseye,
     faChevronUp,
+    faChevronDown,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import { onDestroy, onMount } from "svelte";
@@ -42,6 +43,7 @@
   import { setupMapPanZoom } from "../utils/map";
   var lockClick = false;
   var zooming = false;
+  var bottomMenu = faChevronUp;
 
   onMount(() => {
     setupMapPanZoom(handleMouseOver, handleWindowKeyDown);
@@ -229,9 +231,10 @@
 
   function toggleBottomMenuMobile() {
     document.getElementById("map-controls-bottom").style.display =
-      document.getElementById("map-controls-bottom").style.display == "none"
+      document.getElementById("map-controls-bottom").style.display != "flex"
         ? "flex"
         : "none";
+    bottomMenu = bottomMenu == faChevronUp ? faChevronDown : faChevronUp;
   }
 
   function toggleMove() {
@@ -358,6 +361,7 @@
             style:animation={$prompt_move
               ? "5000ms ease-in-out infinite color-change"
               : ""}
+            class="hideOnMobile"
           >
             <FontAwesomeIcon icon={faBullseye} /> Your Move
           </button>
@@ -372,8 +376,22 @@
     </div>
     <div class="map-controls map-controls-mobile-bottom showOnMobile">
       <button on:click={toggleBottomMenuMobile} title="Expand Controls Menu">
-        <FontAwesomeIcon icon={faChevronUp} /> Menu
+        <FontAwesomeIcon icon={bottomMenu} /> Controls
       </button>
+      {#key $user}
+        {#if $user != null}
+          <button
+            on:click={toggleMove}
+            title="your move"
+            style:animation={$prompt_move
+              ? "5000ms ease-in-out infinite color-change"
+              : ""}
+            style="margin-left:0.3em;"
+          >
+            <FontAwesomeIcon icon={faBullseye} /> Your Move
+          </button>
+        {/if}
+      {/key}
     </div>
   </div>
   <div class="map-controls top-control">
