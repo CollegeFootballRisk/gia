@@ -16,6 +16,7 @@
     team_territory_counts,
     user,
     prompt_move,
+    my_move,
   } from "../state/state.js";
 
   import { settings } from "../state/settings";
@@ -44,9 +45,11 @@
   import Clock from "./Clock.svelte";
   import { setupMapPanZoom } from "../utils/map";
   import TerritoryTurn from "./TerritoryTurn.svelte";
+  import { getMove } from "../utils/auth";
   var lockClick = false;
   var zooming = false;
   var bottomMenu = faChevronUp;
+  var mapLoaded = false;
 
   onMount(() => {
     if (currentRoute.hash.indexOf("#leaderboard") != -1) {
@@ -188,9 +191,11 @@
         e.info = null;
         e.style.fill = "rgba(128, 128, 128, 0)";
       });
+      mapLoaded = false;
       // Fetch territory ownership
       territoryInfo = await getDay($turn);
       recolorMap(territoryInfo);
+      mapLoaded = true;
     } catch (e) {
       console.log(`Map failed, reason: ${e}`);
     }
@@ -266,19 +271,60 @@
     modal.set(bind(MyMove, { territoryInfo: territoryInfo }));
   }
 
-  function pulseTerritory(territory) {
-    let pulsing = document
-      .querySelector("#map")
-      .getElementsByClassName("map-animated-highlight");
-    for (var i = 0; i < pulsing.length; i++) {
-      pulsing[i].classList.remove("map-animated-highlight");
+  function pulseTerritory(territory, map_is_loaded) {
+    try {
+      if (
+        $settings.pulse_territories != true ||
+        !map_is_loaded ||
+        document.getElementById("map") === null
+      )
+        return;
+      let pulsing = document
+        .querySelector("#map")
+        .getElementsByClassName("map-animated-highlight");
+      for (var i = 0; i < pulsing.length; i++) {
+        pulsing[i].classList.remove("map-animated-highlight");
+      }
+      if (territory == null || territory === '""') return;
+      document
+        .querySelector("#map")
+        .getElementById(normalizeTerritoryName(territory.replace(/['"]+/g, "")))
+        .classList.add("map-animated-highlight");
+    } catch (e) {
+      console.log(`Failed flashing territory ${e}`);
     }
-    document
-      .querySelector("#map")
-      .getElementById(normalizeTerritoryName(territory.replace(/['"]+/g, "")))
-      .classList.add("map-animated-highlight");
   }
-
+  async function drawPin(territory, map_is_loaded) {
+    try {
+      if (
+        $settings.pin_move != true ||
+        !map_is_loaded ||
+        document.getElementById("map") === null
+      )
+        return;
+      let pin = document.getElementById("map").getElementById("move_pin");
+      if (territory == null || territory === '""') {
+        pin.style.display = "none";
+        return;
+      }
+      let scale = 2;
+      var terr = document
+        .querySelector("#map")
+        .getElementById(normalizeTerritoryName(territory.replace(/['"]+/g, "")))
+        .getBBox();
+      pin.style.display = "block";
+      var pin_bbox = pin.getBBox();
+      let x_offset =
+        (terr.x + 0.5 * terr.width) / scale - pin_bbox.width / scale;
+      let y_offset = (terr.y + 0.5 * terr.height) / scale - pin_bbox.height;
+      pin.setAttribute(
+        "transform",
+        `scale(${scale}) translate(${x_offset}, ${y_offset})`
+      );
+    } catch (e) {
+      console.log(`Error pinning: ${e}`);
+    }
+  }
   async function drawChaosLine(territory_name) {
     var end = document
       .getElementById("map")
@@ -314,6 +360,7 @@
   }
 
   async function promptMoveCheck(user) {
+    if (user == null) return;
     if (
       $settings.prompt_move == false &&
       $settings.pulse_territories == false
@@ -321,25 +368,11 @@
       $prompt_move = false;
       return;
     }
-    let move = await fetch("/auth/my_move", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: null,
-    }).then((response) => {
-      if (response.ok) return response.text();
-      return "";
-    });
-    if (
-      $settings.pulse_territories &&
-      $turn == null &&
-      JSON.parse(move) != ""
-    ) {
+    let move = await getMove();
+    if ($settings.pulse_territories && $turn == null && move != "") {
       pulseTerritory(move);
     }
-    if (JSON.parse(move) == "" && $settings.prompt_move == true) {
+    if (move == '""' && $settings.prompt_move == true) {
       $prompt_move = true;
     } else {
       $prompt_move = false;
@@ -348,6 +381,8 @@
 
   $: promptMoveCheck($user);
   $: loadMap($turn, $map_type);
+  $: drawPin($my_move, mapLoaded);
+  $: pulseTerritory($my_move, mapLoaded);
 </script>
 
 <Sidebar {territoryInfo} />

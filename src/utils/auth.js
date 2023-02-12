@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { user } from "../state/state";
+import { my_move, user } from "../state/state";
 import { base_url } from "./loads";
 
 // Returns true if player is logged in and saves data to `user`
@@ -40,8 +40,10 @@ export async function getMove() {
   let text = await get.text();
   if (get.ok) {
     if (text == "") {
+      my_move.set(null);
       return null;
     } else {
+      my_move.set(text);
       return text;
     }
   } else {

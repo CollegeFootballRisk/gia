@@ -2111,4 +2111,31 @@
       id="path2419"
     />
   </g>
+  <g id="move" style="">
+    <!--This portion licenced to the Public Domain; see https://commons.wikimedia.org/wiki/File:Google_Maps_pin.svg-->
+    <g
+      inkscape:groupmode="layer"
+      id="move_pin"
+      transform=""
+      style="display:none;"
+    >
+      <path
+        sodipodi:nodetypes="sscccccsscs"
+        inkscape:connector-curvature="0"
+        id="path4337-3"
+        d="M 2.0164607,2.6230577 C 0.75826068,3.9658277 -0.02973932,5.9218677 8.6067703e-4,7.7617277 0.06476068,11.606488 1.7977607,13.061928 4.5691607,18.353518 5.5674607,20.682028 6.6094607,23.145888 7.6004607,27.226568 7.7381607,27.828498 7.8724607,28.387608 7.9345607,28.436048 7.9966607,28.484548 8.1310607,27.923428 8.2687607,27.321498 9.2597607,23.240818 10.301661,20.778918 11.299961,18.450408 14.071461,13.158818 15.804461,11.703368 15.868361,7.8586077 15.898961,6.0187477 15.108961,4.0607577 13.850761,2.7179877 12.413561,1.1840977 10.245761,0.04890766 7.9345607,0.00143766 5.6234607,-0.04606234 3.4536607,1.0891677 2.0164607,2.6230577 Z"
+        fill="red"
+        style="display:inline;fill-opacity:1;stroke:#d73534;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+      />
+      <circle
+        r="3.0355"
+        cy="7.904665"
+        cx="7.9346137"
+        id="path3049"
+        style="display:inline;fill:#590000;fill-opacity:1;stroke-width:0"
+      />
+      <g />
+      <!--End Public Domain, Begin MPL2.0-->
+    </g>
+  </g>
 </svg>

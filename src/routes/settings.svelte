@@ -45,15 +45,25 @@
   <hr />
   <label class="toggle">
     <input
+      bind:checked={$settings.pin_move}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label"
+      >Place a pin over the territory on which I am moving</span
+    >
+  </label>
+  <hr />
+  <label class="toggle">
+    <input
       bind:checked={$settings.pulse_territories}
       class="toggle-checkbox"
       type="checkbox"
     />
     <div class="toggle-switch" />
     <span class="toggle-label"
-      >Pulse the territory that you have selected once your move has been made
-      (causes a territory to fade in and out if you have selected it as your
-      move).</span
+      >Fade/pulse the territory in and out on which I am moving</span
     >
   </label>
   <hr />

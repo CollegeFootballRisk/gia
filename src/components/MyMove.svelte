@@ -7,23 +7,10 @@
   import { getActionableTerritories } from "../utils/map";
   import { runAction } from "../utils/actions";
   import { settings } from "../state/settings";
+  import { getMove } from "../utils/auth";
   export let territoryInfo;
-  async function getMove() {
-    return await fetch("/auth/my_move", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: null,
-    }).then((response) => {
-      if (response.ok) return response.text();
-      return "";
-    });
-  }
 
   var territoryCapture = getActionableTerritories(territoryInfo, $user);
-  console.log(territoryCapture);
 </script>
 
 <div>

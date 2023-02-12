@@ -16,6 +16,7 @@
   import Loader from "./components/Loader.svelte";
   import AltPrompt from "./components/AltPrompt.svelte";
   import Survey from "./components/Survey.svelte";
+  import Tutorial from "./components/Tutorial.svelte";
   let fetch_tt = getTurnsandTeams();
   onMount(async () => {
     window.closeModal = function () {
@@ -57,6 +58,7 @@
   var navShownMobile = false;
   const showLeaderboard = () =>
     modal.set(bind(Leaderboard, { turnToUse: null }));
+  const showTutorial = () => modal.set(bind(Tutorial));
   const showMe = () => modal.set(bind(Me));
   const goLogin = () => (location = "/login/reddit");
   const goBugs = () =>
@@ -73,6 +75,9 @@
   }
   if ($settings.show_labels === undefined) {
     $settings.show_labels = true;
+  }
+  if ($settings.pin_move === undefined) {
+    $settings.pin_move = true;
   }
   if ($settings.bridges_default === undefined) {
     $settings.bridges_default = false;

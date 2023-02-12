@@ -13,6 +13,7 @@ import {
   team_territory_counts,
   user,
   prompt_move,
+  my_move
 } from "../state/state";
 import { get } from "svelte/store";
 
@@ -68,6 +69,7 @@ export async function runAction(move_to, captcha_title, captcha_content) {
       summativeHistory + "\n@" + Date.now() + "-" + terr_name + ":" + num
     );
     prompt_move.set(false);
+    my_move.set(terr_name);
     modal.set(
       bind(Popup, {
         title: `Move Submitted`,

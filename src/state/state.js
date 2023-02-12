@@ -43,3 +43,5 @@ export const fetches = writable({});
 export const team_territory_counts = writable([]);
 
 export const prompt_move = writable(false);
+
+export const my_move = writable(null);
