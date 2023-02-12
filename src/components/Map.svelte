@@ -361,22 +361,26 @@
         >
       {/if}
       <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
-        <FontAwesomeIcon icon={faSearchPlus} /> Zoom In
+        <FontAwesomeIcon icon={faSearchPlus} />
+        <b class={$settings.show_labels ? "" : "hidden"}>Zoom In</b>
       </button>
       <button
         onclick="window.maphandle.zoomTo(500, 500, 0.75);"
         title="zoom out"
       >
-        <FontAwesomeIcon icon={faSearchMinus} /> Zoom Out
+        <FontAwesomeIcon icon={faSearchMinus} />
+        <b class={$settings.show_labels ? "" : "hidden"}> Zoom Out </b>
       </button>
       <button
         onclick="window.maphandle.moveTo(0,0); window.maphandle.zoomTo(0, 0, 1/window.maphandle.getTransform()['scale']);"
         title="reset map"
       >
-        <FontAwesomeIcon icon={faHistory} /> Reset Map
+        <FontAwesomeIcon icon={faHistory} />
+        <b class={$settings.show_labels ? "" : "hidden"}> Reset Map </b>
       </button>
       <button on:click={toggleRegions} title="regions">
-        <FontAwesomeIcon icon={faFlag} /> Regions
+        <FontAwesomeIcon icon={faFlag} />
+        <b class={$settings.show_labels ? "" : "hidden"}>Regions</b>
       </button>
       {#key $user}
         {#if $user != null}
@@ -388,15 +392,18 @@
               : ""}
             class="hideOnMobile"
           >
-            <FontAwesomeIcon icon={faBullseye} /> Your Move
+            <FontAwesomeIcon icon={faBullseye} />
+            <b class={$settings.show_labels ? "" : "hidden"}> Your Move </b>
           </button>
         {/if}
       {/key}
       <button on:click={toggleBridges} title="bridges">
-        <FontAwesomeIcon icon={faShip} /> Bridges
+        <FontAwesomeIcon icon={faShip} />
+        <b class={$settings.show_labels ? "" : "hidden"}>Bridges</b>
       </button>
       <button on:click={showLeaderboard} title="leaderboard">
-        <FontAwesomeIcon icon={faRankingStar} /> Leaderboard
+        <FontAwesomeIcon icon={faRankingStar} />
+        <b class={$settings.show_labels ? "" : "hidden"}> Leaderboard </b>
       </button>
     </div>
     <div class="map-controls map-controls-mobile-bottom showOnMobile">
@@ -427,7 +434,9 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"owners"} />
-      <FontAwesomeIcon icon={faMap} /><b class="hideOnMobile">&nbsp;Owners</b>
+      <FontAwesomeIcon icon={faMap} /><b class="hideOnMobile"
+        ><b class={$settings.show_labels ? "" : "hidden"}> &nbsp;Owners </b></b
+      >
     </label>
     <select bind:value={$turn} title="select day">
       <option value={null}
@@ -444,9 +453,9 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"heat"} />
-      <b class="hideOnMobile">Heatmap&nbsp;</b><FontAwesomeIcon
-        icon={faThermometerHalf}
-      />
+      <b class="hideOnMobile"
+        ><b class={$settings.show_labels ? "" : "hidden"}> Heatmap&nbsp; </b></b
+      ><FontAwesomeIcon icon={faThermometerHalf} />
     </label>
   </div>
   <div class="notices"><Clock /></div>
@@ -609,5 +618,9 @@
       padding: 0.5em;
       height: 2em !important;
     }
+  }
+
+  .hidden {
+    display: none;
   }
 </style>

@@ -91,6 +91,16 @@
   <hr />
   <label class="toggle">
     <input
+      bind:checked={$settings.show_labels}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label">Show labels on map buttons</span>
+  </label>
+  <hr />
+  <label class="toggle">
+    <input
       bind:checked={$settings.extra_space_bottom_prompt}
       class="toggle-checkbox"
       type="checkbox"
