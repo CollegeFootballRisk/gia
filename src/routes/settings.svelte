@@ -102,6 +102,16 @@
   </label>
   <hr />
   <label class="toggle">
+    <input
+      bind:checked={$settings.map_logos}
+      class="toggle-checkbox"
+      type="checkbox"
+    />
+    <div class="toggle-switch" />
+    <span class="toggle-label">Add logos to the map</span>
+  </label>
+  <hr />
+  <label class="toggle">
     <select bind:value={$settings.default_page_size} class="select">
       <option value="5">5</option>
       <option value="10">10</option>

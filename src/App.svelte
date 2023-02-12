@@ -80,6 +80,9 @@
   if ($settings.branding_mode === undefined) {
     $settings.branding_mode = "normal";
   }
+  if ($settings.map_logos === undefined) {
+    $settings.map_logos = false;
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"

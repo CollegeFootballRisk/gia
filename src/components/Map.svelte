@@ -11,6 +11,7 @@
     turn,
     turns,
     modal,
+    teams,
     team_territory_counts,
     user,
     prompt_move,
@@ -35,13 +36,17 @@
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "fontawesome-svelte";
   import { onDestroy, onMount } from "svelte";
-  import { getDay, getTurnInfo } from "../utils/loads.js";
-  import { normalizeTerritoryName } from "../utils/normalization.js";
+  import { base_url, getDay, getTurnInfo } from "../utils/loads.js";
+  import {
+    normalizeTeamName,
+    normalizeTerritoryName,
+  } from "../utils/normalization.js";
   import MyMove from "./MyMove.svelte";
   import Clock from "./Clock.svelte";
   import { setupMapPanZoom } from "../utils/map";
   var lockClick = false;
   var zooming = false;
+  var logos_populated = false;
 
   onMount(() => {
     setupMapPanZoom(handleMouseOver, handleWindowKeyDown);
@@ -171,6 +176,19 @@
 
   async function recolorMap(territoryInfo) {
     var owners = {};
+    if ($settings.map_logos && !logos_populated) {
+      for (let j = 0; j < $teams.length; j++) {
+        if ($teams[j].name == "NCAA") continue;
+        let i = `${base_url}/images/logos/${$teams[j].logo}`;
+        document.getElementById("map").querySelector("#defs208").innerHTML +=
+          '  <pattern id="team_logo_' +
+          normalizeTeamName($teams[j].name) +
+          '" patternUnits="objectBoundingBox" width="50" height="50"><image href="' +
+          i +
+          '" x="0" y="0" width="100" height="100" /></pattern>';
+      }
+      logos_populated = true;
+    }
     territoryInfo.forEach((terr) => {
       if ($map_type == "owners") {
         if (owners[terr.attributeInformation.owner] == null) {
@@ -193,6 +211,13 @@
         }
       }
       try {
+        if ($settings.map_logos && $map_type == "owners") {
+          console.log("Painting logos");
+          terr.secondaryColor = terr.primaryColor;
+          terr.primaryColor = `url(#team_logo_${normalizeTeamName(
+            terr.attributeInformation.owner
+          )})`;
+        }
         document
           .querySelector("#map")
           .querySelector(`path#${terr.normalizedName}`).style.fill =

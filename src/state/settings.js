@@ -18,6 +18,7 @@ export const settings = writable("settings", {
   regions_default: false,
   extra_space_bottom_prompt: false,
   branding_mode: 'normal',
+  map_logos: false,
 });
 import { writable } from "svelte-local-storage-store";
 
