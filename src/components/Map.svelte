@@ -384,7 +384,7 @@
       }`}
     >
       <input bind:group={$map_type} type="radio" value={"owners"} />
-      <FontAwesomeIcon icon={faEarthAmericas} /><b class="hideOnMobile"
+      &#128506;<b class="hideOnMobile"
         >&nbsp;Owners</b
       >
     </label>
