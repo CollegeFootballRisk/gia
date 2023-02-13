@@ -135,6 +135,21 @@
   </label>
   <hr />
   <label class="toggle">
+    <select bind:value={$settings.color_scale} class="select">
+      <option value="normal">Normal</option>
+      <option value="grey">Greyscale</option>
+      <option value="red">Redscale</option>
+      <option value="blue">Bluescale</option>
+      <option value="green">Greenscale</option>
+    </select>
+    <span class="toggle-label">[Deprecated] Team color alteration</span>
+  </label><br />
+  <i style="margin-left: 40px;"
+    >This feature will be deprecated in a later release in favor of a more
+    robust method. Stay tuned!</i
+  >
+  <hr />
+  <label class="toggle">
     <select bind:value={$settings.branding_mode} class="select">
       <option value="normal">Normal</option>
       <option value="goose">Goose</option>

@@ -20,6 +20,7 @@ export const settings = writable("settings", {
   branding_mode: 'normal',
   show_labels: true,
   pin_move: true,
+  color_scale: 'normal',
 });
 import { writable } from "svelte-local-storage-store";
 

@@ -11,6 +11,7 @@ import {
   normalizeTeamName,
 } from "../utils/normalization.js";
 import { getColorForPercentage } from "./map.js";
+import { settings } from "../state/settings.js";
 
 export const base_url = "https://collegefootballrisk.com/";
 
@@ -36,15 +37,33 @@ export async function getTurnsandTeams(override) {
   return get(fetches).TurnsandTeams;
 }
 
+function enforceColorScheme(color){
+  let cs= get(settings).color_scale;
+  if(cs == 'normal') {return color}
+  color = color.substring(5, color.length-1)
+         .replace(/ /g, '')
+         .split(',').slice(0,3);
+         color = (parseInt(color[0]) * 0.3 + parseInt(color[1]) * 0.59 + parseInt(color[2]) * 0.11);
+  if(cs == 'green'){
+    return `rgba(0, ${color}, 0, 1)`;
+  } else if (cs == 'blue'){
+    return `rgba(0, 0, ${color}, 1)`;
+  } else if (cs == 'red'){
+    return `rgba(${color}, 0, 0, 1)`;
+  } else {
+    return `rgba(${color}, ${color}, ${color}, 1)`;  
+  }
+}
+
 export async function setTeamColors() {
   for (let team of get(teams)) {
     document.documentElement.style.setProperty(
       `--${normalizeTeamName(team.name)}-primary`,
-      team.colors.primary
+      enforceColorScheme(team.colors.primary)
     );
     document.documentElement.style.setProperty(
       `--${normalizeTeamName(team.name)}-secondary`,
-      team.colors.secondary
+      enforceColorScheme(team.colors.secondary)
     );
   }
 }

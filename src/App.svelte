@@ -88,6 +88,9 @@
   if ($settings.branding_mode === undefined) {
     $settings.branding_mode = "normal";
   }
+  if ($settings.color_scale === undefined) {
+    $settings.color_scale = "normal";
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"
