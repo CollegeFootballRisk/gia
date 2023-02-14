@@ -37,6 +37,10 @@
     ).padStart(2, "0")}${col}${String(timeTable.seconds).padStart(2, "0")}`;
   }
 
+  function reLoad(){
+    window.reload;
+  }
+
   onMount(() => {
     const interval = setInterval(() => {
       time = new Date();
@@ -60,13 +64,15 @@
       {#if rollTime == null}
         <!--Nothing
         No active roll-->
+      {:else if rollTime[0] != '-'}
+        T-{timeString}<br/>
+        to roll {rollDay}
       {:else}
-        T-{timeString}
+	<a href="." on:click={reLoad}>Past Roll &#128472;</a>
       {/if}
     {/await}
-  {/key}<br/>
-  to roll {rollDay}
-</div>
+  {/key}
+</div> <br/>
     <b style=""
     ><a href="https://forms.gle/YEMm7xXsSYXURbhJA" target="_blank"
       >Midpoint Survey Open through 2/17/23</a

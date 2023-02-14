@@ -13,7 +13,7 @@ import {
 import { getColorForPercentage } from "./map.js";
 import { settings } from "../state/settings.js";
 
-export const base_url = "https://collegefootballrisk.com/";
+export const base_url = "https://collegefootballrisk.com";
 
 export async function getTurnsandTeams(override) {
   if (get(fetches).TurnsandTeams == undefined || override == true) {
