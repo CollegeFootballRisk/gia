@@ -9,6 +9,7 @@
   var rollTime;
   var getting;
   var rollDay;
+  var rollSeason;
 
   let time = new Date();
 
@@ -16,6 +17,7 @@
     getting = getTurnInfo(null).then((val) => {
       if (val.rollTime == null) return;
       rollDay = val.day;
+      rollSeason = val.season;
       rollTime = new Date(val.rollTime + "Z");
     }); // Get the latest turn
   }
@@ -66,7 +68,7 @@
         No active roll-->
       {:else if rollTime[0] != '-'}
         T-{timeString}<br/>
-        to roll {rollDay}
+        to turn {rollSeason}/{rollDay}
       {:else}
 	<a href="." on:click={reLoad}>Past Roll &#128472;</a>
       {/if}
