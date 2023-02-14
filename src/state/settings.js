@@ -17,10 +17,10 @@ export const settings = writable("settings", {
   bridges_default: false,
   regions_default: false,
   extra_space_bottom_prompt: false,
-  branding_mode: 'normal',
+  branding_mode: "normal",
   show_labels: true,
   pin_move: true,
-  color_scale: 'normal',
+  color_scale: "normal",
 });
 import { writable } from "svelte-local-storage-store";
 

@@ -39,7 +39,7 @@
     ).padStart(2, "0")}${col}${String(timeTable.seconds).padStart(2, "0")}`;
   }
 
-  function reLoad(){
+  function reLoad() {
     window.reload;
   }
 
@@ -58,24 +58,25 @@
 </script>
 
 <div style="text-align:right;">
-<div title="Timer" alt="Countdown until next roll">
-  {#key getting}
-    {#await getting}
-      <Loader />
-    {:then discard}
-      {#if rollTime == null}
-        <!--Nothing
+  <div title="Timer" alt="Countdown until next roll">
+    {#key getting}
+      {#await getting}
+        <Loader />
+      {:then discard}
+        {#if rollTime == null}
+          <!--Nothing
         No active roll-->
-      {:else if rollTime[0] != '-'}
-        T-{timeString}<br/>
-        to turn {rollSeason}/{rollDay}
-      {:else}
-	<a href="." on:click={reLoad}>Past Roll &#128472;</a>
-      {/if}
-    {/await}
-  {/key}
-</div> <br/>
-    <b style=""
+        {:else if rollTime[0] != "-"}
+          T-{timeString}<br />
+          to turn {rollSeason}/{rollDay}
+        {:else}
+          <a href="." on:click={reLoad}>Past Roll &#128472;</a>
+        {/if}
+      {/await}
+    {/key}
+  </div>
+  <br />
+  <b style=""
     ><a href="https://forms.gle/YEMm7xXsSYXURbhJA" target="_blank"
       >Midpoint Survey Open through 2/17/23</a
     ></b

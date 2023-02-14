@@ -11,18 +11,33 @@
   export let territoryInfo;
 
   var territoryCapture = getActionableTerritories(territoryInfo, $user);
+
+  async function getMoveWrap() {
+    var my_move;
+    try {
+      let int_my_move = await getMove();
+      console.log(int_my_move);
+      my_move = JSON.parse(int_my_move);
+    } catch (e) {
+      console.warn(`Failed to get move, error: ${e}`);
+      my_move = -1;
+    }
+    return my_move;
+  }
 </script>
 
 <div>
-  {#await getMove()}
+  {#await getMoveWrap()}
     <Loader />
   {:then my_move}
-    {#if JSON.parse(my_move) == ""}
+    {#if my_move == ""}
       <center><b>Your move has not yet been made</b></center><br />
+    {:else if my_move == -1}
+      <center><b color="red">Error fetching move</b></center>
     {:else}
       <center>
         Your move is on:
-        <h2>{JSON.parse(my_move)}</h2>
+        <h2>{my_move}</h2>
       </center>
     {/if}
   {/await}

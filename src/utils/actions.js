@@ -13,7 +13,7 @@ import {
   team_territory_counts,
   user,
   prompt_move,
-  my_move
+  my_move,
 } from "../state/state";
 import { get } from "svelte/store";
 
@@ -78,9 +78,14 @@ export async function runAction(move_to, captcha_title, captcha_content) {
         good: true,
       })
     );
-  } else if (promised.ok && json.code == 4003 || json.code == 4004) {
-    // User must perform Captcha step 
-    modal.set(bind(Captcha, {target: move_to, error: (json.code == 4004)? json.message: undefined}));
+  } else if ((promised.ok && json.code == 4003) || json.code == 4004) {
+    // User must perform Captcha step
+    modal.set(
+      bind(Captcha, {
+        target: move_to,
+        error: json.code == 4004 ? json.message : undefined,
+      })
+    );
   } else {
     var summativeHistory = localStorage.getItem("moveHistory");
     let num = await promised.status;
