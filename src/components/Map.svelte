@@ -260,10 +260,9 @@
   }
 
   function toggleBottomMenuMobile() {
-    document.getElementById("map-controls-bottom").style.display =
-      document.getElementById("map-controls-bottom").style.display != "flex"
-        ? "flex"
-        : "none";
+    document
+      .getElementById("map-controls-bottom")
+      .classList.toggle("hideOnMobile");
     bottomMenu = bottomMenu == faChevronUp ? faChevronDown : faChevronUp;
   }
 
@@ -388,8 +387,8 @@
 <Sidebar {territoryInfo} />
 <div class="map-container">
   <div class="map-controls">
-    <div id="map-controls-bottom" class="map-controls map-controls-bottom">
-      {#if $prompt_move}
+<div id="map-controls-bottom" class="map-controls map-controls-bottom">      
+{#if $prompt_move}
         <center class="note"
           >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
           <b style="font-size:0.5em">&#10549;</b></center
@@ -636,18 +635,23 @@
   .showOnMobile {
     display: none;
   }
+  .hideOnMobile {
+    display: unset;
+  }
   @media only screen and (max-width: 1000px) {
     .hideOnMobile {
-      display: none;
+      display: none !important;
     }
     .showOnMobile {
       display: flex;
     }
     .map-controls-bottom {
-      display: none;
+      display: flex;
       flex-direction: column;
       position: relative;
       bottom: 3.3em;
+      max-height: 60vh;
+      overflow: auto;
     }
     .map-controls-bottom button {
       padding: 0.5em;
