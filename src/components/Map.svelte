@@ -387,8 +387,8 @@
 <Sidebar {territoryInfo} />
 <div class="map-container">
   <div class="map-controls">
-<div id="map-controls-bottom" class="map-controls map-controls-bottom">      
-{#if $prompt_move}
+    <div id="map-controls-bottom" class="map-controls map-controls-bottom hideOnMobile">
+      {#if $prompt_move}
         <center class="note"
           >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
           <b style="font-size:0.5em">&#10549;</b></center
@@ -442,7 +442,11 @@
     </div>
     <div class="map-controls map-controls-mobile-bottom showOnMobile">
       <button on:click={toggleBottomMenuMobile} title="Expand Controls Menu">
-        <FontAwesomeIcon icon={bottomMenu} /> Controls
+        <FontAwesomeIcon icon={bottomMenu} /><b
+          class={$settings.show_labels ? "" : "hidden"}
+        >
+          &nbsp;Controls
+        </b>
       </button>
       {#key $user}
         {#if $user != null}
@@ -454,7 +458,10 @@
               : ""}
             style="margin-left:0.3em;"
           >
-            <FontAwesomeIcon icon={faBullseye} /> Your Move
+            <FontAwesomeIcon icon={faBullseye} />
+            <b class={$settings.show_labels ? "" : "hidden"}>
+              &nbsp;Your Move
+            </b>
           </button>
         {/if}
       {/key}
