@@ -8,12 +8,14 @@
   import Loader from "./Loader.svelte";
   var rollTime;
   var getting;
+  var rollDay;
 
   let time = new Date();
 
   function set_clock_time(turns, turn) {
     getting = getTurnInfo(null).then((val) => {
       if (val.rollTime == null) return;
+      rollDay = val.day;
       rollTime = new Date(val.rollTime + "Z");
     }); // Get the latest turn
   }
@@ -50,6 +52,7 @@
 </script>
 
 <div style="text-align:right;">
+<div title="Timer" alt="Countdown until next roll">
   {#key getting}
     {#await getting}
       <Loader />
@@ -61,9 +64,10 @@
         T-{timeString}
       {/if}
     {/await}
-  {/key}
-  <br /><br />
-  <b style=""
+  {/key}<br/>
+  to roll {rollDay}
+</div>
+    <b style=""
     ><a href="https://forms.gle/YEMm7xXsSYXURbhJA" target="_blank"
       >Midpoint Survey Open through 2/17/23</a
     ></b
