@@ -50,10 +50,20 @@
   var zooming = false;
   var bottomMenu = faChevronUp;
   var mapLoaded = false;
+  var showMyMoveNextDraw = false;
+
+  const showMove = () =>
+    modal.set(bind(MyMove, { territoryInfo: territoryInfo }));
 
   onMount(() => {
     if (currentRoute.hash.indexOf("#leaderboard") != -1) {
       showLeaderboard(params);
+    } else if (currentRoute.hash.indexOf("#MyMove") != -1) {
+      if (mapLoaded) {
+        showMove();
+      } else {
+        showMyMoveNextDraw = true;
+      }
     }
     if (currentRoute.hash.indexOf("#history_") != -1) {
       //try {
@@ -196,6 +206,10 @@
       territoryInfo = await getDay($turn);
       recolorMap(territoryInfo);
       mapLoaded = true;
+      if (showMyMoveNextDraw) {
+        showMyMoveNextDraw = false;
+        showMove();
+      }
     } catch (e) {
       console.log(`Map failed, reason: ${e}`);
     }
@@ -264,10 +278,6 @@
       .getElementById("map-controls-bottom")
       .classList.toggle("hideOnMobile");
     bottomMenu = bottomMenu == faChevronUp ? faChevronDown : faChevronUp;
-  }
-
-  function toggleMove() {
-    modal.set(bind(MyMove, { territoryInfo: territoryInfo }));
   }
 
   function pulseTerritory(territory, map_is_loaded) {
@@ -387,7 +397,10 @@
 <Sidebar {territoryInfo} />
 <div class="map-container">
   <div class="map-controls">
-    <div id="map-controls-bottom" class="map-controls map-controls-bottom hideOnMobile">
+    <div
+      id="map-controls-bottom"
+      class="map-controls map-controls-bottom hideOnMobile"
+    >
       {#if $prompt_move}
         <center class="note"
           >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
@@ -418,17 +431,18 @@
       </button>
       {#key $user}
         {#if $user != null}
-          <button
-            on:click={toggleMove}
-            title="your move"
-            style:animation={$prompt_move
-              ? "5000ms ease-in-out infinite color-change"
-              : ""}
-            class="hideOnMobile"
-          >
-            <FontAwesomeIcon icon={faBullseye} />
-            <b class={$settings.show_labels ? "" : "hidden"}> Your Move </b>
-          </button>
+          <a on:click={showMove} href="#MyMove">
+            <button
+              title="your move"
+              style:animation={$prompt_move
+                ? "5000ms ease-in-out infinite color-change"
+                : ""}
+              class="hideOnMobile"
+            >
+              <FontAwesomeIcon icon={faBullseye} />
+              <b class={$settings.show_labels ? "" : "hidden"}> Your Move </b>
+            </button>
+          </a>
         {/if}
       {/key}
       <button on:click={toggleBridges} title="bridges">
@@ -450,19 +464,20 @@
       </button>
       {#key $user}
         {#if $user != null}
-          <button
-            on:click={toggleMove}
-            title="your move"
-            style:animation={$prompt_move
-              ? "5000ms ease-in-out infinite color-change"
-              : ""}
-            style="margin-left:0.3em;"
-          >
-            <FontAwesomeIcon icon={faBullseye} />
-            <b class={$settings.show_labels ? "" : "hidden"}>
-              &nbsp;Your Move
-            </b>
-          </button>
+          <a href="#MyMove" on:click={showMove}>
+            <button
+              title="your move"
+              style:animation={$prompt_move
+                ? "5000ms ease-in-out infinite color-change"
+                : ""}
+              style="margin-left:0.3em;"
+            >
+              <FontAwesomeIcon icon={faBullseye} />
+              <b class={$settings.show_labels ? "" : "hidden"}>
+                &nbsp;Your Move
+              </b>
+            </button>
+          </a>
         {/if}
       {/key}
     </div>
@@ -668,5 +683,9 @@
 
   .hidden {
     display: none;
+  }
+
+  .map-controls a {
+    text-decoration: none;
   }
 </style>

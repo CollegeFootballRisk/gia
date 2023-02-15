@@ -8,8 +8,12 @@
   import { runAction } from "../utils/actions";
   import { settings } from "../state/settings";
   import { getMove } from "../utils/auth";
+  import { onDestroy } from "svelte";
   export let territoryInfo;
 
+  onDestroy(() => {
+    history.replaceState(null, null, " ");
+  });
   var territoryCapture = getActionableTerritories(territoryInfo, $user);
 
   async function getMoveWrap() {
