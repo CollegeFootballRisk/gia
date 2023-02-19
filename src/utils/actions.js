@@ -21,7 +21,7 @@ export async function runAction(move_to, recaptcha_token_v2) {
   move_to.preventDefault();
   var recaptcha_token = '';
 	await grecaptcha.ready(function() {
-          grecaptcha.execute('6LcVIJEkAAAAANS_EgjtrZBota4FQTJd_gCvO-P9', {action: 'submit'}).then(function(token) {
+          grecaptcha.execute(RECAPTCHA_SITE, {action: 'submit'}).then(function(token) {
 	  recaptcha_token = token;
 	  });
         });

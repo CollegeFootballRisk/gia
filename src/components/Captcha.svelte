@@ -15,7 +15,7 @@ import { onMount } from "svelte/internal";
 
   onMount(() => {
   widgetId1 = grecaptcha.render('g-widget-1', {
-          'sitekey' : '6LcrjZUkAAAAAEh9-6soaiOUOe71W4zafk7Uo3ug',
+          'sitekey' : RECAPTCHA_V2_SITE,
           'theme' : 'light'
         });
   });
@@ -24,7 +24,7 @@ import { onMount } from "svelte/internal";
       {#if error != undefined}
         <b><i style="color: red;">Error: {error}</i></b><br />
       {/if}
-      <div id="g-widget-1" class="g-recaptcha" data-sitekey="6LcrjZUkAAAAAEh9-6soaiOUOe71W4zafk7Uo3ug"></div>
+      <div id="g-widget-1" class="g-recaptcha" data-sitekey={RECAPTCHA_V2_SITE}></div>
 	<button
         on:click={submitCaptcha}>Submit</button
       >
