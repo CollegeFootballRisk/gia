@@ -1,10 +1,73 @@
 <script>
   import { onMount } from "svelte";
   import { settings } from "../state/settings";
+  import { turns, user } from "../state/state";
   var weight = "1";
   var attackDefend = "1";
   var tripleOrNothing = "1";
   var regions = "0";
+  var mvps_tutorial = 0;
+  var turns_tutorial = 0;
+  var game_turns_tutorial = 0;
+  var streak_tutorial = 0;
+
+  function median(values) {
+    if (values.length === 0) throw new Error("No inputs");
+
+    values.sort(function (a, b) {
+      return a - b;
+    });
+
+    var half = Math.floor(values.length / 2);
+
+    if (values.length % 2) return values[half];
+
+    return (values[half - 1] + values[half]) / 2.0;
+  }
+
+  try {
+    mvps_tutorial = $user.stats.mvps;
+    turns_tutorial = $user.stats.totalTurns;
+    game_turns_tutorial = $user.stats.gameTurns;
+    streak_tutorial = $user.stats.streak;
+  } catch (e) {}
+
+  function mvps(i) {
+    let tiers = [0, 1, 5, 10, 25];
+    var index = tiers.findIndex(function (num) {
+      return num > i;
+    });
+    return index > 5 || index < 1 ? 5 : index;
+  }
+  function turnsc(i) {
+    let tiers = [0, 10, 25, 50, 100];
+    var index = tiers.findIndex(function (num) {
+      return num > i;
+    });
+    return index > 5 || index < 1 ? 5 : index;
+  }
+  function game_turns(i) {
+    let tiers = [0, 5, 10, 25, 40];
+    var index = tiers.findIndex(function (num) {
+      return num > i;
+    });
+    return index > 5 || index < 1 ? 5 : index;
+  }
+  function streak(i) {
+    let tiers = [0, 3, 5, 10, 25];
+    var index = tiers.findIndex(function (num) {
+      return num > i;
+    });
+    return index > 5 || index < 1 ? 5 : index;
+  }
+  $: turnStars = turnsc(turns_tutorial);
+  $: mvpStars = mvps(mvps_tutorial);
+  $: gameTurnStars = game_turns(game_turns_tutorial);
+  $: streakStars = streak(streak_tutorial);
+  $: overall_stars_tutorial = Math.ceil(
+    median([turnStars, mvpStars, gameTurnStars, streakStars])
+  );
+
   $: multipliers = attackDefend * tripleOrNothing * (1 + 0.5 * regions);
   $: power = weight * multipliers;
   var sectionFocus = "introduction";
@@ -12,9 +75,8 @@
     { id: "introduction", title: "Introduction", next: "objective" },
     { id: "objective", title: "Objective", next: "making_moves" },
     { id: "making_moves", title: "Making Moves", next: "stars" },
-    { id: "timer", title: "Timer", next: "" },
     { id: "stars", title: "Stars", next: "power" },
-    { id: "power", title: "Power", next: "" },
+    { id: "power", title: "Power" },
   ];
   function focusNext() {
     for (let i = 0; i < sections.length; i++) {
@@ -118,10 +180,6 @@
       <hr />
     </section>
 
-    <section style="display: none;" id="timer">
-      <p />
-    </section>
-
     <section style="display: none;" id="stars">
       <p>
         As you submit more moves and gain experience, you may occasionally be
@@ -144,6 +202,120 @@
         in the MVP category, 2 in round turns, 4 in total turns, and 4 in streak,
         you'd be a 3-star overall.
       </p>
+
+      <p>You can see how your overall star count works with the model below:</p>
+
+      Overall:
+      <h3>
+        {String.fromCharCode(0x272f).repeat(overall_stars_tutorial)}
+      </h3>
+      <br />
+      <center>
+        <div class="lrow">
+          <div class="lcol2">
+            <h3>
+              {String.fromCharCode(0x272f).repeat(turnStars)}
+            </h3>
+            <i>Total turns:</i><br />
+            <input
+              type="number"
+              bind:value={turns_tutorial}
+              name="quantity"
+              min="0"
+              max="140"
+            />
+          </div>
+          <div class="lcol2">
+            <h3>
+              {String.fromCharCode(0x272f).repeat(gameTurnStars)}
+            </h3>
+            <i>Round turns:</i><br />
+            <input
+              type="number"
+              bind:value={game_turns_tutorial}
+              name="quantity"
+              min="0"
+              max="140"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="lrow">
+          <div class="lcol2">
+            <h3>{String.fromCharCode(0x272f).repeat(streakStars)}</h3>
+            <i>Streak: </i><br />
+            <input
+              type="number"
+              bind:value={streak_tutorial}
+              name="quantity"
+              min="0"
+              max="140"
+            />
+          </div>
+          <div class="lcol2">
+            <h3>{String.fromCharCode(0x272f).repeat(mvpStars)}</h3>
+            <i>Total MVPS:</i><br />
+            <input
+              type="number"
+              bind:value={mvps_tutorial}
+              name="quantity"
+              min="0"
+              max="140"
+            />
+          </div>
+        </div>
+        <br />
+      </center>
+      <p id="points">
+        Your total/overall starcount is the <i>median</i> of your stars for each
+        of the following categories:
+      </p>
+      <ul>
+        <li>
+          MVPS (when you are the MVP of a territory):<br />
+          <ul style="text-indent:25px;list-style:circle;">
+            <li>0 MVPS: 1 Star</li>
+            <li>1-4 MVPS: 2 Stars</li>
+            <li>5-9 MVPS: 3 Stars</li>
+            <li>10-24 MVPS: 4 Stars</li>
+            <li>25+ MVPS: 5 Stars</li>
+          </ul>
+        </li>
+        <br /><br />
+        <li>
+          Turns (how many turns you've had in all College Football Risk games):<br
+          />
+          <ul style="text-indent:25px;list-style:circle;">
+            <li>0-9 Turns: 1 Star</li>
+            <li>10-24 Turns: 2 Stars</li>
+            <li>25-49 Turns: 3 Stars</li>
+            <li>50-99 Turns: 4 Stars</li>
+            <li>100+ Turns: 5 Stars</li>
+          </ul>
+        </li>
+        <br /><br />
+        <li>
+          Game Turns (all the turns you've made in this game):<br />
+          <ul style="text-indent:25px;list-style:circle;">
+            <li>0-4 Turns: 1 Star</li>
+            <li>5-9 Turns: 2 Stars</li>
+            <li>10-24 Turns: 3 Stars</li>
+            <li>25-39 Turns: 4 Stars</li>
+            <li>40+ Turns: 5 Stars</li>
+          </ul>
+        </li>
+        <br /><br />
+        <li>
+          Streak (how many consecutive turns you've made):<br />
+          <ul style="text-indent:25px;list-style:circle;">
+            <li>0-2 Turns: 1 Star</li>
+            <li>3-4 Turns: 2 Stars</li>
+            <li>5-9 Turns: 3 Stars</li>
+            <li>10-24 Turns: 4 Stars</li>
+            <li>25+ Turns: 5 Stars</li>
+          </ul>
+        </li>
+      </ul>
     </section>
     <section style="display: none;" id="power">
       <p>
@@ -315,5 +487,27 @@
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .lrow {
+    display: flex;
+    justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
+  }
+
+  .lcol2 {
+    flex: 2;
+    flex-basis: 50%;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 2.5em;
+    line-height: 0.5em;
+    padding-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
   }
 </style>

@@ -26,7 +26,13 @@
   // If a territory is not owned by user.active_team.name, AND at least one neighboring territory is,
   // then that territory is attackable.
 
-  async function isActionable(name) {
+  async function isActionable(namex) {
+    try {
+      let name = namex.info.attributeInformation.name;
+    } catch {
+      return false;
+    }
+
     if (name == "Bermuda") return;
     let day = await getTurnInfo(null);
     if (day.active == false) return;
@@ -86,7 +92,7 @@
 
 {#if $user != null && $user.team != null && $user.team.name != null}
   {#if localDay == null && highlighted != null && $user.team.name != null}
-    {#await isActionable(highlighted.info.attributeInformation.name)}
+    {#await isActionable(highlighted)}
       <Loader />
     {:then is_actionable_unwrapped}
       {#if is_actionable_unwrapped}

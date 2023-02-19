@@ -76,11 +76,6 @@
     {/key}
   </div>
   <br />
-  <b style=""
-    ><a href="https://forms.gle/YEMm7xXsSYXURbhJA" target="_blank"
-      >Midpoint Survey Open through 2/17/23</a
-    ></b
-  >
   <!--<b style="color:red;font-size:1.25em;"
     ><a href="https://www.twitch.tv/helv28" target="_blank"
       >Live Stream</a
