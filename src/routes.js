@@ -13,6 +13,7 @@ import E404 from "./routes/404.svelte";
 import Team from "./routes/team.svelte";
 import Visited from "./routes/visited.svelte";
 import Help from "./routes/help.svelte";
+import ErrorLanding from "./routes/errors.svelte";
 
 const routes = [
   {
@@ -72,6 +73,10 @@ const routes = [
     name: "404",
     path: "404.html",
     component: E404,
+  },
+    {
+    name: "error/:error",
+    component: ErrorLanding,
   },
 ];
 

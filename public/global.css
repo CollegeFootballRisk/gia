@@ -80,3 +80,5 @@ button:focus {
 .table90 {
 	max-width: 90% !important;
 }
+
+.grecaptcha-badge { visibility: hidden; }

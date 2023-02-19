@@ -116,6 +116,7 @@
           alt="CFBR Logo"
         />
       </a>
+      <div style="visibility:hidden;" id="inline-badge" />
     </div>
     <input id="menu-toggle" type="checkbox" bind:checked={navShownMobile} />
     <label class="menu-button-container" for="menu-toggle">
@@ -140,7 +141,7 @@
       </li>
       <li><a href="/" on:click={hideNav}>Map</a></li>
       <li><a href="/odds" on:click={hideNav}>Odds</a></li>
-      <li><a href="/info" on:click={hideNav}>Info</a></li>
+      <li><a href="#tutorial" on:click={showTutorial}>Info</a></li>
       <li><a href="/help" on:click={hideNav}>How to Play</a></li>
       <!-- svelte-ignore a11y-invalid-attribute -->
       <li><a href="/docs/" target="_blank">API</a></li>

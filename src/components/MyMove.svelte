@@ -78,6 +78,11 @@
       />
     {/each}
   {/if}
+<br/><br/><center><i>
+  This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+</i></center>
 </div>
 {#if $settings.extra_space_bottom_prompt}
   <div class="extra-long" />

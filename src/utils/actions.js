@@ -17,8 +17,18 @@ import {
 } from "../state/state";
 import { get } from "svelte/store";
 
-export async function runAction(move_to, captcha_title, captcha_content) {
+export async function runAction(move_to, recaptcha_token_v2) {
   move_to.preventDefault();
+  var recaptcha_token = '';
+	await grecaptcha.ready(function() {
+          grecaptcha.execute('6LcVIJEkAAAAANS_EgjtrZBota4FQTJd_gCvO-P9', {action: 'submit'}).then(function(token) {
+	  recaptcha_token = token;
+	  });
+        });
+  while(recaptcha_token == ''){
+	await new Promise(r=>setTimeout(r,100));
+  }
+
   var terr_name = move_to.target.getAttribute("terr_name");
   var terr_id = move_to.target.getAttribute("terr_id");
   modal.set(
@@ -53,8 +63,8 @@ export async function runAction(move_to, captcha_title, captcha_content) {
       target: parseInt(terr_id),
       aon: aon_choice,
       timestamp: new Date().valueOf(),
-      captcha_content: captcha_content,
-      captcha_title: captcha_title,
+      token: recaptcha_token,
+      token_v2: recaptcha_token_v2,
     }),
   });
   let json = await promised.json();
