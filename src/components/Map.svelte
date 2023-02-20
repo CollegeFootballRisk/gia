@@ -52,16 +52,16 @@
   var mapLoaded = false;
   var showMyMoveNextDraw = false;
 
-  const showMove = () =>
-    modal.set(bind(MyMove, { territoryInfo: territoryInfo }));
+  const showMove = () => { if($user != null) {
+    modal.set(bind(MyMove, { territoryInfo: territoryInfo }))} else {modal.set(bind(Login))}};
 
   onMount(() => {
     if (currentRoute.hash.indexOf("#leaderboard") != -1) {
       showLeaderboard(params);
     } else if (currentRoute.hash.indexOf("#MyMove") != -1) {
-      if (mapLoaded && $user != null) {
+      if (mapLoaded) {
         showMove();
-      } else if($user != null) {
+      } else {
         showMyMoveNextDraw = true;
       }
     }
