@@ -59,7 +59,7 @@
     if (currentRoute.hash.indexOf("#leaderboard") != -1) {
       showLeaderboard(params);
     } else if (currentRoute.hash.indexOf("#MyMove") != -1) {
-      if (mapLoaded) {
+      if (mapLoaded && $user != null) {
         showMove();
       } else {
         showMyMoveNextDraw = true;
