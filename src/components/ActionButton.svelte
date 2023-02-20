@@ -27,8 +27,9 @@
   // then that territory is attackable.
 
   async function isActionable(namex) {
+    var name = "";
     try {
-      let name = namex.info.attributeInformation.name;
+      name = namex.info.attributeInformation.name;
     } catch {
       return false;
     }
