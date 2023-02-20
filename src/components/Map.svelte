@@ -61,7 +61,7 @@
     } else if (currentRoute.hash.indexOf("#MyMove") != -1) {
       if (mapLoaded && $user != null) {
         showMove();
-      } else {
+      } else if($user != null) {
         showMyMoveNextDraw = true;
       }
     }
