@@ -15,7 +15,6 @@
   import Leaderboard from "./components/Leaderboard.svelte";
   import Loader from "./components/Loader.svelte";
   import AltPrompt from "./components/AltPrompt.svelte";
-  import Survey from "./components/Survey.svelte";
   import Tutorial from "./components/Tutorial.svelte";
   let fetch_tt = getTurnsandTeams();
   onMount(async () => {
@@ -38,10 +37,6 @@
 
     if (!($user == null) && $user.is_alt == true) {
       modal.set(bind(AltPrompt));
-    }
-
-    if (window.localStorage.seen === undefined && $modal == null) {
-      modal.set(bind(Survey));
     }
 
     document.addEventListener(
