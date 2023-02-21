@@ -9,6 +9,7 @@ import { get } from "svelte/store";
 import {
   normalizeTerritoryName,
   normalizeTeamName,
+  getPercentage,
 } from "../utils/normalization.js";
 import { getColorForPercentage } from "./map.js";
 import { settings } from "../state/settings.js";
@@ -112,11 +113,15 @@ export async function getDay(turn, team) {
       break;
     case "heat":
       var maxPower = Math.max(...payload.map((t) => t.power));
+      var minPower = 0;
+      if(get(settings).experiments){
+        minPower = Math.min(...payload.map((t) => t.power));
+      }
       payload.forEach((terr) => {
         toReturn.push({
           name: terr.territory,
           normalizedName: normalizeTerritoryName(terr.territory),
-          primaryColor: getColorForPercentage(terr.power / maxPower),
+          primaryColor: (get(settings).experiments)?getColorForPercentage(getPercentage(minPower, maxPower,terr.power)) : getColorForPercentage(terr.power / maxPower),
           secondaryColor: `var(--${terr.winner.replace(/\W/g, "")}-primary)`,
           attributeInformation: terr,
         });
