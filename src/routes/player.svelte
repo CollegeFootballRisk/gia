@@ -47,6 +47,9 @@
     territory: string;
     team: string;
     mvp: boolean;
+    weight: number;
+    multiplier: number;
+    power: number;
   }
 
   const tableSettings: TableSettings<PlayerTurn> = {
@@ -102,6 +105,21 @@
       propName: "stars",
       headerText: "Stars",
       tooltip: "Number of stars at time",
+    },
+    {
+      propName: "weight",
+      headerText: "Weight",
+      tooltip: "Star power before multiplier",
+    },
+    {
+      propName: "multiplier",
+      headerText: "Mult",
+      tooltip: "Product of all multipliers (e.g. defend, TON, region)",
+    },
+    {
+      propName: "power",
+      headerText: "Power",
+      tooltip: "Amount of power deployed",
     },
     {
       propName: "mvp",
