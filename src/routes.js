@@ -13,6 +13,7 @@ import E404 from "./routes/404.svelte";
 import Team from "./routes/team.svelte";
 import Visited from "./routes/visited.svelte";
 import Help from "./routes/help.svelte";
+import Thanks from "./routes/thanks.svelte";
 import ErrorLanding from "./routes/errors.svelte";
 
 const routes = [
@@ -32,6 +33,10 @@ const routes = [
   {
     name: "map",
     component: Map,
+  },
+    {
+    name: "thanks",
+    component: Thanks,
   },
   {
     name: "odds/:season/:day/:team",

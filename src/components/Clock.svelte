@@ -3,9 +3,11 @@
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import { onMount } from "svelte";
-  import { turn, turns } from "../state/state";
+  import { bind } from "svelte-simple-modal";
+  import { modal, turn, turns } from "../state/state";
   import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";
+  import Survey from "./Survey.svelte";
   var rollTime;
   var getting;
   var rollDay;
@@ -20,6 +22,10 @@
       rollSeason = val.season;
       rollTime = new Date(val.rollTime + "Z");
     }); // Get the latest turn
+  }
+
+  function showSurvey() {
+    modal.set(bind(Survey));
   }
 
   function returnTime(rollTime, time) {
@@ -76,9 +82,34 @@
     {/key}
   </div>
   <br />
+  <a
+    class="Out"
+    title="Survey"
+    alt="Survey"
+    on:click={showSurvey}
+    href="#Survey">Survey</a
+  >
   <!--<b style="color:red;font-size:1.25em;"
     ><a href="https://www.twitch.tv/helv28" target="_blank"
       >Live Stream</a
     ></b
   >-->
 </div>
+
+<style>
+  .Out {
+    height: 2em;
+    border: none;
+    padding: 0.5em;
+    font-size: 1.3em;
+    line-height: 1em;
+    border-radius: 0.3em;
+    cursor: pointer;
+    color: var(--accent-fg);
+    background: var(--accent-2);
+  }
+
+  .Out:hover {
+    background: blue;
+  }
+</style>

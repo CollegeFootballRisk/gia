@@ -7,7 +7,7 @@
     e[i].style.display = "none !important";
   }
 
-  window.localStorage.seen = true;
+  window.localStorage.seen_end = true;
 
   function hidePrompt() {
     window.closeModal();
@@ -15,25 +15,40 @@
 </script>
 
 <center>
-  <h1>Risk Midpoint Survey</h1>
+  <h1>Risk End Survey & Final Turn</h1>
+  <blockquote>
+    We've almost arrived at the final turn of Season 3.0. On behalf of the Game
+    Mods and Game Devs, I would like to sincerely thank you for participating in
+    season 3. Without you, this season never could have happened. We have a more
+    detailed thank you <a href="/thanks">here.</a>
+  </blockquote>
   <p>
-    You are invited to take the Season 3.0 Midpoint through 10:30 ET on 2/17/23.
+    You are invited to take the Season 3.0 End-of-Season Survey through 10:30 ET
+    on 3/20/23.
   </p>
   <p>
     This survey will assist the game mods in determining how we can serve you
     and how we can improve the game for season 4.0. None of the changes
     described in the survey are guaranteed to be in 4.0, nor are they
-    representative of all changes that might be made. An additional survey will
-    take place at the end of 3.0 to further hone the changes the community would
-    like for 4.0.
+    representative of all changes that might be made.
   </p>
   <p>
     You may access the survey <a
       class="Out"
-      href="https://forms.gle/YEMm7xXsSYXURbhJA"
+      href="https://docs.google.com/forms/d/e/1FAIpQLSeYVf5JlzW11hFLnaFC40ODTN4qfsngglKAGxlAMF8mPnFRkA/formResponse"
       title="To Google Survey"
       alt="To Google Survey"
       target="_blank">Here</a
+    >
+  </p>
+
+  <p>
+    You may access the thank you and credits <a
+      class="Out"
+      href="/thanks"
+      on:click={hidePrompt}
+      title="To thank-you"
+      alt="To thank-you">Here</a
     >
   </p>
 

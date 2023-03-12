@@ -16,6 +16,7 @@
   import Loader from "./components/Loader.svelte";
   import AltPrompt from "./components/AltPrompt.svelte";
   import Tutorial from "./components/Tutorial.svelte";
+  import Survey from "./components/Survey.svelte";
   let fetch_tt = getTurnsandTeams();
   onMount(async () => {
     window.closeModal = function () {
@@ -37,6 +38,14 @@
 
     if (!($user == null) && $user.is_alt == true) {
       modal.set(bind(AltPrompt));
+    }
+
+    if (
+      window.location.hash == "#Survey" ||
+      ($modal == null && !window.localStorage.seen_end)
+    ) {
+      modal.set(bind(Survey));
+      window.localStorage.seen_end = true;
     }
 
     document.addEventListener(
@@ -165,6 +174,7 @@
 *   Font from https://github.com/mozilla/Fira, SIL Open Font License: https://github.com/mozilla/Fira/blob/master/LICENSE
 *   FontAwesome Icons, license: https://fontawesome.com/v4/license/
 *   Switches: https://www.w3schools.com/howto/howto_css_switch.asp
+*   Coyote thought: https://codepen.io/quadbaup/pen/rKOKQv
 */
   :root {
     --accent-1: #4060a8;
@@ -505,5 +515,54 @@
     100% {
       background-position: 0% 50%;
     }
+  }
+
+  .coyote {
+    width: 128px;
+  }
+
+  #notice {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+  }
+
+  .thought {
+    background-color: orange;
+    display: flex;
+    padding: 20px;
+    border-radius: 30px;
+    min-width: 40px;
+    max-width: 220px;
+    min-height: 40px;
+    margin: 20px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .thought:before,
+  .thought:after {
+    content: "";
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    z-index: -1;
+  }
+  .thought:before {
+    width: 44px;
+    height: 44px;
+    top: -12px;
+    left: 28px;
+    box-shadow: -50px 30px 0 -12px orange;
+  }
+  .thought:after {
+    bottom: -10px;
+    left: 26px;
+    width: 30px;
+    height: 30px;
+    box-shadow: 40px -34px 0 0 orange, -28px -6px 0 -2px orange,
+      -24px 17px 0 -6px orange, -5px 25px 0 -10px orange;
   }
 </style>
