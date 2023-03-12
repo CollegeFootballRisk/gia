@@ -135,7 +135,7 @@
     months regarding Season 4. The details of Season 4 have not yet been
     determined, and the post-season survey will be a large input into the Season
     4 timeline. The best way to see the changes made to the game that you want
-    is to get involved. Anyone with experience or willingness to learn in UI
+    is to get involved. Anyone with experience in or willingness to learn UI
     (HTML/JavaScript/CSS) or Backend (SQL/Rust/Python) is welcome to submit PRs
     for changes you want to see in a potential Season 4. Regardless of
     programming experience or desire, all are welcome to participate in the
@@ -148,10 +148,12 @@
     Beginning on or around March 20th, 2023, the server on which
     https://collegefootballrisk.com/ is hosted will be decommisioned and the
     website will move into an "archived" state. You can stay tuned to updates by
-    subscribing the <a href="https://groups.google.com/g/collegefootballrisk"
+    subscribing to the <a href="https://groups.google.com/g/collegefootballrisk"
       >Google Group</a
-    >, <a href="https://www.reddit.com/r/CollegeFootballRisk/">Subreddit</a>, or
-    <a href="http://discord.gg/KG2sKHg">Discord</a>.
+    >,
+    <a href="https://www.reddit.com/r/CollegeFootballRisk/">the Subreddit</a>,
+    or
+    <a href="http://discord.gg/KG2sKHg">the Discord</a>.
   </p>
 
   <h2>Donations</h2>
