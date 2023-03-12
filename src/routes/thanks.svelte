@@ -160,7 +160,7 @@
   <p>
     If you would like to donate server time/space for Season 4, please feel free
     to reach out to <a href="https://www.reddit.com/user/mautamu/">u/Mautamu</a
-    >. If you feel compelled to donate, feel free to donate to
+    >. If you feel compelled to donate in other ways, feel free to donate to
     <a
       href="https://foundation.mozilla.org/en/?form=donate&c_id=7014x000000eQOH&utm_source=mozilla.org&utm_campaign=moco&utm_medium=referral&utm_content=footer"
       >Mozilla</a
