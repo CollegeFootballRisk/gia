@@ -17,10 +17,12 @@
 <center>
   <h1>Risk End Survey & Final Turn</h1>
   <blockquote>
-    We've almost arrived at the final turn of Season 3.0. On behalf of the Game
-    Mods and Game Devs, I would like to sincerely thank you for participating in
-    season 3. Without you, this season never could have happened. We have a more
-    detailed thank you <a href="/thanks">here.</a>
+    We've arrived at the final turn of Season 3.0, turn 44 (taking place Monday,
+    13 March). On behalf of the Game Mods and Game Devs, I would like to
+    sincerely thank you for participating in season 3. Without you, this season
+    never could have happened. We have a more detailed thank you <a
+      href="/thanks">here.</a
+    >
   </blockquote>
   <p>
     You are invited to take the Season 3.0 End-of-Season Survey through 10:30 ET
