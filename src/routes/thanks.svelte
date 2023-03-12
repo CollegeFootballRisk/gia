@@ -109,7 +109,7 @@
       many people involved in the operations of running the game, especially
       from previously underrepresented teams. It's an open secret that in 3.0 we
       focused on transparency of game development and did not take many risks or
-      make many substantial change in order to entice folks to participate once
+      make many substantial changes in order to entice folks to participate once
       more and build trust; in exchange, we hope many contributors come forward
       to empower more fundamental changes to the game in Season 4.
     </p>
@@ -133,11 +133,11 @@
   <p>
     Naturally, many questions will come up over the course of the next few
     months regarding Season 4. The details of Season 4 have not yet been
-    determined, and the post-season survey will be a large input into the season
-    4 determination. The best way to see the changes made to the game that you
-    want is to get involved. Anyone with experience or willingness to learn in
-    UI (HTML/JavaScript/CSS) or Backend (SQL/Rust/Python) is welcome to submit
-    PRs for changes you want to see in a potential Season 4. Regardless of
+    determined, and the post-season survey will be a large input into the Season
+    4 timeline. The best way to see the changes made to the game that you want
+    is to get involved. Anyone with experience or willingness to learn in UI
+    (HTML/JavaScript/CSS) or Backend (SQL/Rust/Python) is welcome to submit PRs
+    for changes you want to see in a potential Season 4. Regardless of
     programming experience or desire, all are welcome to participate in the
     public beta games and contribute to the public forums which will likely
     begin in early May.
