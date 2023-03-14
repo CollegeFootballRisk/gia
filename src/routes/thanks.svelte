@@ -38,17 +38,17 @@
       <li>u/littlemojo, for developing the game map</li>
       <li>
         pmcintyre3:github, u/bluemansam, u/jakers0516, u/EpicWolverine,
-        u/lurochanda, mkomitsky:github, u/mangojuulpods, u/raiden11x,
-        u/larryless, u/irongold22, and u/r4r1bz for their contributions to game
-        development
+        u/lurochanda, mkomitsky:github, u/mango_yoshi, u/raiden11x, u/larryless,
+        u/irongold22, and u/r4r1bz for their contributions to game development
       </li>
+      mango
       <li>u/sup3rtom2000, for serving as the wgsec auditor</li>
       <li>
         u/ItalianReptar, for giving everyone stats posts and an excellent Python
         script for move analysis
       </li>
       <li>
-        u/DodgerofZion, u/mcbb14, u/The_Ghost_of_TxAg70, u/MangoJuulPods,
+        u/DodgerofZion, u/mcbb14, u/The_Ghost_of_TxAg70, u/mango_yoshi,
         u/DumbGamers22 and others for bringing the community together with
         Twitch streams
       </li>

@@ -64,14 +64,14 @@
 </script>
 
 <div style="text-align:right;">
-  <div title="Timer" alt="Countdown until next roll">
+  <!--<div title="Timer" alt="Countdown until next roll">
     {#key getting}
       {#await getting}
         <Loader />
       {:then discard}
         {#if rollTime == null}
           <!--Nothing
-        No active roll-->
+        No active roll
         {:else if rollTime[0] != "-"}
           T-{timeString}<br />
           to turn {rollSeason}/{rollDay}
@@ -80,7 +80,8 @@
         {/if}
       {/await}
     {/key}
-  </div>
+  </div>-->
+  Season overflow<br /><br />
   <br />
   <a
     class="Out"
