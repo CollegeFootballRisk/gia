@@ -7,7 +7,7 @@
   export let season;
   export let team;
   import { getVisited } from "../utils/loads";
-  import MapBase from "./MapBase.svelte";
+  import MapBase from "./MapBase31.svelte";
   import {
     normalizeOdds,
     normalizeTerritoryName,

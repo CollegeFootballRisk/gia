@@ -21,7 +21,7 @@
 
   import { settings } from "../state/settings";
 
-  import MapBase from "./MapBase.svelte";
+  import MapBase from "./MapBase31.svelte";
   import { bind } from "svelte-simple-modal";
   import Leaderboard from "./Leaderboard.svelte";
   import {
@@ -308,6 +308,26 @@
       console.log(`Failed flashing territory ${e}`);
     }
   }
+
+  async function getRelativeCenter(target, new_parent) {
+    let tgbb = target.getBBox();
+    var npte = 0;
+    var nptf = 0;
+    if (
+      typeof new_parent.transform != "undefined" &&
+      new_parent.transform.baseVal.consolidate() != null &&
+      new_parent.transform.baseVal.consolidate().matrix != null
+    ) {
+      let npt = new_parent.transform.baseVal.consolidate().matrix;
+      npte = npt.e;
+      nptf = npt.f;
+    }
+    return [
+      tgbb.x + 0.5 * tgbb.width - npte,
+      tgbb.y + 0.5 * tgbb.height - nptf,
+    ];
+  }
+
   async function drawPin(territory, map_is_loaded) {
     try {
       if (
@@ -321,16 +341,22 @@
         pin.style.display = "none";
         return;
       }
-      let scale = 2;
       var terr = document
         .querySelector("#map")
-        .getElementById(normalizeTerritoryName(territory.replace(/['"]+/g, "")))
-        .getBBox();
+        .getElementById(
+          normalizeTerritoryName(territory.replace(/['"]+/g, ""))
+        );
       pin.style.display = "block";
       var pin_bbox = pin.getBBox();
-      let x_offset =
-        (terr.x + 0.5 * terr.width) / scale - pin_bbox.width / scale;
-      let y_offset = (terr.y + 0.5 * terr.height) / scale - pin_bbox.height;
+      let scale = 2;
+      var [x_offset, y_offset] = await getRelativeCenter(
+        terr,
+        document.querySelector("#map").querySelector("#Move")
+      );
+      [x_offset, y_offset] = [
+        (x_offset - (scale * pin_bbox.width) / 2) / scale,
+        (y_offset - pin_bbox.height * scale) / scale,
+      ];
       pin.setAttribute(
         "transform",
         `scale(${scale}) translate(${x_offset}, ${y_offset})`
@@ -340,18 +366,16 @@
     }
   }
   async function drawChaosLine(territory_name) {
-    var end = document
-      .getElementById("map")
-      .getElementById("Bermuda")
-      .getBBox();
-    var start = document
-      .getElementById("map")
-      .getElementById(territory_name)
-      .getBBox();
-    var start_y = start.y + 0.5 * start.height;
-    var start_x = start.x + 0.5 * start.width;
-    var end_y = end.y + 0.5 * end.height;
-    var end_x = end.x + 0.5 * end.width;
+    var start = document.getElementById("map").getElementById(territory_name);
+    var end = document.getElementById("map").getElementById("Bermuda");
+    var [start_x, start_y] = await getRelativeCenter(
+      start,
+      document.querySelector("#map").querySelector("#Bridges")
+    );
+    var [end_x, end_y] = await getRelativeCenter(
+      end,
+      document.querySelector("#map").querySelector("#Bridges")
+    );
     var newpath = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "path"
@@ -406,12 +430,12 @@
       id="map-controls-bottom"
       class="map-controls map-controls-bottom hideOnMobile"
     >
-      <!--     {#if $prompt_move}
+      {#if $prompt_move}
         <center class="note"
           >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
           <b style="font-size:0.5em">&#10549;</b></center
         >
-      {/if}-->
+      {/if}
       <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
         <FontAwesomeIcon icon={faSearchPlus} />
         <b class={$settings.show_labels ? "" : "hidden"}>Zoom In</b>
@@ -434,7 +458,7 @@
         <FontAwesomeIcon icon={faFlag} />
         <b class={$settings.show_labels ? "" : "hidden"}>Regions</b>
       </button>
-      <!--{#key $user}
+      {#key $user}
         {#if $user != null}
           <a on:click={showMove} href="#MyMove">
             <button
@@ -449,7 +473,7 @@
             </button>
           </a>
         {/if}
-      {/key}-->
+      {/key}
       <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
         <b class={$settings.show_labels ? "" : "hidden"}>Bridges</b>
@@ -467,7 +491,7 @@
           &nbsp;Controls
         </b>
       </button>
-      <!--{#key $user}
+      {#key $user}
         {#if $user != null}
           <a href="#MyMove" on:click={showMove}>
             <button
@@ -484,7 +508,7 @@
             </button>
           </a>
         {/if}
-      {/key}-->
+      {/key}
     </div>
   </div>
   <div class="map-controls top-control">

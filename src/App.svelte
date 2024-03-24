@@ -107,7 +107,7 @@
     <div>
       <a href="/">
         <img
-          src="https://collegefootballrisk.com/images/{$settings.branding_mode ==
+          src="/images/{$settings.branding_mode ==
           'goose'
             ? 'logo-goose-white.svg'
             : $settings.branding_mode == 'pizza'

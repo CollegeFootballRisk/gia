@@ -16,8 +16,7 @@
       if (team.id <= 0) continue;
 
       // Don't let people select teams not in current season
-      if (team.seasons.indexOf($turns[$turns.length - 1].season) == -1)
-        continue;
+      if (team.seasons.indexOf($turns[0].season) == -1) continue;
 
       // Don't let people join teams with <1 territory if they have a home team:
       if (

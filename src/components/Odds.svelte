@@ -9,7 +9,7 @@
   export let team;
   export var local_map_type;
   import { getTeamOdds } from "../utils/loads";
-  import MapBase from "./MapBase.svelte";
+  import MapBase from "./MapBase31.svelte";
   import {
     normalizeOdds,
     normalizeTerritoryName,

@@ -206,7 +206,7 @@
         title="CFBR Twitter"
       /></a
     >
-    <a
+    <!--<a
       href="https://reddit.com/r/collegefootballrisk/"
       alt="Reddit"
       title="Reddit"
@@ -219,8 +219,8 @@
         bgColor="var(--accent-1)"
         title="CFBR Subreddit"
       />
-    </a>
-    <a href="http://discord.gg/KG2sKHg" alt="Discord" title="Discord">
+    </a>-->
+    <a href="https://discord.gg/j9ZXm5F49Z" alt="Discord" title="Discord">
       <SocialIcons
         network="discord"
         style="color: var(--accent-fg); height: 26px;width: 26px;"

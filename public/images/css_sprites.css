@@ -1,0 +1,784 @@
+.bg-Wyoming {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -10px;
+}
+
+
+.bg-Wisconsin {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -10px;
+}
+
+
+.bg-Western_Michigan {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -62px;
+}
+
+
+.bg-Western_Kentucky {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -62px;
+}
+
+
+.bg-West_Virginia {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -10px;
+}
+
+
+.bg-Washington {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -62px;
+}
+
+
+.bg-Washington_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -114px;
+}
+
+
+.bg-Wake_Forest {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -114px;
+}
+
+
+.bg-Virginia {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -114px;
+}
+
+
+.bg-Virginia_Tech {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -10px;
+}
+
+
+.bg-Vanderbilt {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -62px;
+}
+
+
+.bg-Utah {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -114px;
+}
+
+
+.bg-Utah_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -166px;
+}
+
+
+.bg-UTEP {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -166px;
+}
+
+
+.bg-UT_San_Antonio {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -166px;
+}
+
+
+.bg-USC {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -166px;
+}
+
+
+.bg-UNLV {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -10px;
+}
+
+
+.bg-UMass {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -62px;
+}
+
+
+.bg-UCLA {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -114px;
+}
+
+
+.bg-UCF {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -166px;
+}
+
+
+.bg-UAB {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -218px;
+}
+
+
+.bg-Tulsa {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -218px;
+}
+
+
+.bg-Tulane {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -218px;
+}
+
+
+.bg-Troy {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -218px;
+}
+
+
+.bg-Toledo {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -218px;
+}
+
+
+.bg-Texas_Tech {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -10px;
+}
+
+
+.bg-Texas {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -62px;
+}
+
+
+.bg-Texas_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -114px;
+}
+
+
+.bg-Texas_A&M {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -166px;
+}
+
+
+.bg-Tennessee {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -218px;
+}
+
+
+.bg-Temple {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -270px;
+}
+
+
+.bg-TCU {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -270px;
+}
+
+
+.bg-Syracuse {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -270px;
+}
+
+
+.bg-Stanford {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -270px;
+}
+
+
+.bg-Southern_Mississippi {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -270px;
+}
+
+
+.bg-South_Florida {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -270px;
+}
+
+
+.bg-South_Carolina {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -10px;
+}
+
+
+.bg-South_Alabama {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -62px;
+}
+
+
+.bg-San_José_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -114px;
+}
+
+
+.bg-San_Diego_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -166px;
+}
+
+
+.bg-SMU {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -218px;
+}
+
+
+.bg-Rutgers {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -270px;
+}
+
+
+.bg-Rice {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -322px;
+}
+
+
+.bg-Purdue {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -322px;
+}
+
+
+.bg-Pittsburgh {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -322px;
+}
+
+
+.bg-Penn_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -322px;
+}
+
+
+.bg-Oregon {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -322px;
+}
+
+
+.bg-Oregon_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -322px;
+}
+
+
+.bg-Ole_Miss {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -322px;
+}
+
+
+.bg-Old_Dominion {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -10px;
+}
+
+
+.bg-Oklahoma {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -62px;
+}
+
+
+.bg-Oklahoma_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -114px;
+}
+
+
+.bg-Ohio {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -166px;
+}
+
+
+.bg-Ohio_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -218px;
+}
+
+
+.bg-Notre_Dame {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -270px;
+}
+
+
+.bg-Northwestern {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -322px;
+}
+
+
+.bg-Northern_Illinois {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -374px;
+}
+
+
+.bg-North_Texas {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -374px;
+}
+
+
+.bg-North_Carolina {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -374px;
+}
+
+
+.bg-New_Mexico {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -374px;
+}
+
+
+.bg-New_Mexico_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -374px;
+}
+
+
+.bg-Nevada {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -374px;
+}
+
+
+.bg-Nebraska {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -374px;
+}
+
+
+.bg-Navy {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -374px;
+}
+
+
+.bg-NC_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -10px;
+}
+
+
+.bg-Missouri {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -62px;
+}
+
+
+.bg-Mississippi_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -114px;
+}
+
+
+.bg-Minnesota {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -166px;
+}
+
+
+.bg-Middle_Tennessee {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -218px;
+}
+
+
+.bg-Michigan {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -270px;
+}
+
+
+.bg-Michigan_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -322px;
+}
+
+
+.bg-Miami {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -374px;
+}
+
+
+.bg-Miami__OH_ {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -426px;
+}
+
+
+.bg-Memphis {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -426px;
+}
+
+
+.bg-Maryland {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -426px;
+}
+
+
+.bg-Marshall {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -426px;
+}
+
+
+.bg-Louisville {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -426px;
+}
+
+
+.bg-Louisiana {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -426px;
+}
+
+
+.bg-Louisiana_Tech {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -426px;
+}
+
+
+.bg-Louisiana_Monroe {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -426px;
+}
+
+
+.bg-Liberty {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -426px;
+}
+
+
+.bg-LSU {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -10px;
+}
+
+
+.bg-Kentucky {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -62px;
+}
+
+
+.bg-Kent_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -114px;
+}
+
+
+.bg-Kansas_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -166px;
+}
+
+
+.bg-Kansas {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -218px;
+}
+
+
+.bg-Iowa {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -270px;
+}
+
+
+.bg-Iowa_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -322px;
+}
+
+
+.bg-Indiana {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -374px;
+}
+
+
+.bg-Illinois {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -426px;
+}
+
+
+.bg-Houston {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -478px;
+}
+
+
+.bg-Hawaii {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -478px;
+}
+
+
+.bg-Georgia {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -478px;
+}
+
+
+.bg-Georgia_Tech {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -478px;
+}
+
+
+.bg-Georgia_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -478px;
+}
+
+
+.bg-Georgia_Southern {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -478px;
+}
+
+
+.bg-Fresno_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -478px;
+}
+
+
+.bg-Florida {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -478px;
+}
+
+
+.bg-Florida_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -478px;
+}
+
+
+.bg-Florida_International {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -478px;
+}
+
+
+.bg-Florida_Atlantic {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -10px;
+}
+
+
+.bg-Eastern_Michigan {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -62px;
+}
+
+
+.bg-East_Carolina {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -114px;
+}
+
+
+.bg-Duke {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -166px;
+}
+
+
+.bg-Connecticut {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -218px;
+}
+
+
+.bg-Colorado {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -270px;
+}
+
+
+.bg-Colorado_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -322px;
+}
+
+
+.bg-Coastal_Carolina {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -374px;
+}
+
+
+.bg-Clemson {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -426px;
+}
+
+
+.bg-Cincinnati {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -478px;
+}
+
+
+.bg-Charlotte {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -10px -530px;
+}
+
+
+.bg-Chaos {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -62px -530px;
+}
+
+
+.bg-Central_Michigan {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -114px -530px;
+}
+
+
+.bg-California {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -166px -530px;
+}
+
+
+.bg-Buffalo {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -218px -530px;
+}
+
+
+.bg-Bowling_Green {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -270px -530px;
+}
+
+
+.bg-Boston_College {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -322px -530px;
+}
+
+
+.bg-Boise_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -374px -530px;
+}
+
+
+.bg-Baylor {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -426px -530px;
+}
+
+
+.bg-Ball_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -478px -530px;
+}
+
+
+.bg-BYU {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -530px -530px;
+}
+
+
+.bg-Auburn {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -10px;
+}
+
+
+.bg-Army {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -62px;
+}
+
+
+.bg-Arkansas {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -114px;
+}
+
+
+.bg-Arkansas_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -166px;
+}
+
+
+.bg-Arizona {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -218px;
+}
+
+
+.bg-Arizona_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -270px;
+}
+
+
+.bg-Appalachian_State {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -322px;
+}
+
+
+.bg-Alabama {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -374px;
+}
+
+
+.bg-Akron {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -426px;
+}
+
+
+.bg-Air_Force {
+    width: 32px; height: 32px;
+    background: url('css_sprites.png') -582px -478px;
+}

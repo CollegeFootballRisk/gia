@@ -64,15 +64,15 @@
 </script>
 
 <div style="text-align:right;">
-  <!--<div title="Timer" alt="Countdown until next roll">
+  <div title="Timer" alt="Countdown until next roll">
     {#key getting}
       {#await getting}
         <Loader />
       {:then discard}
         {#if rollTime == null}
-          <!--Nothing
+          <!--Nothing-->
         No active roll
-        {:else if rollTime[0] != "-"}
+        {:else if timeString[0] != "-"}
           T-{timeString}<br />
           to turn {rollSeason}/{rollDay}
         {:else}
@@ -80,16 +80,16 @@
         {/if}
       {/await}
     {/key}
-  </div>-->
-  Season overflow<br /><br />
+  </div>
+  <!--Season overflow<br /><br />-->
   <br />
-  <a
+  <!--<a
     class="Out"
     title="Survey"
     alt="Survey"
     on:click={showSurvey}
     href="#Survey">Survey</a
-  >
+  >-->
   <!--<b style="color:red;font-size:1.25em;"
     ><a href="https://www.twitch.tv/helv28" target="_blank"
       >Live Stream</a
