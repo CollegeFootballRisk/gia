@@ -24,9 +24,9 @@
     }); // Get the latest turn
   }
 
-  function showSurvey() {
-    modal.set(bind(Survey));
-  }
+  //function showSurvey() {
+  //  modal.set(bind(Survey));
+  //}
 
   function returnTime(rollTime, time) {
     var hourDiff = rollTime - time; //in ms

@@ -3,7 +3,7 @@
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   import { FontAwesomeIcon } from "fontawesome-svelte";
-  import { faReddit } from "@fortawesome/free-brands-svg-icons";
+  import { faReddit, faDiscord } from "@fortawesome/free-brands-svg-icons";
 </script>
 
 <h1>Login</h1>
@@ -12,10 +12,20 @@
   and make your own moves, you'll need to log in.
 </p>
 <h2>
-  <a href={null} onclick="window.location = '/login/reddit';"
+  <a
+    href={null}
+    onclick="window.location = '/login/reddit';"
+    alt="Login with Reddit"
+    title="Login with Reddit"
     ><FontAwesomeIcon style="color:#FF4500;" icon={faReddit} /> Reddit</a
   >
-  <!--<a href="/login/discord"><FontAwesomeIcon style="color:#7289DA;" icon={faDiscord}/> Discord</a>
+  <a
+    href={null}
+    onclick="window.location = '/login/discord';"
+    alt="Login with Discord"
+    title="Login with Discord"
+    ><FontAwesomeIcon style="color:#7289DA;" icon={faDiscord} /> Discord</a
+  ><!--
     <a href="/login/strava"><FontAwesomeIcon style="color:#FC4C02;" icon={faStrava}/> Strava</a>-->
 </h2>
 

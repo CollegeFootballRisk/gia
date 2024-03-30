@@ -40,13 +40,13 @@
       modal.set(bind(AltPrompt));
     }
 
-    if (
+    /*if (
       window.location.hash == "#Survey" ||
       ($modal == null && !window.localStorage.seen_end)
     ) {
       modal.set(bind(Survey));
       window.localStorage.seen_end = true;
-    }
+    }*/
 
     document.addEventListener(
       "touchmove",
@@ -107,14 +107,15 @@
     <div>
       <a href="/">
         <img
-          src="/images/{$settings.branding_mode ==
-          'goose'
+          src="/images/{$settings.branding_mode == 'goose'
             ? 'logo-goose-white.svg'
             : $settings.branding_mode == 'pizza'
             ? 'logo-pizza-white.svg'
             : $settings.branding_mode == 'classic'
             ? 'logo-classic.png'
-            : 'logo-white.svg?v=6'}"
+            : $settings.branding_mode == 'white'
+            ? 'logo-white.svg?v=6'
+            : 'logo-rainbow.png'}"
           class="logo"
           title="CFBR Logo"
           alt="CFBR Logo"

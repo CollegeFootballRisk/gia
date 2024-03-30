@@ -151,10 +151,11 @@
   <hr />
   <label class="toggle">
     <select bind:value={$settings.branding_mode} class="select">
-      <option value="normal">Normal</option>
+      <option value="normal">Normal - Rainbow</option>
       <option value="goose">Goose</option>
       <option value="pizza">Pizza</option>
       <option value="classic">Classic</option>
+      <option value="white">Normal - White</option>
     </select>
     <span class="toggle-label">Which branding to use</span>
   </label>

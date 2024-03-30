@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { settings } from "../state/settings";
   import { turns, user } from "../state/state";
+  import Popup from "./Popup.svelte";
   var weight = "1";
   var attackDefend = "1";
   var tripleOrNothing = "1";
@@ -10,7 +11,7 @@
   var turns_tutorial = 0;
   var game_turns_tutorial = 0;
   var streak_tutorial = 0;
-
+  var submitSuccess = true;
   function median(values) {
     if (values.length === 0) throw new Error("No inputs");
 
@@ -76,7 +77,8 @@
     { id: "objective", title: "Objective", next: "making_moves" },
     { id: "making_moves", title: "Making Moves", next: "stars" },
     { id: "stars", title: "Stars", next: "power" },
-    { id: "power", title: "Power" },
+    { id: "power", title: "Power", next: "respawn" },
+    { id: "respawn", title: "Respawn" },
   ];
   function focusNext() {
     for (let i = 0; i < sections.length; i++) {
@@ -113,13 +115,18 @@
 
 <div id="tutorial">
   <center>
-    <button on:click={focusPrevious}>Previous</button>
+    <button on:click={focusPrevious} disabled={sections[0].id == sectionFocus}
+      >Previous</button
+    >
     <select bind:value={sectionFocus}
       >{#each sections as section}
         <option value={section.id}>{section.title}</option>
       {/each}</select
     >
-    <button on:click={focusNext}>Next</button><br />
+    <button
+      on:click={focusNext}
+      disabled={sections[sections.length - 1].id == sectionFocus}>Next</button
+    ><br />
     <h1>Tutorial</h1>
     <section id="introduction">
       <p>
@@ -154,9 +161,34 @@
         </li>
       </ol>
       <p>
-        Once you've submitted your move successfully, you'll see the below
-        prompt: %prompt%. You're now good to sit back and wait for the roll to
-        happen at 10:30 ET. (<b>Note:</b> <i>No rolls occur on Sundays!</i>)
+        Once you've submitted your move <select bind:value={submitSuccess}>
+          <option value={true} selected>successfully</option>
+          <option value={false}>unsuccessfully</option>
+        </select>, you'll see the below prompt:
+      </p>
+      <div
+        style="border: white; border-radius: 5px; border-width: 2px; border-style: solid;"
+      >
+        {#if submitSuccess}
+          <Popup
+            title="Move Submitted"
+            message="Your move on %TERRITORY% has been successfully made."
+            loading={false}
+            good={true}
+          />
+        {:else}
+          <Popup
+            title="Move Failed to Submit"
+            message="Your move on %TERRITORY% has failed. Please try again."
+            loading={false}
+            error={true}
+          />
+        {/if}
+      </div>
+      <p>
+        If your move submitted successfully, you're now good to sit back and
+        wait for the roll to happen at 10:30 ET. (<b>Note:</b>
+        <i>No rolls occur on Sundays!</i>)
       </p>
 
       <p>
@@ -398,15 +430,74 @@
         Weight = {weight}<br />
       </code>
     </section>
+    <section style="display: none;" id="respawn">
+      Should a team be eliminated, that team may respawn on a respawn map up to
+      one time. The respawn map will have a collection of territories,
+      originally owned by the NCAA, which follow the same rules as the main map
+      with one exception: teams that win more than one territory may be required
+      to forfeit all but one territory on the map in a given turn if team(s) are
+      eliminated on the main map. A random pool of territories is created of
+      NCAA's territories and all but one of the territories owned by each team
+      that owns more than one territory. Those territories are then assigned to
+      newly-eliminated teams until each newly-eliminated team has a territory on
+      the respawn map. If there are insufficient territories, then any remaining
+      eliminated teams are permanently eliminated. Random bridges will be
+      occasionally drawn from the respawn map to the main map. A team which
+      succeeds in crossing such a bridge forfeits all territories on the respawn
+      map but re-enters the main map until eliminated or the game ends. For
+      respawn, the order of execution is as follows:
+      <ol style="text-align: left;">
+        <li>We process submap 0 (the main map) as normal</li>
+        <li>
+          We determine which team(s) were eliminated on the main map and which
+          have not yet used any respawns (teams.respawn_count &lt; 1)
+        </li>
+        <li>
+          If any teams have previously been on submap id 1 but are now present
+          on submap 0, then we discard any turns made on submap id 1 by players
+          on those teams
+        </li>
+        <li>
+          We process submap 1 (the secondary map), assigning the protected
+          territories of any team which has succesfully returned to submap 0 to
+          the NCAA (team id 0)
+        </li>
+        <li>We randomly shuffle the eligible eliminated teams</li>
+        <li>
+          We take all submap 1 territories owned by NCAA and add them to a pool
+          of re-assignable territories
+        </li>
+        <li>
+          We take all teams that own more than one territory on submap 1 and
+          select all but one of their territories to add to the pool of
+          re-assignable territories randomly (but all such territories will be
+          placed after any NCAA territories to ensure NCAA territories are
+          exhausted first)
+        </li>
+        <li>
+          We reassign the territories from the re-assignable pool until either
+          it is exhausted or all respawn-eligible teams have recevied a single
+          territory
+        </li>
+        <li>
+          We merge all results from all submaps and write it to the database
+        </li>
+      </ol>
+    </section>
   </center><br /><br />
   <center>
-    <button on:click={focusPrevious}>Previous</button>
+    <button on:click={focusPrevious} disabled={sections[0].id == sectionFocus}
+      >Previous</button
+    >
     <select bind:value={sectionFocus}
       >{#each sections as section}
         <option value={section.id}>{section.title}</option>
       {/each}</select
     >
-    <button on:click={focusNext}>Next</button>
+    <button
+      on:click={focusNext}
+      disabled={sections[sections.length - 1].id == sectionFocus}>Next</button
+    >
   </center>
 </div>
 
