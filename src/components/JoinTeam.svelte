@@ -3,9 +3,10 @@
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <script>
   export var reason;
-  import { teams, turns } from "../state/state";
+  import { teams, turns, user } from "../state/state";
   import { getDay } from "../utils/loads";
   import Loader from "./Loader.svelte";
+  const goLogout = () => (location = "/auth/logout");
   let territories = getDay(null, null).then((val) => getJoinableTeams(val));
 
   async function getJoinableTeams(territories) {
@@ -51,7 +52,16 @@
 {:else}
   <center>
     <p>
-      Welcome! <br /><br /> To get started, you will need to select a team. Select
+      {#key $user}
+        {#if $user != null}
+          Welcome, {$user.name} (not you?
+          <a href="#Logout" on:click={goLogout} style="color:red;"
+            >logout here</a
+          >)!
+        {:else}
+          Welcome!
+        {/if}
+      {/key} <br /><br /> To get started, you will need to select a team. Select
       your favorite FBS team below:
     </p>
   </center>

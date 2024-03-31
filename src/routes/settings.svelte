@@ -7,6 +7,7 @@
   import VersionInfo from "../components/VersionInfo.svelte";
   import { settings } from "../state/settings";
 
+  const goLogout = () => (location = "/auth/logout");
   const showVersionInfo = () => modal.set(bind(VersionInfo));
 </script>
 
@@ -161,6 +162,8 @@
   </label>
   <hr />
   <a href="/settings#info" on:click={showVersionInfo}>Version Information</a>
+  <br />
+  <a href="#Logout" on:click={goLogout} style="color:red;">Logout</a>
 </div>
 
 <style>
