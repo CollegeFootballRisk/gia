@@ -30,6 +30,11 @@
     of the fun comes from coordinating with others on your team. A lot of teams
     have communities set up to coordinate strategy, usually in the form of a
     subreddit or discord channel. So, find yours and participate!
+
+    <br /> By making a move, you agree to play by the
+    <a href="/policies">code of conduct</a>
+    and, if this is a test game, you acknowledge and agree to the
+    <a href="/policies">test game policy.</a>
   </p>
   <h3>How does the game work?</h3>
   <p id="gameplay">

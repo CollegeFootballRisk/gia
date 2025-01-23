@@ -46,6 +46,8 @@
   import { setupMapPanZoom } from "../utils/map";
   import TerritoryTurn from "./TerritoryTurn.svelte";
   import { getMove } from "../utils/auth";
+  import Changelog from "./Changelog.svelte";
+  import { lastupdate } from "./Changelog.svelte";
   var lockClick = false;
   var zooming = false;
   var bottomMenu = faChevronUp;
@@ -61,6 +63,7 @@
   };
 
   onMount(() => {
+    console.log($settings.lastupdateview, lastupdate);
     if (currentRoute.hash.indexOf("#leaderboard") != -1) {
       showLeaderboard(params);
     } else if (currentRoute.hash.indexOf("#MyMove") != -1) {
@@ -69,6 +72,11 @@
       } else {
         showMyMoveNextDraw = true;
       }
+    } else if (
+      currentRoute.hash.indexOf("#changelog") != -1 ||
+      $settings.lastupdateview < lastupdate
+    ) {
+      modal.set(bind(Changelog));
     }
     if (currentRoute.hash.indexOf("#history_") != -1) {
       //try {

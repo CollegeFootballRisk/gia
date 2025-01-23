@@ -10,11 +10,11 @@
     <a href="/player/The_Ghost_of_TxAg70">The_Ghost_of_TxAg70</a> has drafted an
     excellent Survival Guide. The executive summary is below, but if you would
     like to see the full document, click
-    <a target="_blank" href="/images/CFBRisk_Guide_1_6.pdf">here.</a>
+    <a target="_blank" href="/images/CFBRisk_Guide_1_7.pdf">here.</a>
   </p>
   <center>
     <iframe
-      src="/images/ExecutiveSummary.pdf"
+      src="/images/ExecutiveSummary.pdf?v=1_7"
       title="Survival Guide"
       width="80%"
       height="900px"
@@ -22,6 +22,11 @@
   </center>
 
   More specific details about gameplay are available <a href="/info">here.</a>
+  <br />
+  By making a move, you agree to play by the
+  <a href="/policies">code of conduct</a>
+  and, if this is a test game, you acknowledge and agree to the
+  <a href="/policies">test game policy.</a>
 </div>
 
 <style>

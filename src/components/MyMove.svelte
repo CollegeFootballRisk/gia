@@ -78,11 +78,18 @@
       />
     {/each}
   {/if}
-<br/><br/><center><i>
-  This site is protected by reCAPTCHA and the Google
-    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-</i></center>
+  <br /><br /><center
+    ><i>
+      This site is protected by reCAPTCHA and the Google
+      <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+      <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+      <br />
+      By making a move, you agree to play by the
+      <a href="/policies">code of conduct</a>
+      and, if this is a test game, you acknowledge and agree to the
+      <a href="/policies">test game policy.</a>
+    </i></center
+  >
 </div>
 {#if $settings.extra_space_bottom_prompt}
   <div class="extra-long" />

@@ -61,8 +61,11 @@
         {:else}
           Welcome!
         {/if}
-      {/key} <br /><br /> To get started, you will need to select a team. Select
-      your favorite FBS team below:
+      {/key} <br /><br /><b>
+        Welcome! We've reset everyone's teams so you can choose a different one,
+        if you like.
+      </b> To get started, you will need to select a team. Select your favorite FBS
+      team below:
     </p>
   </center>
 {/if}

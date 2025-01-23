@@ -8,6 +8,7 @@
   import { getTurnInfo } from "../utils/loads";
   import Loader from "./Loader.svelte";
   import Survey from "./Survey.svelte";
+  import Changelog from "./Changelog.svelte";
   var rollTime;
   var getting;
   var rollDay;
@@ -61,6 +62,8 @@
 
   $: set_clock_time(turns, turn);
   $: timeString = returnTime(rollTime, time);
+
+  const showChangelog = () => modal.set(bind(Changelog));
 </script>
 
 <div style="text-align:right;">
@@ -71,7 +74,7 @@
       {:then discard}
         {#if rollTime == null}
           <!--Nothing-->
-        No active roll
+          No active roll
         {:else if timeString[0] != "-"}
           T-{timeString}<br />
           to turn {rollSeason}/{rollDay}
@@ -82,7 +85,7 @@
     {/key}
   </div>
   <!--Season overflow<br /><br />-->
-  <br />
+  <a href="#changelog" on:click={showChangelog}>Changelog</a>
   <!--<a
     class="Out"
     title="Survey"

@@ -95,6 +95,9 @@
   if ($settings.color_scale === undefined) {
     $settings.color_scale = "normal";
   }
+  if ($settings.lastupdateview === undefined) {
+    $settings.lastupdateview = -1;
+  }
   $: document.documentElement.setAttribute(
     "data-theme",
     $settings.lightmode ? "light" : "dark"
