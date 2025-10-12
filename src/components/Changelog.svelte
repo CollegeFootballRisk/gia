@@ -1,5 +1,5 @@
 <script context="module" lang="js">
-  export const lastupdate = 4;
+  export const lastupdate = 6;
 </script>
 
 <script>
@@ -12,6 +12,23 @@
 </script>
 
 <h1>Changelog</h1>
+
+<h2><i>Turn 5/28</i></h2>
+<h3>End of Game</h3>
+
+<p>
+  Thank you for playing this season's game of risk. We look forward to having
+  you joining us for the next season.
+</p>
+
+<h2><i>Turn 5/26</i></h2>
+<h3>End of Game on 31 Jan</h3>
+
+<p>
+  This game will be drawing to a close on Friday, 31 January. The final roll of
+  this season will take place on time that night. Hope you had a good month of
+  Month Risk!
+</p>
 
 <h2><i>Turn 4/32</i></h2>
 <h3>Reroll</h3>

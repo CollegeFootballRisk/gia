@@ -438,12 +438,14 @@
       id="map-controls-bottom"
       class="map-controls map-controls-bottom hideOnMobile"
     >
+      <!--
       {#if $prompt_move}
         <center class="note"
           >Click <b style="font-size:0.5em">&#127919;</b> to submit your move
           <b style="font-size:0.5em">&#10549;</b></center
         >
       {/if}
+  -->
       <button onclick="window.maphandle.zoomTo(500, 500, 1.5);" title="zoom in">
         <FontAwesomeIcon icon={faSearchPlus} />
         <b class={$settings.show_labels ? "" : "hidden"}>Zoom In</b>
@@ -466,7 +468,7 @@
         <FontAwesomeIcon icon={faFlag} />
         <b class={$settings.show_labels ? "" : "hidden"}>Regions</b>
       </button>
-      {#key $user}
+      <!--{#key $user}
         {#if $user != null}
           <a on:click={showMove} href="#MyMove">
             <button
@@ -481,7 +483,7 @@
             </button>
           </a>
         {/if}
-      {/key}
+      {/key}-->
       <button on:click={toggleBridges} title="bridges">
         <FontAwesomeIcon icon={faShip} />
         <b class={$settings.show_labels ? "" : "hidden"}>Bridges</b>
@@ -499,6 +501,7 @@
           &nbsp;Controls
         </b>
       </button>
+      <!--
       {#key $user}
         {#if $user != null}
           <a href="#MyMove" on:click={showMove}>
@@ -516,7 +519,7 @@
             </button>
           </a>
         {/if}
-      {/key}
+      {/key}-->
     </div>
   </div>
   <div class="map-controls top-control">

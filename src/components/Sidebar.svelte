@@ -196,7 +196,7 @@
   {/if}
   <hr />
   <div class="flex-int">
-    <a href="https://twitter.com/CFBRisk/" alt="Twitter" title="Twitter">
+    <!--<a href="https://twitter.com/CFBRisk/" alt="Twitter" title="Twitter">
       <SocialIcons
         network="twitter"
         style="color: var(--accent-fg); height: 26px;width: 26px;"
@@ -206,7 +206,7 @@
         title="CFBR Twitter"
       /></a
     >
-    <!--<a
+    <a
       href="https://reddit.com/r/collegefootballrisk/"
       alt="Reddit"
       title="Reddit"
